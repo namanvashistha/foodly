@@ -1,8 +1,8 @@
 <?php
-session_start();
+
 if(isset($_POST['login']) || isset($_POST['signup'])){
 	$con=mysqli_connect("localhost","root","","food");
-	
+	session_start();
 
 	if(isset($_POST['login'])){
 		$log_email =$_POST['log_email'];
