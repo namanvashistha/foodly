@@ -1,24 +1,24 @@
 <?php
  
-         $msg="Your msg";
+    require("PHPMailer/PHPMailer.php");
+    require("PHPMailer/SMTP.php");    
             
   
-
+    $msg="<h1>ho gya</h1>";
     $mail = new PHPMailer\PHPMailer\PHPMailer();
-    $mail->IsSMTP(); // enable SMTP
-
-    $mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
-    $mail->SMTPAuth = true; // authentication enabled
-    $mail->SMTPSecure = 'tls'; // secure transfer enabled REQUIRED for Gmail
+    $mail->IsSMTP();
+    $mail->SMTPDebug = 1;
+    $mail->SMTPAuth = true;
+    $mail->SMTPSecure = 'tls';
     $mail->Host = "smtp.gmail.com";
-    $mail->Port = 587; // or 587
+    $mail->Port = 587;
     $mail->IsHTML(true);
-    $mail->Username = "EMAIL ID";
-    $mail->Password = "PASSWORD";
-    $mail->SetFrom("noreplyreckoner@gmail.com","max");
-    $mail->Subject = "DISCOUNT ACHIEVED :RECKONER";
+    $mail->Username = "food.noreply@gmail.com";
+    $mail->Password = "food.noreply.PASS";
+    $mail->SetFrom("food.noreply@gmail.com","Welcome to FOOD");
+    $mail->Subject = "WELCOME";
     $mail->Body = $msg;
-    $mail->AddAddress($row["email"]);
+    $mail->AddAddress("namanvashistha15@gmail.com");
 
      if(!$mail->Send()) {
         echo "Mailer Error: " . $mail->ErrorInfo;
