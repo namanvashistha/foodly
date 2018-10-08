@@ -7,10 +7,11 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
     if(isset($_POST['login'])){
         $log_email =$_POST['log_email'];
         $log_pass  =$_POST['log_pass'];
-        $q="SELECT password from restaurants where email='$log_email'; ";
+        $q="SELECT name,password from restaurants where email='$log_email'; ";
         $q1=mysqli_query($con,$q);
         $row=mysqli_fetch_array($q1);
         if($row['password'] == $log_pass){
+            $_SESSION['restaurant_log_name'] =$row['name'];
             $_SESSION['restaurant_log_email'] =$log_email;
             header("location:restaurant_home.php");
         }
@@ -38,6 +39,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
             $q4=mysqli_query($con,$q2);
             if($q3 && $q4){
                 $_SESSION['restaurant_log_email'] =$sign_email;
+                $_SESSION['restaurant_log_name'] =$sign_name;
                 header("location:restaurant_home.php");    
             }
             else{
@@ -52,6 +54,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
         }
     }
 }
+echo $_SESSION['restaurant_log_email'];
 ?>
 <!DOCTYPE html>
 <html>
