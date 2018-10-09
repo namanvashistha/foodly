@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_POST['login']) || isset($_POST['signup'])){
-	$con=mysqli_connect("localhost","root","","food");
+	include 'connection.php';
 	session_start();
 
 	if(isset($_POST['login'])){
@@ -35,6 +35,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 			$q1=mysqli_query($con,$q);
 			if($q1){
 				$_SESSION['log_email'] =$sign_email;
+				
 				header("location:home.php");	
 			}
 		}

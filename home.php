@@ -3,10 +3,9 @@ session_start();
 if(!isset($_SESSION['log_email'])){
 	header("location:index.php");
 }
-$con=mysqli_connect("localhost","root","","food");
+include 'connection.php';
 $q="SELECT name,email FROM `restaurants`; ";
 $q1=mysqli_query($con,$q);
-$q1=mysqli_fetch_array();
 
 ?>
 <!DOCTYPE html>
@@ -15,6 +14,15 @@ $q1=mysqli_fetch_array();
 	<title>home page</title>
 </head>
 <body>
+	<a href="logout.php"><button>logout</button></a>
+	<div class="recommendation">
+		<?php
+			while($row=mysqli_fetch_array($q1)){ ?>
+				<a href="restaurant_menu.php?restaurant=<?php echo $row['email']; ?>"><div class="list">	
+					<?php echo $row['name']; ?>
+				</div></a>
+		<?php } ?>
+	</div>
 
 </body>
 </html>

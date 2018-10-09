@@ -29,7 +29,7 @@ if(isset($_POST['update'])){
 </head>
 <body>
 	<h3><?php echo $_SESSION['restaurant_log_name'];?></h3>
-	
+	<a href="logout.php"><button>logout</button></a>
 	<form method="post" >
        <div id="item_fileds">
            <div>

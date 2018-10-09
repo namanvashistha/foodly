@@ -1,7 +1,7 @@
 <?php
 
 if(isset($_POST['login']) || isset($_POST['signup'])){
-    $con=mysqli_connect("localhost","root","","food");
+    include 'connection.php';
     session_start();
 
     if(isset($_POST['login'])){
@@ -54,7 +54,6 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
         }
     }
 }
-echo $_SESSION['restaurant_log_email'];
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,6 +80,6 @@ echo $_SESSION['restaurant_log_email'];
             <input type="submit" name="signup" value="Sign Up">
         </form>
     </div>
-    <a href="main.php"><button>Sign Up as user</button></a>
+    <a href="index.php"><button>Sign Up as user</button></a>
 </body>
 </html>
