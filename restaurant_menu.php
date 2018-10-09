@@ -5,7 +5,7 @@ if(!isset($_SESSION['log_email'])){
 }
 include 'connection.php';
 $restaurant= $_GET['restaurant'];
-
+$_SESSION['cur_restaurant']=$restaurant;
 $q="SELECT * FROM restaurants where email='$restaurant'; ";
 $q1=mysqli_query($con,$q);
 $rdetails=mysqli_fetch_array($q1);
@@ -24,43 +24,57 @@ $rdetails=mysqli_fetch_array($q1);
 	<p>Address: <?php echo $rdetails['address'];?></p>
 	<p>Description: <?php echo $rdetails['description'];?></p>
 	<div>
-		
-    		<table>
     		<?php
     		$q="SELECT * FROM `$restaurant`; ";
 			$q1=mysqli_query($con,$q);
 			$rowcount=mysqli_num_rows($q1);
 			if ($rowcount>0) {
     		?>	
-    		<tr><td><b>name</b></td><td><b>price</b></td><td><b>discount</b></td><td><b>description</b></td><td><b>quantity</b></td></tr></pre>
+    		<table><tr><td><b>name</b></td><td><b>price</b></td><td><b>discount</b></td><td><b>description</b></td><td><b>quantity</b></td></tr></pre>
     		<?php
     			while ($row=mysqli_fetch_array($q1)) {
-    				echo "<tr><td>".$row['name']."</td><td>".$row['price']."</td><td>".$row['discount']."</td><td>".$row['desc']."</td><td>
-    				<button onclick='remove_item()'>-</button>
-    				 <span id='count'>0</span> 
-    				 <button onclick='add_item()'>+</button>
+    				$n=$row['name'];
+    				echo "<tr><td>".$n."</td><td>".$row['price']."</td><td>".$row['discount']."</td><td>".$row['desc']."</td><td>
+    				<button onclick='remove_item(".$n.")'>-</button>
+    				 <span class='buy' id='".$row['name']."'>0</span> 
+    				 <button onclick='add_item(".$n.")'>+</button>
     				 </td></tr>";
-    			}
+    			} ?>
+    		</table>
+    		<button onclick="view_cart(<?php echo $rowcount; ?>)">Proceed to cart</button><?php
     		}
     		else{
     			echo "<b>List of items will be displayed here</b>";
     		}	
     		?>
-    		</table>
     	
     </div>
-    
     <script type="text/javascript">
-    	function add_item(){
-    		var quan=document.getElementById("count").innerHTML;
+    	function add_item(cur_id){
+    		var quan=document.getElementById(cur_id).innerHTML;
     		if(quan<10)
-    			document.getElementById("count").innerHTML=++quan;
+    			document.getElementById(cur_id).innerHTML=++quan;
     	}
-    	function remove_item(){
-    		var quan=document.getElementById("count").innerHTML;
+    	function remove_item(cur_id){
+    		var quan=document.getElementById(cur_id).innerHTML;
     		if(quan>0)
-    			document.getElementById("count").innerHTML=--quan;
-    	}		
+    			document.getElementById(cur_id).innerHTML=--quan;
+    	}
+    	function view_cart(n){
+    		var j=0;
+    		var str="?";
+    		for (var i=0;i<n;i++) {
+    			var nam = document.getElementsByClassName("buy")[i];
+    			var quant=nam.innerHTML;
+    			var name=nam.id;
+    			if(quant>0) {
+    				str+="item"+j+"="+name+"&quantity"+j+"="+quant+"&";
+    				j++;
+    			}
+    		}
+    		str+="count="+j;
+    		window.location.href = "view_cart.php"+str;
+    	}
     </script>
 
 </body>
