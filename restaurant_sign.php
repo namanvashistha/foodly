@@ -30,11 +30,11 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
         $row=mysqli_query($con,$q2);
         $rowcount=mysqli_num_rows($row);
         if($rowcount>0){
-            echo "already exist".$rowcount;
+            echo "already exist";
         }
         else{
             $q1="INSERT INTO `restaurants` (`name`, `password`, `email`, `phone`, `address`,`description`) VALUES ('$sign_name', '$sign_pass', '$sign_email', '$sign_phone', '$sign_address','$sign_desc');";
-            $q2="CREATE TABLE `$sign_email` (`name` varchar(30),`price` varchar(10),`discount` varchar(5),`desc` varchar(100));";
+            $q2="CREATE TABLE `$sign_email` (`sno` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` varchar(30),`price` varchar(10),`discount` varchar(5),`desc` varchar(100));";
             $q3=mysqli_query($con,$q1);
             $q4=mysqli_query($con,$q2);
             if($q3 && $q4){
@@ -44,12 +44,6 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
             }
             else{
                 echo "lund";
-            }
-            if($q3){
-                echo "q3";
-            }
-            if($q4){
-                echo "q4";
             }
         }
     }

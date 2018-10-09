@@ -33,10 +33,10 @@ $rdetails=mysqli_fetch_array($q1);
     		<table><tr><td><b>name</b></td><td><b>price</b></td><td><b>discount</b></td><td><b>description</b></td><td><b>quantity</b></td></tr></pre>
     		<?php
     			while ($row=mysqli_fetch_array($q1)) {
-    				$n=$row['name'];
-    				echo "<tr><td>".$n."</td><td>".$row['price']."</td><td>".$row['discount']."</td><td>".$row['desc']."</td><td>
+    				$n=$row['sno'];
+    				echo "<tr><td>".$row['name']."</td><td>".$row['price']."</td><td>".$row['discount']."</td><td>".$row['desc']."</td><td>
     				<button onclick='remove_item(".$n.")'>-</button>
-    				 <span class='buy' id='".$row['name']."'>0</span> 
+    				 <span class='buy' id='".$n."'>0</span> 
     				 <button onclick='add_item(".$n.")'>+</button>
     				 </td></tr>";
     			} ?>

@@ -3,7 +3,7 @@ session_start();
 if(!isset($_SESSION['restaurant_log_email'])){
 	header("location:main.php");
 }
-$con=mysqli_connect("localhost","root","","food");
+include 'connection.php';
 $restaurant_log_email= $_SESSION['restaurant_log_email'];
 if(isset($_POST['update'])){
 	$item_name=$_POST['item_name'];
@@ -37,7 +37,7 @@ if(isset($_POST['update'])){
             <div class="content">
                 <span>item name:<input type="text" name="item_name[]" /></span>
                 <span>Price: <input type="text" name="item_price[]" /></span>
-                <span>Discount: <input type="text" name="item_discount[]" required /></span>
+                <span>Discount: <input type="text" name="item_discount[]" required maxlength="3"/></span>
                 <span>Description: <input type="text" name="item_desc[]" /></span>
             </div>
            </div>

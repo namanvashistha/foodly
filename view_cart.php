@@ -14,7 +14,7 @@ $subtotal=0;
 for ($i=0;$i<$no_items;$i++) { 
 	$item_name=$_GET['item'.$i];
 	$item_quantity=$_GET['quantity'.$i];
-	$q="SELECT * FROM `$restaurant` where name='$item_name'; ";
+	$q="SELECT * FROM `$restaurant` where sno='$item_name'; ";
 	$q1=mysqli_query($con,$q);
 	$row=mysqli_fetch_array($q1);
 
@@ -23,14 +23,30 @@ for ($i=0;$i<$no_items;$i++) {
 	$item_price_discount=$item_price_total-(0.01*$item_price_total*$item_discount);
 	$total+=$item_price_discount;
 	$subtotal+=$item_price_total;
-	echo "<tr><td>".$item_name."</td><td>X ".$item_quantity."</td><td>= <strike>".$item_price_total."</strike></td><td>".$item_price_discount."</td></tr>";
+	echo "<tr><td>".$row['name'].":</td><td>".$row['price']."</td><td>X ".$item_quantity."</td><td>= <strike>".$item_price_total."</strike></td><td>".$item_price_discount."</td></tr>";
 }?>	
 	</table>
 
 	<?php
-	$gst=0.05*$total;
+	$gst=0.05*$subtotal;
 	$savings=$subtotal-$total;
+	$total+=$gst;
 	echo "<br>Subtotal = ₹".$subtotal."<br>"."GST = ₹".$gst."<br>";
-	echo "Savings= ₹".$savings."</br>";
-	echo "<b>Total= ₹".$total."</b>";
+	echo "Savings = ₹".$savings."</br>";
+	echo "<b>Total = ₹".$total."</b>";
 	?>
+	<form action="order_status.php" method="post">
+		<input type="text" name="user" value="<?php echo $_SESSION['log_email']; ?>" hidden>
+		<input type="text" name="restaurant" value="<?php echo $restaurant; ?>" hidden>
+		<input type="text" name="no_items" value="<?php echo $no_items; ?>" hidden>
+		<?php
+		for ($i=0;$i<$no_items;$i++) { 
+			$item_name=$_GET['item'.$i];
+			$item_quantity=$_GET['quantity'.$i];
+		?>
+		<input type="text" name="<?php echo 'item'.$i ?>" value="<?php echo $item_name; ?>" hidden>
+		<input type="text" name="<?php echo 'quantity'.$i; ?>" value="<?php echo $item_quantity; ?>" hidden>
+	<?php } ?>
+		<input type="text" name="total" value="<?php echo $total; ?>" hidden>
+		<input type="submit" name="submit" value="Confirm Order">
+	</form>
