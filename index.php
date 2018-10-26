@@ -64,6 +64,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 			phone<input type="text" name="sign_phone" required><br>
 			address<input type="text" name="sign_address" required><br>
 			<input type="submit" name="signup" value="Sign Up">
+		/*hfghfgr*/
 		</form>
 	</div>
 	<a href="restaurant_sign.php"><button>Sign Up as Restaurant</button></a>
