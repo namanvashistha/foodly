@@ -1,3 +1,21 @@
+<?php
+	session_start();
+	if(!isset($_SESSION['log_email'])){
+		header("location:index.php");
+	}
+	include 'connection.php';
+	if(isset($_POST['submit'])){
+	$order_from=$_POST['restaurant'];
+	$order_by=$_SESSION['log_email'];
+	$items=$_POST['items'];
+	$total=$_POST['total'];
+	$address=$_POST['address'];
+	$q="INSERT INTO `orders` (`order_from` , `order_by`, `items` ,`total`, `address`) VALUES
+		('$order_from','$order_by','$items','$total','$address');";
+	mysqli_query($con,$q);
+	header('location:order_status.php');
+	}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,16 +23,7 @@
 	<link rel="shortcut icon" href="logo.png" type="image/png">
 </head>
 <body>
-	<?php
-	echo $_POST['user']."<br>".$_POST['restaurant']."<br>".$_POST['total']."<br>";
-	$no_items=$_POST['no_items'];
-	for ($i=0;$i<$no_items;$i++) { 
-		$item_name=$_POST['item'.$i];
-		$item_quantity=$_POST['quantity'.$i];
-		echo $item_name." ".$item_quantity."<br>";
-
-	}
-	?>
+	
 	
 </body>
 </html>

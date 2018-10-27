@@ -68,6 +68,8 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 			<input type="submit" name="signup" value="Sign Up">
 		</form>
 	</div>
-	<a href="restaurant_sign.php"><button>Sign Up as Restaurant</button></a>
+	<a href="restaurant_sign.php"><button>Restaurant</button></a>
+	<a href="rider_sign.php"><button>Rider</button></a>
+	<a href="support_sign.php"><button>Chat Support Executive</button></a>
 </body>
 </html>

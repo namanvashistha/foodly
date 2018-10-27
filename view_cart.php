@@ -43,18 +43,20 @@ for ($i=0;$i<$no_items;$i++) {
 	echo "<b>Total = ₹".$total."</b>";
 	?>
 	<form action="order_status.php" method="post">
-		<input type="text" name="user" value="<?php echo $_SESSION['log_email']; ?>" hidden>
 		<input type="text" name="restaurant" value="<?php echo $restaurant; ?>" hidden>
 		<input type="text" name="no_items" value="<?php echo $no_items; ?>" hidden>
 		<?php
+		$items="";
 		for ($i=0;$i<$no_items;$i++) { 
 			$item_name=$_GET['item'.$i];
 			$item_quantity=$_GET['quantity'.$i];
+			$items=$items.$item_name." ".$item_quantity." ";
+		}	
+		echo $items;
 		?>
-		<input type="text" name="<?php echo 'item'.$i ?>" value="<?php echo $item_name; ?>" hidden>
-		<input type="text" name="<?php echo 'quantity'.$i; ?>" value="<?php echo $item_quantity; ?>" hidden>
-	<?php } ?>
-		<input type="text" name="total" value="<?php echo $total; ?>" hidden>
+		<input type="text" name="items" value="<?php echo $items; ?>" hidden>
+		<input type="text" name="total" value="<?php echo $total; ?>" hidden><br>
+		<input type="text" name="address"><br>
 		<input type="submit" name="submit" value="Confirm Order">
 	</form>
 </body>
