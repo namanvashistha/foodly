@@ -1,2 +1,2 @@
-# dbw_sem2
+# foodly
 <h3>online food ordering website</h3>
