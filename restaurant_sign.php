@@ -34,16 +34,11 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
         }
         else{
             $q1="INSERT INTO `restaurants` (`name`, `password`, `email`, `phone`, `address`,`description`) VALUES ('$sign_name', '$sign_pass', '$sign_email', '$sign_phone', '$sign_address','$sign_desc');";
-            $q2="CREATE TABLE `$sign_email` (`sno` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,`name` varchar(30),`price` varchar(10),`discount` varchar(5),`desc` varchar(100));";
             $q3=mysqli_query($con,$q1);
-            $q4=mysqli_query($con,$q2);
-            if($q3 && $q4){
+            if($q3){
                 $_SESSION['restaurant_log_email'] =$sign_email;
                 $_SESSION['restaurant_log_name'] =$sign_name;
                 header("location:restaurant_home.php");    
-            }
-            else{
-                echo "lund";
             }
         }
     }
@@ -53,6 +48,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 <html>
 <head>
     <title>Main Page</title>
+    <link rel="shortcut icon" href="logo.png" type="image/png">
 </head>
 <body>
     <div>

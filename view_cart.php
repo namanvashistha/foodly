@@ -9,12 +9,19 @@ $restaurant= $_SESSION['cur_restaurant'];
 $total=0;
 $subtotal=0;
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="shortcut icon" href="logo.png" type="image/png">
+</head>
+<body>
 <table>
 <?php
 for ($i=0;$i<$no_items;$i++) { 
 	$item_name=$_GET['item'.$i];
 	$item_quantity=$_GET['quantity'.$i];
-	$q="SELECT * FROM `$restaurant` where sno='$item_name'; ";
+	$q="SELECT * FROM menu where restaurant_id='$restaurant' and sno='$item_name'; ";
 	$q1=mysqli_query($con,$q);
 	$row=mysqli_fetch_array($q1);
 
@@ -50,3 +57,5 @@ for ($i=0;$i<$no_items;$i++) {
 		<input type="text" name="total" value="<?php echo $total; ?>" hidden>
 		<input type="submit" name="submit" value="Confirm Order">
 	</form>
+</body>
+</html>

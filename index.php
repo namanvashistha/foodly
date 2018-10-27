@@ -46,8 +46,10 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 <html>
 <head>
 	<title>Main Page</title>
+	<link rel="shortcut icon" href="logo.png" type="image/png">
 </head>
 <body>
+	<h1>User login or SignUP</h1>
 	<div>
 		<form  method="post">
 			email<input type="email" name="log_email" required><br>

@@ -13,7 +13,8 @@ $rdetails=mysqli_fetch_array($q1);
 <!DOCTYPE html>
 <html>
 <head>
-	<title>food - <?php echo $rdetails['name'];?></title>
+	<title>foodly - <?php echo $rdetails['name'];?></title>
+    <link rel="shortcut icon" href="logo.png" type="image/png">
 </head>
 <body>
 	<a href="home.php"><button>home</button></a>
@@ -25,7 +26,7 @@ $rdetails=mysqli_fetch_array($q1);
 	<p>Description: <?php echo $rdetails['description'];?></p>
 	<div>
     		<?php
-    		$q="SELECT * FROM `$restaurant`; ";
+    		$q="SELECT * FROM menu where restaurant_id='$restaurant'; ";
 			$q1=mysqli_query($con,$q);
 			$rowcount=mysqli_num_rows($q1);
 			if ($rowcount>0) {
@@ -34,7 +35,7 @@ $rdetails=mysqli_fetch_array($q1);
     		<?php
     			while ($row=mysqli_fetch_array($q1)) {
     				$n=$row['sno'];
-    				echo "<tr><td>".$row['name']."</td><td>".$row['price']."</td><td>".$row['discount']."</td><td>".$row['desc']."</td><td>
+    				echo "<tr><td>".$row['name']."</td><td>".$row['price']."</td><td>".$row['discount']."</td><td>".$row['description']."</td><td>
     				<button onclick='remove_item(".$n.")'>-</button>
     				 <span class='buy' id='".$n."'>0</span> 
     				 <button onclick='add_item(".$n.")'>+</button>

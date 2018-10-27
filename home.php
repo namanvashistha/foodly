@@ -12,6 +12,7 @@ $q1=mysqli_query($con,$q);
 <html>
 <head>
 	<title>home page</title>
+	<link rel="shortcut icon" href="logo.png" type="image/png">
 </head>
 <body>
 	<a href="logout.php"><button>logout</button></a>

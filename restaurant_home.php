@@ -10,12 +10,12 @@ if(isset($_POST['update'])){
 	$item_price=$_POST['item_price'];
 	$item_discount=$_POST['item_discount'];
 	$item_desc=$_POST['item_desc'];
-	for ($i=0;$i<sizeof($item_name);$i++){
-		$q="SELECT name from `$restaurant_log_email` where name='$item_name[$i]' ";
+	for($i=0;$i<sizeof($item_name);$i++){
+		$q="SELECT name from menu where name='$item_name[$i]' and restaurant_id='$restaurant_log_email' ";
 		$q1=mysqli_query($con,$q);
 		$rowcount=mysqli_num_rows($q1);
 		if(empty($item_name[$i]) || empty($item_price[$i]) || empty($item_discount[$i]) || empty($item_desc[$i]) || $rowcount>0) continue;
-		$q="INSERT INTO `$restaurant_log_email` (`name`,`price`,`discount`,`desc`) VALUES ('$item_name[$i]', '$item_price[$i]','$item_discount[$i]','$item_desc[$i]');";
+		$q="INSERT INTO menu (`restaurant_id`,`name`,`price`,`discount`,`description`) VALUES ('$restaurant_log_email','$item_name[$i]', '$item_price[$i]','$item_discount[$i]','$item_desc[$i]');";
 		$q1=mysqli_query($con,$q);
     	
 	}
@@ -26,6 +26,7 @@ if(isset($_POST['update'])){
 <html>
 <head>
 	<title>Restaurant Sign Up</title>
+    <link rel="shortcut icon" href="logo.png" type="image/png">
 </head>
 <body>
 	<h3><?php echo $_SESSION['restaurant_log_name'];?></h3>
@@ -49,7 +50,7 @@ if(isset($_POST['update'])){
     <div>
     	<table>
     	<?php
-    	$q="SELECT * FROM `$restaurant_log_email`; ";
+    	$q="SELECT * FROM menu where restaurant_id='$restaurant_log_email'; ";
 		$q1=mysqli_query($con,$q);
 		$rowcount=mysqli_num_rows($q1);
 		if ($rowcount>0) {
@@ -57,7 +58,7 @@ if(isset($_POST['update'])){
     	<tr><td><b>name</b></td><td><b>price</b></td><td><b>discount</b></td><td><b>description</b></td></tr></pre>
     	<?php
     			while ($row=mysqli_fetch_array($q1)) {
-    				echo "<tr><td>".$row['name']."</td><td>".$row['price']."</td><td>".$row['discount']."</td><td>".$row['desc']."</td></tr>";
+    				echo "<tr><td>".$row['name']."</td><td>".$row['price']."</td><td>".$row['discount']."</td><td>".$row['description']."</td></tr>";
     			}
     		}
     		else{
