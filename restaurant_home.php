@@ -113,7 +113,6 @@ if(isset($_POST['update'])){
         $q="select * from orders where order_from='$restaurant_log_email';";
         $q1=mysqli_query($con,$q);
         while ($row=mysqli_fetch_array($q1)){
-            echo $row['order_id'];
             if($row['status']=="delivered" || $row['status']=="declined"){ ?>
                 <div>
                     order id:<?php echo $row['order_id']; ?>
