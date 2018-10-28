@@ -49,7 +49,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
     <title>Main Page</title>
     <link rel="shortcut icon" href="logo.png" type="image/png">
 </head>
-<body>
+<body style="font-family: Helvetica;">
     <div>
         <form  method="post">
             email<input type="email" name="log_email" required><br>

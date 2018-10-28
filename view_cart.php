@@ -15,7 +15,7 @@ $subtotal=0;
 	<title></title>
 	<link rel="shortcut icon" href="logo.png" type="image/png">
 </head>
-<body>
+<body style="font-family: Helvetica;">
 <table>
 <?php
 for ($i=0;$i<$no_items;$i++) { 
@@ -50,13 +50,15 @@ for ($i=0;$i<$no_items;$i++) {
 		for ($i=0;$i<$no_items;$i++) { 
 			$item_name=$_GET['item'.$i];
 			$item_quantity=$_GET['quantity'.$i];
+			if($i==$no_items-1){
+				$items=$items.$item_name." ".$item_quantity; break;
+			}
 			$items=$items.$item_name." ".$item_quantity." ";
 		}	
-		echo $items;
 		?>
 		<input type="text" name="items" value="<?php echo $items; ?>" hidden>
 		<input type="text" name="total" value="<?php echo $total; ?>" hidden><br>
-		<input type="text" name="address"><br>
+		<input type="text" name="address" placeholder="Enter delivery address" required><br>
 		<input type="submit" name="submit" value="Confirm Order">
 	</form>
 </body>
