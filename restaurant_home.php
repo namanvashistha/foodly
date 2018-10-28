@@ -14,21 +14,37 @@ if(isset($_POST['update'])){
 		$q="SELECT name from menu where name='$item_name[$i]' and restaurant_id='$restaurant_log_email' ";
 		$q1=mysqli_query($con,$q);
 		$rowcount=mysqli_num_rows($q1);
-		if(empty($item_name[$i]) || empty($item_price[$i]) || empty($item_discount[$i]) || empty($item_desc[$i]) || $rowcount>0) continue;
+		if(empty($item_name[$i]) || empty($item_price[$i]) || empty($item_discount[$i]) || empty($item_desc[$i]) || $rowcount>0) 
+            continue;
 		$q="INSERT INTO menu (`restaurant_id`,`name`,`price`,`discount`,`description`) VALUES ('$restaurant_log_email','$item_name[$i]', '$item_price[$i]','$item_discount[$i]','$item_desc[$i]');";
 		$q1=mysqli_query($con,$q);
-    	
+    	header('location:restaurant_home.php');
 	}	
 }
     if(isset($_POST['delete'])){
         $del_name=$_POST['del_name'];
         $q="DELETE FROM menu where restaurant_id='$restaurant_log_email' and name='$del_name' ;";
         mysqli_query($con,$q);
+        header('location:restaurant_home.php');
     }
     if(isset($_POST['line'])){
         $line=$_POST['line'];
+        $line=($line == 'Go Online') ? 'Online':'Offline';
         $q="UPDATE restaurants SET status='$line' where email='$restaurant_log_email' ;";
         mysqli_query($con,$q);
+        header('location:restaurant_home.php');
+    }
+    if(isset($_POST['accept'])){
+        $act_id=$_POST['order_id'];
+        $q="UPDATE orders SET status='accepted' where order_id='$act_id' ;";
+        mysqli_query($con,$q); 
+        header('location:restaurant_home.php');
+    }
+    if(isset($_POST['decline'])){
+        $act_id=$_POST['order_id'];
+        $q="UPDATE orders SET status='declined' ,rider_status='declined' where order_id='$act_id' ;";
+        mysqli_query($con,$q);
+        header('location:restaurant_home.php');
     }
 ?>
 <!DOCTYPE html>
@@ -37,20 +53,21 @@ if(isset($_POST['update'])){
 	<title>Restaurant Sign Up</title>
     <link rel="shortcut icon" href="logo.png" type="image/png">
 </head>
-<body>
+<body style="font-family: Helvetica;">
 	<h3><?php echo $_SESSION['restaurant_log_name'];?></h3>
 	<a href="logout.php"><button>logout</button></a><br>
     <?php
-        $q="select status from restaurants where email='$restaurant_log_email';";
+        $q="select status,wallet from restaurants where email='$restaurant_log_email';";
         $q1=mysqli_query($con,$q);
         $row=mysqli_fetch_array($q1);
         echo "You are currently ";
-        echo ($row['status'] == 'Go Online') ? 'Online':'Offline';
+        echo ($row['status'] == 'Online') ? 'Online':'Offline';
         ?>
         <form method="post">
-            <input type="submit" name="line" value="<?php echo ($row['status'] == 'Go Online') ? 'Go Offline':'Go Online'; ?>" >
+            <input type="submit" name="line" value="<?php echo ($row['status'] == 'Online') ? 'Go Offline':'Go Online'; ?>" >
         </form> 
        <?php
+        echo "Your pending payment is ₹".$row['wallet'];
         $q="select * from orders where order_from='$restaurant_log_email';";
         $q1=mysqli_query($con,$q);
     ?>
@@ -58,17 +75,32 @@ if(isset($_POST['update'])){
     <div>
         <?php
         while ($row=mysqli_fetch_array($q1)){
-           if($row['status']!="delivered"){
+           if($row['status']!="delivered" && $row['status']!="declined"){
             ?>
                 <div>
                     order id:<?php echo $row['order_id']; ?>
                     <br>ordered by:<?php echo $row['order_by']; ?>
-                    <br>items:<?php echo $row['rider']; ?>
-                    <br>total:<?php echo $row['total']; ?>
+                    <br>items:<br><?php 
+                    $item_list  = preg_split("/ /", $row['items']);
+                    for($i=0;$i<sizeof($item_list);$i=$i+2){
+                        $q_itm="SELECT name FROM menu where sno='$item_list[$i]' and restaurant_id='$restaurant_log_email'; ";
+                        $q1_itm=mysqli_query($con,$q_itm);
+                        $row_itm=mysqli_fetch_array($q1_itm);
+                        echo "<div>&nbsp;&nbsp;".$row_itm['name']." X ".$item_list[$i+1]."</div>";
+                    }
+                    ?>
+                    total:<?php echo $row['total']; ?>
                     <br>address:<?php echo $row['address']; ?>
                     <br>rider:<?php echo $row['rider']; ?>
-                    <br>status:<?php echo $row['status']; ?>
                     <br>instance:<?php echo $row['instance']; ?>
+                    <br>status:<?php echo $row['status']; ?>
+                    <br><form method="post">
+                        <input type="text" name="order_id" value="<?php echo $row['order_id']; ?>" hidden>
+                        <?php if ($row['status']=="placed") { ?>
+                        <input type="submit" name="accept" value="accept"><?php } ?>
+                        <?php if ($row['status']!="declined") { ?>
+                        <input type="submit" name="decline" value="decline"><?php } ?>
+                    </form>
                 </div>
                 <br>    
         <?php }
@@ -78,17 +110,30 @@ if(isset($_POST['update'])){
     <br>past orders
     <div>
         <?php
+        $q="select * from orders where order_from='$restaurant_log_email';";
+        $q1=mysqli_query($con,$q);
         while ($row=mysqli_fetch_array($q1)){
-            if($row['status']=="delivered"){?>
+            echo $row['order_id'];
+            if($row['status']=="delivered" || $row['status']=="declined"){ ?>
                 <div>
-                    order id:
-                    ordered by:
-                    items:
-                    total:
-                    instance:
-                    address:
-                    status:
-                </div>    
+                    order id:<?php echo $row['order_id']; ?>
+                    <br>ordered by:<?php echo $row['order_by']; ?>
+                    <br>items:<br><?php 
+                    $item_list  = preg_split("/ /", $row['items']);
+                    for($i=0;$i<sizeof($item_list);$i=$i+2){
+                        $q_itm="SELECT name FROM menu where sno='$item_list[$i]' and restaurant_id='$restaurant_log_email' ";
+                        $q1_itm=mysqli_query($con,$q_itm);
+                        $row_itm=mysqli_fetch_array($q1_itm);
+                        echo "<div>&nbsp;&nbsp;".$row_itm['name']." X ".$item_list[$i+1]."</div>";
+                    }
+                    ?>
+                    total:<?php echo $row['total']; ?>
+                    <br>address:<?php echo $row['address']; ?>
+                    <br>rider:<?php echo $row['rider']; ?>
+                    <br>instance:<?php echo $row['instance']; ?>
+                    <br>status:<?php echo $row['status']; ?>
+                </div>
+                <br>   
         <?php }
         }
         ?>

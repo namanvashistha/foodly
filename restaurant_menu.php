@@ -16,12 +16,13 @@ $rdetails=mysqli_fetch_array($q1);
 	<title>foodly - <?php echo $rdetails['name'];?></title>
     <link rel="shortcut icon" href="logo.png" type="image/png">
 </head>
-<body>
+<body style="font-family: Helvetica;">
 	<a href="home.php"><button>home</button></a>
 	<a href="logout.php"><button>logout</button></a>
 	<h2><?php echo $rdetails['name'];?></h2>
+    <p><?php echo $rdetails['status'];?></p>
 	<p><a href="tel:<?php echo $rdetails['phone'];?>"><?php echo $rdetails['phone'];?></a></p>
-	<p><a href="https://www.<?php echo $rdetails['email'];?>"><?php echo $rdetails['email'];?></a></p>
+	<p><a target="_blank" href="mailto:<?php echo $rdetails['email'];?>"><?php echo $rdetails['email'];?></a></p>
 	<p>Address: <?php echo $rdetails['address'];?></p>
 	<p>Description: <?php echo $rdetails['description'];?></p>
 	<div>
@@ -42,7 +43,8 @@ $rdetails=mysqli_fetch_array($q1);
     				 </td></tr>";
     			} ?>
     		</table>
-    		<button onclick="view_cart(<?php echo $rowcount; ?>)">Proceed to cart</button><?php
+            <?php if ($rdetails['status']=="Online") { ?>
+    		<button  onclick="view_cart(<?php echo $rowcount; ?>)">Proceed to cart</button><?php }
     		}
     		else{
     			echo "<b>List of items will be displayed here</b>";
@@ -74,6 +76,7 @@ $rdetails=mysqli_fetch_array($q1);
     			}
     		}
     		str+="count="+j;
+            if(j>0)
     		window.location.href = "view_cart.php"+str;
     	}
     </script>
