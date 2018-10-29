@@ -41,7 +41,7 @@
     <div>
         <?php
         while ($row=mysqli_fetch_array($q1)){
-           if($row['status']!="delivered"){
+           if($row['status']!="delivered" && $row['status']!="declined"){
             ?>
                 <div>
                     order id:<?php echo $row['order_id']; ?>

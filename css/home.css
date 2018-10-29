@@ -1,5 +1,10 @@
 body{
 	margin: 0px;
+      letter-spacing: .01428571em;
+    font-family: Roboto,Arial,sans-serif;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.25rem;
 
 }
 ul {
