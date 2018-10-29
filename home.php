@@ -18,7 +18,7 @@ $q1=mysqli_query($con,$q);
 	<link rel="shortcut icon" href="logo.png" type="image/png">
 </head>
 
-<body style="font-family: Helvetica;">
+<body>
 <ul>
 <li><img src="header_logo.jpeg" align="left" width="100" height="52"></li>
 </ul>

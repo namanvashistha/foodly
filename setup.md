@@ -1,20 +1,89 @@
-<div style="font-family: Helvetica;">
-<h2>Setup.md</h2>
-<b>Following SQL Queries will help creating the database.<br>Also checkout <i><u>connection.php</u></i> for the connection to the database.</b>
-<p>> CREATE database food;</p>
-<p>> CREATE TABLE `restaurants` (
+# Setup.md
+### Following SQL Queries will help creating the database.
+### Also checkout **connection.php** for the connection to the database.
+
+CREATE database food;
+
+CREATE TABLE `users` (
   `name` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,
-  `email` varchar(40) NOT NULL,
+  `email` varchar(40) NOT NULL PRIMARY KEY,
+  `phone` varchar(12) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `wallet` float(20) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `restaurants` (
+  `name` varchar(30) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `email` varchar(40) NOT NULL PRIMARY KEY,
   `phone` varchar(12) NOT NULL,
   `address` varchar(50) NOT NULL,
-  `description` varchar(100) NOT NULL
-);</p>
-<p>> CREATE TABLE `users` (
+  `description` varchar(100) NOT NULL,
+  `wallet` float NOT NULL DEFAULT '0',
+  `status` varchar(20) NOT NULL DEFAULT 'Offline'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `riders` (
   `name` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,
-  `email` varchar(40) NOT NULL,
+  `email` varchar(40) NOT NULL PRIMARY KEY,
   `phone` varchar(12) NOT NULL,
-  `address` varchar(100) NOT NULL);
-</p>
-</div>
+  `address` varchar(100) NOT NULL,
+  `wallet` float DEFAULT '0',
+  `status` varchar(20) NOT NULL DEFAULT 'Offline',
+  `streak` int(10) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `support` (
+  `name` varchar(30) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `email` varchar(40) NOT NULL PRIMARY KEY,
+  `phone` varchar(12) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `status` varchar(30) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `menu` (
+  `restaurant_id` varchar(40) NOT NULL,
+  `sno` int(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(30) NOT NULL,
+  `price` int(10) NOT NULL,
+  `discount` int(3) NOT NULL,
+  `description` varchar(1000) NOT NULL,
+  PRIMARY KEY (`sno`,`restaurant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `menu` AUTO_INCREMENT=1;
+
+CREATE TABLE `orders` (
+  `order_id` int(20) NOT NULL AUTO_INCREMENT,
+  `order_from` varchar(40) NOT NULL,
+  `order_by` varchar(40) NOT NULL,
+  `rider` varchar(40) NOT NULL,
+  `rider_status` varchar(30) NOT NULL DEFAULT 'pending',
+  `items` varchar(100) NOT NULL,
+  `total` float(20) NOT NULL,
+  `instance` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `address` varchar(100) NOT NULL,
+  `status` varchar(30) NOT NULL DEFAULT 'placed',
+  PRIMARY KEY (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `orders` AUTO_INCREMENT=100000;
+
+CREATE TABLE `chat_support` (
+  `order_id` int(20) NOT NULL,
+  `client` varchar(20) NOT NULL,
+  `txt_from` varchar(30) NOT NULL,
+  `txt_to` varchar(30) NOT NULL,
+  `txt` varchar(200) NOT NULL,
+  `instance` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `stats` (
+  `ip_address` varchar(30) NOT NULL,
+  `coordinates` varchar(30) DEFAULT NULL,
+  `city` varchar(30) DEFAULT NULL,
+  `instance` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

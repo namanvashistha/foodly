@@ -16,7 +16,7 @@ $rdetails=mysqli_fetch_array($q1);
 	<title>foodly - <?php echo $rdetails['name'];?></title>
     <link rel="shortcut icon" href="logo.png" type="image/png">
 </head>
-<body style="font-family: Helvetica;">
+<body style="font-family: Roboto,Arial,sans-serif;">
 	<a href="home.php"><button>home</button></a>
 	<a href="logout.php"><button>logout</button></a>
 	<h2><?php echo $rdetails['name'];?></h2>
