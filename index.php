@@ -63,31 +63,73 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Main Page</title>
+	<title>foodly</title>
 	<link rel="shortcut icon" href="logo.png" type="image/png">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<script type="text/javascript" src="js/index.js"></script>
 </head>
-<body style="font-family: Helvetica;">
-	<h1>User login or SignUP</h1>
-	<div>
-		<form  method="post">
-			email<input type="email" name="log_email" required><br>
-			pass<input type="password" name="log_pass" required><br>
-			<input type="submit" name="login" value="Login"><br>
+
+<body>
+
+	<div class="topnav">
+  		<img src="header_logo.jpeg" height= "45px" width = "150px" align="left">
+  		<a style="float:right;" onclick="document.getElementById('id02').style.display='block'" style="width:auto;" >Sign up</a>
+  		<div class="or">or</div>
+  		<a style="float:right;" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a>
+	</div>
+
+	<div id="id01" class="modal">
+  		<form class="modal-content animate" method="POST" >
+    		<div class="imgcontainer">
+      			<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+    		</div>
+			<div class="container">
+      			<label for="log_email"><b>Username</b></label>
+      			<input type="text" placeholder="Enter Username" name="log_email" required>
+
+      			<label for="log_pass"><b>Password</b></label>
+      			<input type="password" placeholder="Enter Password" name="log_pass" required>
+        
+	      		<button type="submit" name="login" value="login">Login</button>
+    		</div>
+  		</form>
+	</div>
+
+	<div id="id02" class="modal">
+  		<form class="modal-content animate" method="POST" >
+    		<div class="imgcontainer">
+      			<span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+    		</div>
+
+    		<div class="container">
+      			<label for="sign_name"><b>Name</b></label>
+      			<input type="text" placeholder="Enter Name" name="sign_name" required>
+
+      			<label for="sign_email"><b>Email</b></label>
+      			<input type="text" placeholder="Enter Email" name="sign_email" required>
+
+      			<label for="sign_pass"><b>Password</b></label>
+      			<input type="password" placeholder="Enter Password" name="sign_pass" required>
+
+      			<label for="sign_phone"><b>Phone</b></label>
+      			<input type="text" placeholder="Enter Phone" name="sign_phone" required>
+
+      			<label for="sign_address"><b>Address</b></label>
+      			<input type="text" placeholder="Enter Address" name="sign_address" required>
+			
+			    <button type="submit" name="signup" value="Sign Up">Sign Up</button>
+    		</div>
 		</form>
 	</div>
-	<br><br>
-	<div>
-		<form method="post">
-			name<input type="text" name="sign_name" required><br>
-			pass<input type="password" name="sign_pass" required><br>
-			email<input type="email" name="sign_email" required><br>
-			phone<input type="text" name="sign_phone" required><br>
-			address<input type="text" name="sign_address" required><br>
-			<input type="submit" name="signup" value="Sign Up">
-		</form>
-	</div>
-	<a href="restaurant_sign.php"><button>Restaurant</button></a>
-	<a href="rider_sign.php"><button>Rider</button></a>
-	<a href="support_sign.php"><button>Chat Support Executive</button></a>
+
+	<div class="navbar">
+  		<div class="for">For Business</div>
+  		<a href="restaurant_sign.php">Restaurant</a>
+  		<a href="rider_sign.php">Rider</a>
+  		<a href="support_sign.php">Chat Support Executive</a>
+  		<div class="copy">&copy; foodly</div>
+  		<a style="float:right;" href="">About Us</a>
+  		<a style="float:right;" href="">FAQs</a>
+  	</div>
 </body>
 </html>
