@@ -1,6 +1,7 @@
-#Setup.md
-##Following SQL Queries will help creating the database.
-##Also checkout **connection.php** for the connection to the database.
+# Setup.md
+### Following SQL Queries will help creating the database.
+### Also checkout **connection.php** for the connection to the database.
+
 CREATE database food;
 
 CREATE TABLE `users` (
