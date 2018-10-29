@@ -15,7 +15,7 @@ $q1=mysqli_query($con,$q);
 <head>
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	<title>home page</title>
-	<link rel="shortcut icon" href="logo.png" type="image/png">
+	<link rel="shortcut icon" href="images/logo.png" type="image/png">
 </head>
 
 <body>

@@ -19,6 +19,7 @@ include 'connection.php';
         $ipaddress = 'UNKNOWN';
 	$q="INSERT INTO `stats` (`ip_address`, `latitude`,`longitude`) VALUES ('$ipaddress','','');";
     mysqli_query($con,$q);
+$error_msg="";
 if(isset($_POST['login']) || isset($_POST['signup'])){
 	session_start();
 
@@ -33,7 +34,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 			header("location:home.php");
 		}
 		else{
-			echo "incorrect email or password";
+			$error_msg="incorrect email or password";
 		}
 	}
 	else if(isset($_POST['signup'])){
@@ -46,7 +47,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 		$row=mysqli_query($con,$q2);
 		$rowcount=mysqli_num_rows($row);
 		if($rowcount>0){
-			echo "already exist".$rowcount;
+			$error_msg= "email already exists";
 		}
 		else{
 			$q="INSERT INTO `users` (`name`, `password`, `email`, `phone`, `address`) VALUES ('$sign_name', '$sign_pass', '$sign_email', '$sign_phone', '$sign_address');";
@@ -64,15 +65,13 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 <html>
 <head>
 	<title>foodly</title>
-	<link rel="shortcut icon" href="logo.png" type="image/png">
+	<link rel="shortcut icon" href="images/logo.png" type="image/png">
 	<link rel="stylesheet" type="text/css" href="css/index.css">
-	<script type="text/javascript" src="js/index.js"></script>
 </head>
 
 <body>
-
 	<div class="topnav">
-  		<img src="header_logo.jpeg" height= "45px" width = "150px" align="left">
+  		<img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left">
   		<a style="float:right;" onclick="document.getElementById('id02').style.display='block'" style="width:auto;" >Sign up</a>
   		<div class="or">or</div>
   		<a style="float:right;" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a>
@@ -89,7 +88,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 
       			<label for="log_pass"><b>Password</b></label>
       			<input type="password" placeholder="Enter Password" name="log_pass" required>
-        
+        		<div id="log_error_msg" class="error_msg"><?php if($error_msg=="incorrect email or password") echo $error_msg; ?></div>
 	      		<button type="submit" name="login" value="login">Login</button>
     		</div>
   		</form>
@@ -116,7 +115,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 
       			<label for="sign_address"><b>Address</b></label>
       			<input type="text" placeholder="Enter Address" name="sign_address" required>
-			
+				<div id="sign_error_msg" class="error_msg"><?php if($error_msg=="email already exists") echo $error_msg; ?></div>
 			    <button type="submit" name="signup" value="Sign Up">Sign Up</button>
     		</div>
 		</form>
@@ -131,5 +130,6 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
   		<a style="float:right;" href="">About Us</a>
   		<a style="float:right;" href="">FAQs</a>
   	</div>
+  	<script src="js/index.js"></script>
 </body>
 </html>
