@@ -1,5 +1,5 @@
 <?php
-
+$error_msg="";
 if(isset($_POST['login']) || isset($_POST['signup'])){
     include 'connection.php';
     session_start();
@@ -16,7 +16,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
             header("location:restaurant_home.php");
         }
         else{
-            echo "incorrect email or password";
+            $error_msg="incorrect email or password";
         }
     }
     else if(isset($_POST['signup'])){
@@ -30,7 +30,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
         $row=mysqli_query($con,$q2);
         $rowcount=mysqli_num_rows($row);
         if($rowcount>0){
-            echo "already exist";
+            $error_msg= "email already exists";
         }
         else{
             $q1="INSERT INTO `restaurants` (`name`, `password`, `email`, `phone`, `address`,`description`) VALUES ('$sign_name', '$sign_pass', '$sign_email', '$sign_phone', '$sign_address','$sign_desc');";
@@ -47,16 +47,16 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="shortcut icon" href="images/logo.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="css/restaurant_sign.css">
-    <title>Main Page</title>
-    <link rel="shortcut icon" href="logo.png" type="image/png">
+    <title>Restaurant Main Page</title>
 
 </head>
 <body >
    
     <div class="topnav">
-        <img src="header_logo.jpeg" height= "45px" width = "150px" align="left">
-        <div class="restaurant">for restaurants</div>
+        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left">
+          <div class="restaurant">for restaurants</div>
         <a style="float:right;" onclick="document.getElementById('id02').style.display='block'" style="width:auto;" >Sign up</a>
         <div class="or">or</div>
         <a style="float:right;" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a>
@@ -74,7 +74,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 
                 <label for="log_pass"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="log_pass" required>
-        
+        <div id="log_error_msg" class="error_msg"><?php if($error_msg=="incorrect email or password") echo $error_msg; ?></div>
                 <button type="submit" name="login" value="login">Login</button>
             </div>
         </form>
@@ -109,7 +109,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 
                 <label for="sign_desc"><b>Description</b></label>
                 <input type="text" placeholder="Enter Description" name="sign_desc" required>
-
+                    <div id="sign_error_msg" class="error_msg"><?php if($error_msg=="email already exists") echo $error_msg; ?></div>
                 <button type="submit" name="signup" value="Sign Up">Sign Up</button>
             </div>
         </form>
@@ -121,6 +121,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
         <a href="rider_sign.php">Rider</a>
         <a href="support_sign.php">Chat Support Executive</a>
         <div class="copy">&copy; foodly</div>
-        
+        </div>
+        <script src="js/restaurant_sign.js"></script>
 </body>
 </html>

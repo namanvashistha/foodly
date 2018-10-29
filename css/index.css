@@ -214,3 +214,12 @@ span.log_pass {
 .error_msg{
   color: red;
 }
+
+restaurants{
+  float: left;
+  color: #FFDF00;
+  text-align: center;
+  text-decoration: none;
+  font-size: 17px;
+  padding: 14px 16px;
+}

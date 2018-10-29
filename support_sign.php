@@ -1,5 +1,5 @@
 <?php
-
+$error_msg="";
 if(isset($_POST['login']) || isset($_POST['signup'])){
     include 'connection.php';
     session_start();
@@ -16,7 +16,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
             header("location:support_home.php");
         }
         else{
-            echo "incorrect email or password";
+            $error_msg="incorrect email or password";
         }
     }
     else if(isset($_POST['signup'])){
@@ -29,7 +29,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
         $row=mysqli_query($con,$q2);
         $rowcount=mysqli_num_rows($row);
         if($rowcount>0){
-            echo "already exist";
+            $error_msg= "email already exists";
         }
         else{
             $q1="INSERT INTO `support` (`name`, `password`, `email`, `phone`, `address`) VALUES ('$sign_name', '$sign_pass', '$sign_email', '$sign_phone', '$sign_address');";
@@ -46,28 +46,82 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Main Page</title>
-    <link rel="shortcut icon" href="logo.png" type="image/png">
+       <link rel="shortcut icon" href="images/logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="css/support_sign.css">
+    <title>Chat Support Executive Main Page</title>
 </head>
 <body>
-    <div>
-        <form  method="post">
-            email<input type="email" name="log_email" required><br>
-            pass<input type="password" name="log_pass" required><br>
-            <input type="submit" name="login" value="Login"><br>
+     <div class="topnav">
+        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left">
+          <div class="restaurant">for chat support executives</div>
+        <a style="float:right;" onclick="document.getElementById('id02').style.display='block'" style="width:auto;" >Sign up</a>
+        <div class="or">or</div>
+        <a style="float:right;" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a>
+    </div>
+
+    <div id="id01" class="modal">
+        <form class="modal-content animate" method="POST" >
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+            </div>
+            <div class="container">
+                <h3><center>Chat Support Executive</center></h3>
+                <label for="log_email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="log_email" required>
+
+                <label for="log_pass"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="log_pass" required>
+        <div id="log_error_msg" class="error_msg"><?php if($error_msg=="incorrect email or password") echo $error_msg; ?></div>
+                <button type="submit" name="login" value="login">Login</button>
+            </div>
         </form>
     </div>
-    <br><br>
-    <div>
-        <form method="post">
-            name<input type="text" name="sign_name" required><br>
-            pass<input type="password" name="sign_pass" required><br>
-            email<input type="email" name="sign_email" required><br>
-            phone<input type="text" name="sign_phone" required><br>
-            address<input type="text" name="sign_address" required><br>
-            <input type="submit" name="signup" value="Sign Up">
+
+    <div id="id02" class="modal">
+        <form class="modal-content animate" method="POST" >
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+            </div>
+
+            <div class="container">
+                 <h3><center>Chat Support Executive</center></h3>
+                <label for="sign_name"><b>Name</b></label>
+                <input type="text" placeholder="Enter Name" name="sign_name" required>
+
+
+                
+                <label for="sign_email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="sign_email" required>
+
+                
+                <label for="sign_pass"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="sign_pass" required>
+
+                <label for="sign_phone"><b>Phone</b></label>
+                <input type="text" placeholder="Enter Phone" name="sign_phone" required>
+
+                <label for="sign_address"><b>Address</b></label>
+                <input type="text" placeholder="Enter Address" name="sign_address" required>
+            
+
+                <label for="sign_desc"><b>Description</b></label>
+                <input type="text" placeholder="Enter Description" name="sign_desc" required>
+                    <div id="sign_error_msg" class="error_msg"><?php if($error_msg=="email already exists") echo $error_msg; ?></div>
+                <button type="submit" name="signup" value="Sign Up">Sign Up</button>
+            </div>
         </form>
     </div>
-    <a href="index.php"><button>Sign Up as user</button></a>
+
+    <div class="navbar">
+       
+        <a href="index.php">User</a>
+        <a href="restaurant_sign.php">Restaurant</a>
+        <a href="rider_sign.php">Rider</a>
+        <div class="copy">&copy; foodly</div>
+        </div>
+        <script src="js/support_sign.js"></script>
+
+
+
 </body>
 </html>
