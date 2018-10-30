@@ -14,11 +14,14 @@ $rdetails=mysqli_fetch_array($q1);
 <html>
 <head>
 	<title>foodly - <?php echo $rdetails['name'];?></title>
-    <link rel="shortcut icon" href="logo.png" type="image/png">
+ <link rel="shortcut icon" href="images\logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="css\restaurant_menu.css">
 </head>
 <body style="font-family: Roboto,Arial,sans-serif;">
-	<a href="home.php"><button>home</button></a>
-	<a href="logout.php"><button>logout</button></a>
+    <div class="topnav">
+        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left"></div>
+
+	
 	<h2><?php echo $rdetails['name'];?></h2>
     <p><?php echo $rdetails['status'];?></p>
 	<p><a href="tel:<?php echo $rdetails['phone'];?>"><?php echo $rdetails['phone'];?></a></p>
@@ -52,7 +55,7 @@ $rdetails=mysqli_fetch_array($q1);
     		?>
     	
     </div>
-    <script type="text/javascript">
+    <script src="js/restaurant_menu.js">
     	function add_item(cur_id){
     		var quan=document.getElementById(cur_id).innerHTML;
     		if(quan<10)
@@ -80,6 +83,13 @@ $rdetails=mysqli_fetch_array($q1);
     		window.location.href = "view_cart.php"+str;
     	}
     </script>
+    <div class="navbar">
+       
+        <a href="home.php">Home</a>
+        <a href="logout.php">Log out</a>
+        <a href="#">Past orders</a>
+        <div class="copy">&copy; foodly</div>
+        </div>
 
 </body>
 </html>

@@ -18,11 +18,14 @@ if(isset($_POST['line'])){
 <html>
 <head>
 	<title>support home</title>
-	<link rel="shortcut icon" href="logo.png" type="image/png">
+	<link rel="shortcut icon" href="images/logo.png" type="image/png">
+     <link rel="stylesheet" type="text/css" href="css/support_home.css">
 </head>
 <body>
+     <div class="topnav">
+        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left"></div>
 	<h3><?php echo $_SESSION['support_log_name'];?></h3>
-	<a href="logout.php"><button>logout</button></a><br>
+
     <?php
         $q="select status from support where email='$support_log_email';";
         $q1=mysqli_query($con,$q);
@@ -76,6 +79,13 @@ if(isset($_POST['line'])){
         }
         ?>
     </div>
-
+ <div class="navbar">
+        <div class="for">Chat with</div> 
+        <a href="#">Restaurant</a>
+        <a href="#">User</a>
+        <a href="#">Rider</a>
+           <a href="index.php">Logout</a>
+        <div class="copy">&copy; foodly</div>
+        </div>
 </body>
 </html>

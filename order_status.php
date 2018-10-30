@@ -31,9 +31,14 @@
 <html>
 <head>
 	<title>order status</title>
-	<link rel="shortcut icon" href="logo.png" type="image/png">
+ <link rel="shortcut icon" href="images\logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="css\order_status.css">
 </head>
 <body style="font-family: Helvetica;">
+	 <div class="topnav">
+        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left"></div>
+
+
 	<?php
         $q="select * from orders where order_by='$log_email';";
         $q1=mysqli_query($con,$q);
@@ -67,5 +72,13 @@
         }
         ?>
     </div>
+
+     <div class="navbar">
+       
+        <a href="confirm_order.php">Confirm Order</a>
+        <a href="logout.php">Log out</a>
+        
+        <div class="copy">&copy; foodly</div>
+        </div>
 </body>
 </html>

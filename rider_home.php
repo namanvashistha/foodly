@@ -47,11 +47,16 @@ $rider_log_email= $_SESSION['rider_log_email'];
 <html>
 <head>
 	<title>rider home</title>
-	<link rel="shortcut icon" href="logo.png" type="image/png">
+	<link rel="shortcut icon" href="images\logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="css\rider_home.css">
 </head>
 <body style="font-family: Helvetica;">
+   <div class="topnav">
+        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left"></div>
+
+
 	<h3><?php echo $_SESSION['rider_log_name'];?></h3>
-	<a href="logout.php"><button>logout</button></a><br>
+	
     <?php
         $q="SELECT wallet,status from riders where email='$rider_log_email';";
         $q1=mysqli_query($con,$q);
@@ -143,5 +148,13 @@ $rider_log_email= $_SESSION['rider_log_email'];
         ?>
     </div>
 
-</body>
+
+
+<div class="navbar">
+       
+        <a href="logout.php">Log out</a>
+        <a href="#">Active orders</a>
+        <a href="#">Past orders</a>
+        <div class="copy">&copy; foodly</div>
+        </div>
 </html>

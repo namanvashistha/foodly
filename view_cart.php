@@ -12,10 +12,14 @@ $subtotal=0;
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<link rel="shortcut icon" href="logo.png" type="image/png">
+	<title>View Cart</title>
+<link rel="shortcut icon" href="images/logo.png" type="image/png">
+     <link rel="stylesheet" type="text/css" href="css/view_cart.css">
 </head>
 <body style="font-family: Helvetica;">
+ <div class="topnav">
+        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left"></div>
+
 <table>
 <?php
 for ($i=0;$i<$no_items;$i++) { 
@@ -61,5 +65,15 @@ for ($i=0;$i<$no_items;$i++) {
 		<input type="text" name="address" placeholder="Enter delivery address" required><br>
 		<input type="submit" name="submit" value="Confirm Order">
 	</form>
+
+ 
+
+        <div class="navbar">
+            <a href="confirm_order.php">Confirm Order</a>
+        <a href="logout.php">Log out</a>
+        <div class="copy">&copy; foodly</div>
+        </div>
+       
+
 </body>
 </html>

@@ -20,21 +20,34 @@ $q1=mysqli_query($con,$q);
 
 <body>
 <ul>
-<li><img src="header_logo.jpeg" align="left" width="100" height="52"></li>
+<li><img src="images\header_logo.jpeg" align="left" width="100" height="52"></li>
 </ul>
-<center><h4>Restaurants</h4></center>
+<center><h2>Restaurants</h2></center>
 	
-	<a href="logout.php"><button>logout</button></a>
+	
+    <div class="card">
+  <img src="FETCH THE IMAGE WITH PHP" alt="res_photo" style="width:100%">
+  <div class="container">
+    <h4><b>RESTAURANT NAME</b></h4> 
+    <p>Status</p> 
+  </div>
 
-	<div class="recommendation">
 		<?php
 			while($row=mysqli_fetch_array($q1)){ ?>
 				<a href="restaurant_menu.php?restaurant=<?php echo $row['email']; ?>">
 				<div class="list">	
-					<?php echo $row['name']." ".$row['status'];  ?>
+				<?php echo $row['name']." ".$row['status'];  ?>
 				</div></a>
 		<?php } ?>
 	</div>
 
+
+ <div class="navbar">
+       
+        <a href="#">Past Orders</a>
+      
+        <a href="logout.php">Log Out</a>
+        <div class="copy">&copy; foodly</div>
+        </div>
 </body>
 </html>
