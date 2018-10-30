@@ -71,7 +71,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 
 <body>
 	<div class="topnav">
-  		<img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left">
+  		<img src="images/header_logo.jpeg" height= "45px" width = "110px" align="left">
   		<a style="float:right;" onclick="document.getElementById('id02').style.display='block'" style="width:auto;" >Sign up</a>
   		<div class="or">or</div>
   		<a style="float:right;" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a>
