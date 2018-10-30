@@ -51,11 +51,14 @@ if(isset($_POST['update'])){
 <html>
 <head>
 	<title>Restaurant Sign Up</title>
-    <link rel="shortcut icon" href="logo.png" type="image/png">
+ <link rel="shortcut icon" href="images/logo.png" type="image/png">
+     <link rel="stylesheet" type="text/css" href="css/restaurant_home.css">
 </head>
-<body style="font-family: Helvetica;">
+<body >
+ <div class="topnav">
+        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left"></div>
+
 	<h3><?php echo $_SESSION['restaurant_log_name'];?></h3>
-	<a href="logout.php"><button>logout</button></a><br>
     <?php
         $q="select status,wallet from restaurants where email='$restaurant_log_email';";
         $q1=mysqli_query($con,$q);
@@ -177,15 +180,13 @@ if(isset($_POST['update'])){
     	?>
     	</table>
     </div>
-    <script type="text/javascript">    
-    	var item = 1;
-		function add_fields() {
-   			item++;
-   			var objTo = document.getElementById('item_fileds');
-   			var divtest = document.createElement("div");
-   			divtest.innerHTML = '<div class="label">Item ' + item +':</div><div class="content"><span>item name:<input type="text" name="item_name[]"/></span> <span>Price: <input type="text" name="item_price[]" /><span> Discount: <input type="text" name="item_discount[]" /></span></span> <span>Description: <input type="text" name="item_desc[]" /></span></div>';
-    		objTo.appendChild(divtest);
-		}
-    </script>
+ 
+
+        <div class="navbar">
+            <a href="logut.php">Logout</a>
+        <a href="support_sign.php">Chat Support Executive</a>
+        <div class="copy">&copy; foodly</div>
+        </div>
+        <script src="js/restaurant_home.js"></script>
 </body>
 </html>
