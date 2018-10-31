@@ -309,6 +309,15 @@ h4{
   padding: 1rem;
 
 }
+@media (min-width: 20rem) {
+   .cards__item {
+    width: 100%;
+  }
+  .cards a{
+    width: 100%; 
+  }
+}
+
 @media (min-width: 40rem) {
   .cards__item {
     width: 50%;
@@ -319,6 +328,8 @@ h4{
     width: 33.3333%;
   }
 }
+
+
 .card {
   background-color: white;
   border-radius: 0.25rem;

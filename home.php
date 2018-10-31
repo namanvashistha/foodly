@@ -40,9 +40,9 @@ $q1=mysqli_query($con,$q);
   <li class="cards__item">
   	<a href="restaurant_menu.php?restaurant=<?php echo $row['email']; ?>">
     <div class="card">
-      <div style="background-image: url(images/rest-img.jpg);" class="card__image"></div>
+      <div style="background-image: url(images/<?php  echo mt_rand(1,8);?>.jpg);" class="card__image"></div>
       <div class="card__content">
-        <div class="card__title">F<?php echo $row['name'];  ?>-<?php echo $row['status'];  ?></div>
+        <div class="card__title"><?php echo $row['name'];  ?>-<?php echo $row['status'];  ?></div>
         <p class="card__text"><?php echo $row['address']."<br><br>".$row['description'];  ?></p>
       </div>
     </div>
@@ -89,6 +89,7 @@ $q1=mysqli_query($con,$q);
         <div class="copy">&copy; foodly</div>
 </div>
 <script>
+
 	$(document).ready(function(){
 	$('#send_button').click(function(){
 		var send_msg = $('#send_msg').val();
@@ -108,6 +109,7 @@ $q1=mysqli_query($con,$q);
 		$('#msg-box').load("fetch-msg.php").fadeIn("slow");
 	},1000);
 });
+
 </script>
 <script src="js/home.js" type="text/javascript"></script>
 </body>
