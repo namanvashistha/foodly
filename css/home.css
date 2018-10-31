@@ -142,6 +142,7 @@ span.log_pass {
     .cancelbtn {
        width: 100%;
     }
+
 }
 
 .navbar {
@@ -160,11 +161,13 @@ span.log_pass {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+  cursor: pointer;
 }
 
 .navbar a:hover {
   background:  #FFDF00;
   color: black;
+  cursor: pointer;
 }
 
 .navbar a.active {
@@ -236,16 +239,10 @@ li a:hover:not(.active) {
     text-align: center;
 }
 
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 40%;
-    border-radius: 5px;
-    background-color: grey;
-}
+
 
 .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 25px 25px 0 rgba(0,0,0,0.4);
 }
 
 
@@ -270,4 +267,25 @@ img {
   
   border-top: 5px solid black;
 
+}
+.cards{
+  display: inline-block;
+  padding: 30px;
+}
+.card-container{
+  display: inline-block;
+  position: relative;
+  padding: 5px;
+  width: 22%;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  height: 10em;
+  border-radius: 2%;
+  background-color: rgba(0,0,0,0.2);
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  padding: 2em 2em 2em 2em;
 }
