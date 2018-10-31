@@ -55,7 +55,7 @@ $rdetails=mysqli_fetch_array($q1);
     		?>
     	
     </div>
-    <script src="js/restaurant_menu.js">
+    <script>
     	function add_item(cur_id){
     		var quan=document.getElementById(cur_id).innerHTML;
     		if(quan<10)
