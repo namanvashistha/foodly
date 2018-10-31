@@ -78,5 +78,6 @@ $q1=mysqli_query($con,$q);
 	},1000);
 });
 </script>
+<script src="js/home.js" type="text/javascript"></script>
 </body>
 </html>

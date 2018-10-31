@@ -183,7 +183,7 @@ if(isset($_POST['update'])){
  
 
         <div class="navbar">
-            <a href="logut.php">Logout</a>
+            <a href="logout.php">Logout</a>
         <a href="support_sign.php">Chat Support Executive</a>
         <div class="copy">&copy; foodly</div>
         </div>

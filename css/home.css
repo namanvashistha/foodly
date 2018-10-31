@@ -234,16 +234,6 @@ li a:hover:not(.active) {
 .active {
     background-color: golden
     text-align: center;
-
-.arrow-down{
-
-    width: 0; 
-  height: 0; 
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  
-  border-top: 5px solid black;
-
 }
 
 .card {
@@ -251,7 +241,7 @@ li a:hover:not(.active) {
     transition: 0.3s;
     width: 40%;
     border-radius: 5px;
-    background-color: grey
+    background-color: grey;
 }
 
 .card:hover {
@@ -268,5 +258,16 @@ img {
 }
 
 #chat-box{
+  display: none;
   width: 50%;
+}
+.arrow-down{
+
+    width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  
+  border-top: 5px solid black;
+
 }
