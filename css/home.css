@@ -251,6 +251,10 @@ img {
     border-radius: 5px 5px 0 0;
 }
 
+h4{
+  text-decoration: none;
+}
+
 .container {
     padding: 2px 16px;
 }
@@ -292,5 +296,4 @@ img {
   text-decoration: none;
   color: black;
   padding: 2em 2em 2em 2em;
-  
-}
+  }
