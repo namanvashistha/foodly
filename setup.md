@@ -73,8 +73,9 @@ CREATE TABLE `orders` (
 ALTER TABLE `orders` AUTO_INCREMENT=100000;
 
 CREATE TABLE `chat_support` (
-  `order_id` int(20) NOT NULL,
+  `txt_id` int(20) NOT NULL,
   `client` varchar(20) NOT NULL,
+  `executive` varchar(30) NOT NULL DEFAULT 'Not Allotted',
   `txt_from` varchar(30) NOT NULL,
   `txt_to` varchar(30) NOT NULL,
   `txt` varchar(200) NOT NULL,
