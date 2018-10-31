@@ -120,7 +120,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
     		</div>
 		</form>
 	</div>
-
+<center><video height="300" width="300" autoplay="" loop=""><source src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats/static/videos/header_animation-c22df1758f.mp4" type="video/mp4"></video></center>
 	<div class="navbar">
   		<div class="for">For Business</div>
   		<a href="restaurant_sign.php">Restaurant</a>

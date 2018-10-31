@@ -245,6 +245,10 @@ span.log_pass {
     border-radius: 5px 5px 0 0;
 }
 
+h4{
+  text-decoration: none;
+}
+
 .container {
     padding: 2px 16px;
 }
@@ -371,3 +375,4 @@ span.log_pass {
   line-height: 1.5;
   margin-bottom: 1.25rem;
 }
+
