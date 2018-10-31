@@ -50,15 +50,10 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
-button {
-    background-color: #404040;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
+
+.addition{
     cursor: pointer;
-    width: 100%;
-    color: #FFDF00;
+    background-color: 
 }
 
 button:hover {

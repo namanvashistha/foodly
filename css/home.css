@@ -50,8 +50,6 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
-
-
 .cancelbtn {
     width: auto;
     padding: 10px 18px;
@@ -253,11 +251,13 @@ li a:hover:not(.active) {
     transition: 0.3s;
     width: 40%;
     border-radius: 5px;
+    background-color: grey
 }
 
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
+
 
 img {
     border-radius: 5px 5px 0 0;
