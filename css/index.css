@@ -40,7 +40,7 @@ body{
 
 }
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
     width: 100%;
     height: 100%;
     padding: 2px 2px;
