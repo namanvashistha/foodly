@@ -80,14 +80,14 @@ $q1=mysqli_query($con,$q);
 		<input type="submit" id="send_button" value="send" >
 	</div>
 </div>
-<br><br><br><br><br><br><br>
+<br><br><br><br>
 
  <div class="navbar">
-       	<a onclick="show_chat_box()">Support</a>
         <a href="#">Past Orders</a>
         <a href="logout.php">Log Out</a>
         <div class="copy">&copy; foodly</div>
 </div>
+       	<a id ="floating_button" onclick="show_chat_box()"><b>Support</b></a>
 <script>
 
 	$(document).ready(function(){
