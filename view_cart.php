@@ -34,7 +34,7 @@ for ($i=0;$i<$no_items;$i++) {
 	$item_price_discount=$item_price_total-(0.01*$item_price_total*$item_discount);
 	$total+=$item_price_discount;
 	$subtotal+=$item_price_total;
-	echo "<tr><td>".$row['name'].":</td><td>".$row['price']."</td><td>X ".$item_quantity."</td><td>= <strike>".$item_price_total."</strike></td><td>".$item_price_discount."</td></tr>";
+	echo "<tr><td>".$row['name'].":</td><td>".$row['price']."</td><td>&times; ".$item_quantity."</td><td>= <strike>".$item_price_total."</strike></td><td>".$item_price_discount."</td></tr>";
 }?>	
 	</table>
 

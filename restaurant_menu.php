@@ -41,8 +41,8 @@ $rdetails=mysqli_fetch_array($q1);
     				$n=$row['sno'];
     				echo "<tr><td>".$row['name']."</td><td>".$row['price']."</td><td>".$row['discount']."</td><td>".$row['description']."</td><td>
     				<button class='addition' onclick='remove_item(".$n.")'>-</button>
-    				 <span class='addition' id='".$n."'>0</span> 
-    				 <button class='add' onclick='add_item(".$n.")'>+</button>
+    				 <span class='buy' id='".$n."'>0</span> 
+    				 <button class='addition' onclick='add_item(".$n.")'>+</button>
     				 </td></tr>";
     			} ?>
     		</table>
@@ -55,34 +55,7 @@ $rdetails=mysqli_fetch_array($q1);
     		?>
     	
     </div>
-    <script src="js/restaurant_menu.js">
-    	function add_item(cur_id){
-    		var quan=document.getElementById(cur_id).innerHTML;
-    		if(quan<10)
-    			document.getElementById(cur_id).innerHTML=++quan;
-    	}
-    	function remove_item(cur_id){
-    		var quan=document.getElementById(cur_id).innerHTML;
-    		if(quan>0)
-    			document.getElementById(cur_id).innerHTML=--quan;
-    	}
-    	function view_cart(n){
-    		var j=0;
-    		var str="?";
-    		for (var i=0;i<n;i++) {
-    			var nam = document.getElementsByClassName("buy")[i];
-    			var quant=nam.innerHTML;
-    			var name=nam.id;
-    			if(quant>0) {
-    				str+="item"+j+"="+name+"&quantity"+j+"="+quant+"&";
-    				j++;
-    			}
-    		}
-    		str+="count="+j;
-            if(j>0)
-    		window.location.href = "view_cart.php"+str;
-    	}
-    </script>
+    <script src="js/restaurant_menu.js"></script>
     <div class="navbar">
        
         <a href="home.php">Home</a>
