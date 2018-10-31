@@ -220,3 +220,6 @@ span.log_pass {
   text-decoration: none;
   font-size: 17px;
 }
+.error_msg{
+  color: red;
+}

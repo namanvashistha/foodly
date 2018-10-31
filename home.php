@@ -16,6 +16,10 @@ $q1=mysqli_query($con,$q);
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	<title>home page</title>
 	<link rel="shortcut icon" href="images/logo.png" type="image/png">
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -37,12 +41,42 @@ $q1=mysqli_query($con,$q);
 </div>
 
 
+<div id="chat-box">
+	<div id="msg-box">
+	</div>
+	<div>
+		<input id="send_msg" type="text" name="msg" >
+		<input type="submit" id="send_button" value="send" >
+	</div>
+</div>
+<br><br><br><br><br><br><br>
+
  <div class="navbar">
-       
+       	<a onclick="show_chat_box()">Support</a>
         <a href="#">Past Orders</a>
-      
         <a href="logout.php">Log Out</a>
         <div class="copy">&copy; foodly</div>
-        </div>
+</div>
+<script>
+	$(document).ready(function(){
+	$('#send_button').click(function(){
+		var send_msg = $('#send_msg').val();
+		if($.trim(send_msg) !=''){
+			$.ajax({
+				url:"send-msg.php",
+				method:"POST",
+				data:{msg:send_msg,client:"user"},
+				dataType:"text",
+				success:function(data){
+					$('#send_msg').val("");
+				}
+			});
+		}
+	});
+	setInterval(function(){
+		$('#msg-box').load("fetch-msg.php").fadeIn("slow");
+	},1000);
+});
+</script>
 </body>
 </html>

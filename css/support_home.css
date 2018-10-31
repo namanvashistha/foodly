@@ -50,20 +50,7 @@ input[type=text], input[type=password] {
     box-sizing: border-box;
 }
 
-button {
-    background-color: #404040;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    color: #FFDF00;
-}
 
-button:hover {
-    opacity: 0.8;
-}
 
 .cancelbtn {
     width: auto;
@@ -219,4 +206,12 @@ span.log_pass {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+}
+
+#chat-box{
+  width: 50%;
+  
+}
+#msg-box{
+  
 }

@@ -20,6 +20,10 @@ if(isset($_POST['line'])){
 	<title>support home</title>
 	<link rel="shortcut icon" href="images/logo.png" type="image/png">
      <link rel="stylesheet" type="text/css" href="css/support_home.css">
+     <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 </head>
 <body>
      <div class="topnav">
@@ -36,49 +40,18 @@ if(isset($_POST['line'])){
         <form method="post">
             <input type="submit" name="line" value="<?php echo ($row['status'] == 'Go Online') ? 'Go Offline':'Go Online'; ?>" >
         </form> 
-       <?php
-        $q="select * from orders where order_from='$support_log_email';";
-        $q1=mysqli_query($con,$q);
-    ?>
-    <br>active orders<br><br>
-    <div>
-        <?php
-        while ($row=mysqli_fetch_array($q1)){
-           if($row['status']!="delivered"){
-            ?>
-                <div>
-                    order id:<?php echo $row['order_id']; ?>
-                    <br>ordered by:<?php echo $row['order_by']; ?>
-                    <br>items:<?php echo $row['support']; ?>
-                    <br>total:<?php echo $row['total']; ?>
-                    <br>address:<?php echo $row['address']; ?>
-                    <br>support:<?php echo $row['support']; ?>
-                    <br>status:<?php echo $row['status']; ?>
-                    <br>instance:<?php echo $row['instance']; ?>
-                </div>
-                <br>    
-        <?php }
-        }
-        ?>
-    </div>
-    <br>past orders
-    <div>
-        <?php
-        while ($row=mysqli_fetch_array($q1)){
-            if($row['status']=="delivered"){?>
-                <div>
-                    order id:
-                    ordered by:
-                    items:
-                    total:
-                    instance:
-                    address:
-                    status:
-                </div>    
-        <?php }
-        }
-        ?>
-    </div>
+
+        <div id="chat-box" >
+            <div id="msg-box">
+                msg-box
+            </div>
+            <div>
+                <input type="" name="">
+                <button>send</button>
+            </div>
+        </div>
+
+
  <div class="navbar">
         <div class="for">Chat with</div> 
         <a href="#">Restaurant</a>
@@ -87,5 +60,6 @@ if(isset($_POST['line'])){
            <a href="index.php">Logout</a>
         <div class="copy">&copy; foodly</div>
         </div>
+        <script src="js/support_home.js"></script>
 </body>
 </html>
