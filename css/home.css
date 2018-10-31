@@ -266,6 +266,8 @@ li a:hover:not(.active) {
     transition: 0.3s;
     width: 40%;
     border-radius: 5px;
+    background-color: blue;
+
 }
 
 .card:hover {

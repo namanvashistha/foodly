@@ -40,9 +40,9 @@ $rdetails=mysqli_fetch_array($q1);
     			while ($row=mysqli_fetch_array($q1)) {
     				$n=$row['sno'];
     				echo "<tr><td>".$row['name']."</td><td>".$row['price']."</td><td>".$row['discount']."</td><td>".$row['description']."</td><td>
-    				<button onclick='remove_item(".$n.")'>-</button>
-    				 <span class='buy' id='".$n."'>0</span> 
-    				 <button onclick='add_item(".$n.")'>+</button>
+    				<button class='addition' onclick='remove_item(".$n.")'>-</button>
+    				 <span class='addition' id='".$n."'>0</span> 
+    				 <button class='add' onclick='add_item(".$n.")'>+</button>
     				 </td></tr>";
     			} ?>
     		</table>

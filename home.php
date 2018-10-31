@@ -28,10 +28,10 @@ $q1=mysqli_query($con,$q);
 	while($row=mysqli_fetch_array($q1)){ ?>
 		<a href="restaurant_menu.php?restaurant=<?php echo $row['email']; ?>">
     		<div class="card">
-    			<div class="container">
+    		
     				<h4><b><?php echo $row['name'];  ?></b></h4> 
     				<p><?php echo $row['status'];  ?></p>
-    			</div>
+    			
     		</div>
   		</a><?php } ?>
 </div>
