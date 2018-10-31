@@ -55,7 +55,9 @@ $rdetails=mysqli_fetch_array($q1);
     		?>
     	
     </div>
+
     <script src="js/restaurant_menu.js"></script>
+
     <div class="navbar">
        
         <a href="home.php">Home</a>

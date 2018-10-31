@@ -2,6 +2,7 @@ body{
   margin : 0;
   font-family: Arial, Helvetica, sans-serif;
   background-color:   #D3D3D3 ;
+  text-decoration: none;
 }
 .topnav {
   overflow: hidden;
@@ -263,20 +264,23 @@ img {
     width: 0; 
   height: 0; 
   border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  
+  border-right: 5px solid transparent; 
   border-top: 5px solid black;
 
 }
 .cards{
   display: inline-block;
   padding: 30px;
+
+
 }
 .card-container{
   display: inline-block;
   position: relative;
   padding: 5px;
-  width: 22%;
+  width : 22%;
+
+
 }
 .card {
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -288,4 +292,5 @@ img {
   text-decoration: none;
   color: black;
   padding: 2em 2em 2em 2em;
+  
 }
