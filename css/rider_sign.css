@@ -1,4 +1,4 @@
-0body{
+body{
   margin : 0;
   font-family: Arial, Helvetica, sans-serif;
   background-color:white ;
@@ -17,6 +17,7 @@
   text-decoration: none;
   font-size: 17px;
   padding: 14px 16px;
+  cursor: pointer;
 }
 
 .topnav a:hover {
