@@ -87,7 +87,7 @@ $q1=mysqli_query($con,$q);
         <a href="logout.php">Log Out</a>
         <div class="copy">&copy; foodly</div>
 </div>
-       	<a id ="floating_button" onclick="show_chat_box()"><b>Support</b></a>
+       	<a class="boxe" onclick="show_chat_box()"><b>Support</b></a>
 <script>
 
 	$(document).ready(function(){
