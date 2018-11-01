@@ -445,6 +445,7 @@ position:fixed;
 }
 
 .dropdown .dropbtn {
+    margin-right: 0px;
     cursor: pointer;
     font-size: 22px;    
     border: none;
@@ -456,8 +457,7 @@ position:fixed;
 }
 
 .navbarra a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
-    background-color: #FFDF00;
-    color: black  ;
+    color: #A9A9A9  ;
 }
 
 .dropdown-content {
@@ -465,7 +465,7 @@ position:fixed;
     position: absolute;
     background-color:black;
     color: #FFDF00;
-    width: 129px;
+    width: 128px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     top: 53px;
