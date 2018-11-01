@@ -26,6 +26,14 @@ $q1=mysqli_query($con,$q);
 <body>
 <ul class="links_head">
 <li><img src="images\header_logo.jpeg" align="left" width="100" height="52"></li>
+ <div class="dropdown">
+    <button style= "float:right;"   class="dropbtn" onclick="myFunction()">Dropdown
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content" id="myDropdown">
+      <a href="#">Profile</a>
+      <a href="#">Past orders</a>
+      <a href="index.php">Logout</a>
 </ul>
 <center><h2>Restaurants</h2></center>
 
@@ -112,5 +120,8 @@ $q1=mysqli_query($con,$q);
 
 </script>
 <script src="js/home.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+</script>
 </body>
 </html>

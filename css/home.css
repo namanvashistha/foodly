@@ -393,8 +393,8 @@ position:fixed;
 }
 
 .boxe:hover{
-  width: 75px;
-  height: 75px;
+  width: 70px;
+  height: 70px;
   transform: rotate(360deg);
 }
 .boxe b{
@@ -419,4 +419,72 @@ position:fixed;
 
 #chat-box input[type=text] {
 
+}
+
+
+
+
+.navbarra {
+    overflow: hidden;
+    background-color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbarra a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.dropdown {
+    float: right;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    cursor: pointer;
+    font-size: 22px;    
+    border: none;
+    outline: none;
+    color: #FFDF00;
+    padding: 14px 14px;
+    background-color: inherit;
+    font-family: inherit;
+}
+
+.navbarra a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+    background-color: #FFDF00;
+    color: black  ;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color:black;
+    color: #FFDF00;
+    width: 129px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 53px;
+}
+
+.dropdown-content a {
+    float: none;
+    color: #FFDF00;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+  color: #A9A9A9;
+    
+}
+
+.show {
+    display: block;
 }
