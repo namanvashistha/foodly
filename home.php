@@ -42,8 +42,8 @@ $q1=mysqli_query($con,$q);
     <div class="card">
       <div style="background-image: url(images/<?php  echo mt_rand(1,9);?>.jpg);" class="card__image"></div>
       <div class="card__content">
-        <div class="card__title"><?php echo $row['name'];  ?>-<?php echo $row['status'];  ?></div>
-        <p class="card__text"><?php echo $row['address']."<br><br>".$row['description'];  ?></p>
+        <div class="card__title"><?php echo $row['name'];  ?></div><span><b><?php  echo ($row['status']=="Online")?"<font color='green'>Online</font>":"<b>Offline</b>";  ?></b></span>
+        <p class="card__text"><?php echo $row['address']."<br>".$row['description'];  ?></p>
       </div>
     </div>
 	</a>

@@ -140,7 +140,7 @@ span.log_pass {
 .navbar {
   overflow: hidden;
   background-color: black;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100%;
 }
@@ -209,7 +209,7 @@ span.log_pass {
   right:3%;
   background-color: white;
   border-radius:1%;
-  box-shadow: 2px 2px 3px #999;
+  box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
   text-decoration: none;
   padding: 22px 3px 0 3px;
 }

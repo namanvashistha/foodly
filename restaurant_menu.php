@@ -16,6 +16,10 @@ $rdetails=mysqli_fetch_array($q1);
 	<title>foodly | <?php echo $rdetails['name'];?></title>
  <link rel="shortcut icon" href="images\logo.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="css\restaurant_menu.css">
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 </head>
 <body style="font-family: Roboto,Arial,sans-serif;">
     <div class="topnav">
@@ -28,6 +32,9 @@ $rdetails=mysqli_fetch_array($q1);
 	<p><a target="_blank" href="mailto:<?php echo $rdetails['email'];?>"><?php echo $rdetails['email'];?></a></p>
 	<p>Address: <?php echo $rdetails['address'];?></p>
 	<p>Description: <?php echo $rdetails['description'];?></p>
+
+
+
 	<div>
     		<?php
     		$q="SELECT * FROM menu where restaurant_id='$restaurant'; ";
@@ -76,7 +83,22 @@ $rdetails=mysqli_fetch_array($q1);
         <input type="text" name="total" value="<?php echo $total; ?>" hidden><br>
         <input type="text" name="address" placeholder="Enter delivery address" required><br>
     </form>
+    <div>
+        <div>
+            subtotal
+        </div>
+        <div>
+            gst
+        </div>
+        <div>
+            savings
+        </div>
+        <div>
+            total
+        </div>
     </div>
+    </div>
+    
     <input id="totl_con" type="submit" name="confirm" value="Confirm Order">
 
 
@@ -84,6 +106,7 @@ $rdetails=mysqli_fetch_array($q1);
 
     <script >
         var item = 1;
+        var items_list="";
         function add_item(cur_id){
             var quan=document.getElementById('buy'+cur_id).innerHTML;
             if(quan<10){
@@ -93,6 +116,7 @@ $rdetails=mysqli_fetch_array($q1);
                 var discount=document.getElementById('discount'+cur_id).innerHTML;
                 if(quan==1){
                     item++;
+                    items_list=items_list+cur_id+" "+1+" ";
                     var objTo = document.getElementById('item_fileds');
                     var divtest = document.createElement("div");
                     divtest.innerHTML = '<div id=fin_items'+cur_id+'><span>'+name+'</span>: <span >'+price+'</span> &times; <span id=fin_quan'+cur_id+'>1</span>=<span><strike id=fin_price'+cur_id+'>'+price+'</strike> </span><span id=fin_fin_price'+cur_id+'>'+(price*0.01*(100-discount))+'</span></div>';
@@ -106,7 +130,7 @@ $rdetails=mysqli_fetch_array($q1);
             }
         }
 
-
+          var res = items_list.match(/\d+/g);
         function remove_item(cur_id){
             var quan=document.getElementById('buy'+cur_id).innerHTML;
             if(quan>0){
@@ -124,28 +148,30 @@ $rdetails=mysqli_fetch_array($q1);
                     document.getElementById('fin_fin_price'+cur_id).innerHTML=(quan*price*0.01*(100-discount));
                 }
             }
+            console.log(items_list);
         }
         
-      
-
-        function confirm_order(n){
-            var j=0;
-            var str="?";
-            for (var i=0;i<n;i++) {
-                var nam = document.getElementsByClassName("buy")[i];
-                var quant=nam.innerHTML;
-                var name=nam.id;
-                if(quant>0) {
-                    str+="item"+j+"="+name+"&quantity"+j+"="+quant+"&";
-                    j++;
-                }
-            }
-            str+="count="+j;
-            if(j>0)
-            window.location.href = "view_cart.php"+str;
-        }
+        
     </script>
 
+    <script>
+        $(document).ready(function(){
+        $('#totl_con').click(function(){
+            var send_msg = $('#send_msg').val();
+            if($.trim(send_msg) !=''){
+                $.ajax({
+                    url:"send-msg.php",
+                    method:"POST",
+                    data:{msg:send_msg,client:"user"},
+                    dataType:"text",
+                    success:function(data){
+                        $('#send_msg').val("");
+                }
+            });
+            }
+        });
+    });
+    </script>
     <div class="navbar">
        
         <a href="home.php">Home</a>
