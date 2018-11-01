@@ -5,7 +5,12 @@
 	}
 	$log_email=$_SESSION['log_email'];
 	include 'connection.php';
-	if(isset($_POST['submit'])){
+
+
+
+
+
+	if(isset($_POST['confirm'])){
 	$order_from=$_POST['restaurant'];
 	$order_by=$_SESSION['log_email'];
 	$items=$_POST['items'];

@@ -40,7 +40,7 @@ $q1=mysqli_query($con,$q);
   <li class="cards__item">
   	<a href="restaurant_menu.php?restaurant=<?php echo $row['email']; ?>">
     <div class="card">
-      <div style="background-image: url(images/<?php  echo mt_rand(1,8);?>.jpg);" class="card__image"></div>
+      <div style="background-image: url(images/<?php  echo mt_rand(1,9);?>.jpg);" class="card__image"></div>
       <div class="card__content">
         <div class="card__title"><?php echo $row['name'];  ?>-<?php echo $row['status'];  ?></div>
         <p class="card__text"><?php echo $row['address']."<br><br>".$row['description'];  ?></p>

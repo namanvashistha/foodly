@@ -40,25 +40,12 @@ body{
 
 }
 
-input[type=text], input[type=password] {
-    width: 100%;
-    height: 100%;
-    padding: 2px 2px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
 
 .addition{
     cursor: pointer;
     background-color: 
 }
 
-button:hover {
-    opacity: 0.8;
-}
 
 .cancelbtn {
     width: auto;
@@ -73,10 +60,6 @@ button:hover {
     position: relative;
 }
 
-img.avatar {
-    width: 40%;
-    border-radius: 50%;
-}
 
 .container {
     padding: 16px;
@@ -214,4 +197,37 @@ span.log_pass {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+}
+
+#totl{
+  position:fixed;
+  width: 30%;
+  top:60px;
+  overflow: scroll;
+  overflow-x: hidden;
+  height: 420px;
+  right:3%;
+  background-color: white;
+  border-radius:1%;
+  box-shadow: 2px 2px 3px #999;
+  text-decoration: none;
+  padding: 22px 3px 0 3px;
+}
+#totl_con{
+  position:fixed;
+  width: 30.4%;
+  top:503px;
+  height: 33px;
+  right:3%;
+  border: 2px solid black;
+  background-color: #4CAF50;
+  font-size: 16px;
+  cursor: pointer;
+  border-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
+
+#totl_con:hover {
+  background-color: #4CBF50;
 }

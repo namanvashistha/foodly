@@ -391,7 +391,7 @@ h4{
   text-align: center;
 }
 #floating_button b{
-  margin-top: 50px; 
+  margin-top: 55px; 
 
 }
 
@@ -404,8 +404,10 @@ h4{
   right:3%;
   color:#000;
   box-shadow: 2px 2px 3px #999;
+}
 
-#floating_button:hover{
+
+#floating_button : hover{
   background-color: #FFDF00;
   color: black;
 }

@@ -13,7 +13,7 @@ $rdetails=mysqli_fetch_array($q1);
 <!DOCTYPE html>
 <html>
 <head>
-	<title>foodly - <?php echo $rdetails['name'];?></title>
+	<title>foodly | <?php echo $rdetails['name'];?></title>
  <link rel="shortcut icon" href="images\logo.png" type="image/png">
     <link rel="stylesheet" type="text/css" href="css\restaurant_menu.css">
 </head>
@@ -39,15 +39,14 @@ $rdetails=mysqli_fetch_array($q1);
     		<?php
     			while ($row=mysqli_fetch_array($q1)) {
     				$n=$row['sno'];
-    				echo "<tr><td>".$row['name']."</td><td>".$row['price']."</td><td>".$row['discount']."</td><td>".$row['description']."</td><td>
-    				<button class='addition' onclick='remove_item(".$n.")'>-</button>
-    				 <span class='buy' id='".$n."'>0</span> 
+    				echo "<tr><td><span class='name' id='name".$n."'>".$row['name']."</span></td><td><span class='price' id='price".$n."'>".$row['price']."</span></td><td><span class='discount' id='discount".$n."'>".$row['discount']."</span></td><td><span class='description' id='description".$n."'>".$row['description']."</span></td><td>
+    				<button class='addition' onclick='remove_item(".$n.");'>-</button>
+    				 <span class='buy' id='buy".$n."'>0</span> 
     				 <button class='addition' onclick='add_item(".$n.")'>+</button>
     				 </td></tr>";
     			} ?>
     		</table>
-            <?php if ($rdetails['status']=="Online") { ?>
-    		<button  onclick="view_cart(<?php echo $rowcount; ?>)">Proceed to cart</button><?php }
+            <?php 
     		}
     		else{
     			echo "<b>List of items will be displayed here</b>";
@@ -56,7 +55,96 @@ $rdetails=mysqli_fetch_array($q1);
     	
     </div>
 
-    <script src="js/restaurant_menu.js"></script>
+    <div id="totl">
+    
+    <div id="item_fileds">
+        
+    </div>
+
+    <?php
+    /*$gst=0.05*$subtotal;
+    $savings=$subtotal-$total;
+    $total+=$gst;
+    echo "<br>Subtotal = ₹".$subtotal."<br>"."GST = ₹".$gst."<br>";
+    echo "Savings = ₹".$savings."</br>";
+    echo "<b>Total = ₹".$total."</b>";*/
+    ?>
+    <form action="order_status.php" method="post">
+        <input type="text" name="restaurant" value="<?php echo $restaurant; ?>" hidden>
+        <input type="text" name="no_items" value="<?php echo $no_items; ?>" hidden>
+        <input type="text" name="items" value="<?php echo $items; ?>" hidden>
+        <input type="text" name="total" value="<?php echo $total; ?>" hidden><br>
+        <input type="text" name="address" placeholder="Enter delivery address" required><br>
+    </form>
+    </div>
+    <input id="totl_con" type="submit" name="confirm" value="Confirm Order">
+
+
+
+
+    <script >
+        var item = 1;
+        function add_item(cur_id){
+            var quan=document.getElementById('buy'+cur_id).innerHTML;
+            if(quan<10){
+                document.getElementById('buy'+cur_id).innerHTML=++quan;
+                var name=document.getElementById('name'+cur_id).innerHTML;
+                var price=document.getElementById('price'+cur_id).innerHTML;
+                var discount=document.getElementById('discount'+cur_id).innerHTML;
+                if(quan==1){
+                    item++;
+                    var objTo = document.getElementById('item_fileds');
+                    var divtest = document.createElement("div");
+                    divtest.innerHTML = '<div id=fin_items'+cur_id+'><span>'+name+'</span>: <span >'+price+'</span> &times; <span id=fin_quan'+cur_id+'>1</span>=<span><strike id=fin_price'+cur_id+'>'+price+'</strike> </span><span id=fin_fin_price'+cur_id+'>'+(price*0.01*(100-discount))+'</span></div>';
+                    objTo.appendChild(divtest);   
+                }
+                else{
+                    document.getElementById('fin_quan'+cur_id).innerHTML=quan;
+                    document.getElementById('fin_price'+cur_id).innerHTML=quan*price;
+                    document.getElementById('fin_fin_price'+cur_id).innerHTML=(quan*price*0.01*(100-discount));
+                }
+            }
+        }
+
+
+        function remove_item(cur_id){
+            var quan=document.getElementById('buy'+cur_id).innerHTML;
+            if(quan>0){
+                document.getElementById('buy'+cur_id).innerHTML=--quan;
+                var name=document.getElementById('name'+cur_id).innerHTML;
+                var price=document.getElementById('price'+cur_id).innerHTML;
+                var discount=document.getElementById('discount'+cur_id).innerHTML;
+                if(quan==0){
+                    item++;
+                    var objTo = document.getElementById('fin_items'+cur_id).remove(); 
+                }
+                else{
+                    document.getElementById('fin_quan'+cur_id).innerHTML=quan;
+                    document.getElementById('fin_price'+cur_id).innerHTML=quan*price;
+                    document.getElementById('fin_fin_price'+cur_id).innerHTML=(quan*price*0.01*(100-discount));
+                }
+            }
+        }
+        
+      
+
+        function confirm_order(n){
+            var j=0;
+            var str="?";
+            for (var i=0;i<n;i++) {
+                var nam = document.getElementsByClassName("buy")[i];
+                var quant=nam.innerHTML;
+                var name=nam.id;
+                if(quant>0) {
+                    str+="item"+j+"="+name+"&quantity"+j+"="+quant+"&";
+                    j++;
+                }
+            }
+            str+="count="+j;
+            if(j>0)
+            window.location.href = "view_cart.php"+str;
+        }
+    </script>
 
     <div class="navbar">
        
