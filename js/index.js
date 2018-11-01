@@ -10,3 +10,4 @@ if (sign_error=="email already exists") {
 	var sign_pop = document.getElementById('id02');
 	sign_pop.style.display="block";
 }
+
