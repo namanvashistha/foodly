@@ -375,7 +375,7 @@ h4{
 }
 
 .boxe{
-  position:fixed;
+position:fixed;
   width: 70px;
   height: 70px;
   bottom:57px;
@@ -387,11 +387,16 @@ h4{
   box-shadow: 2px 2px 3px #999;
   text-decoration: none;
   cursor: pointer;
-  padding: 22px 3px 0 3px;
+  padding: 25px 3px 0 3px;
   text-align: center;
+
+    transition: width 2s, height 2s, transform 2s;
 }
 .boxe:hover{
-    box-shadow: 0 0 200 px rgba(33,33,33,.2); 
+    width: 75px;
+    height: 75px;
+
+    transform: rotate(360deg);
 }
 .boxe b{
   margin-top: 50px; 

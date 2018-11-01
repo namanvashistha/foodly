@@ -6,3 +6,11 @@
 	else
 		chat_box.style.display='none';
 	}
+
+
+
+
+
+
+
+	
