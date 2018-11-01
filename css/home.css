@@ -374,8 +374,8 @@ h4{
   margin-bottom: 1.25rem;
 }
 
-#floating_button{
-  position:fixed;
+.boxe{
+position:fixed;
   width: 70px;
   height: 70px;
   bottom:57px;
@@ -387,18 +387,24 @@ h4{
   box-shadow: 2px 2px 3px #999;
   text-decoration: none;
   cursor: pointer;
-  padding: 22px 3px 0 3px;
+  padding: 25px 3px 0 3px;
   text-align: center;
+  transition: width 2s, height 2s, transform 2s;
 }
-#floating_button b{
-  margin-top: 55px; 
 
+.boxe:hover{
+  width: 75px;
+  height: 75px;
+  transform: rotate(360deg);
+}
+.boxe b{
+  margin-top: 50px;
 }
 
 #chat-box{
   display: none;
   bottom:150px;
-  background-color: red;
+  background-color: white;
   position:fixed;
   width:90%;
   right:3%;
@@ -406,11 +412,6 @@ h4{
   box-shadow: 2px 2px 3px #999;
 }
 
-
-#floating_button : hover{
-  background-color: #FFDF00;
-  color: black;
-}
 
 #chat-box input[type=submit] {
 
