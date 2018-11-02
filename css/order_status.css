@@ -162,7 +162,7 @@ span.log_pass {
 .navbar {
   overflow: hidden;
   background-color: black;
-  position: fixed;
+  position: relative;
   bottom: 0;
   width: 100%;
 }

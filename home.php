@@ -34,6 +34,8 @@ $q1=mysqli_query($con,$q);
       <a href="#">Profile</a>
       <a href="#">Past orders</a>
       <a href="index.php">Logout</a>
+  </div>
+</div>
 </ul>
 <center><h2>Restaurants</h2></center>
 
@@ -103,7 +105,7 @@ $q1=mysqli_query($con,$q);
 		var send_msg = $('#send_msg').val();
 		if($.trim(send_msg) !=''){
 			$.ajax({
-				url:"send-msg.php",
+				url:"send_msg.php",
 				method:"POST",
 				data:{msg:send_msg,client:"user"},
 				dataType:"text",
@@ -114,7 +116,7 @@ $q1=mysqli_query($con,$q);
 		}
 	});
 	setInterval(function(){
-		$('#msg-box').load("fetch-msg.php").fadeIn("slow");
+		$('#msg-box').load("fetch_msg.php").fadeIn("slow");
 	},1000);
 });
 

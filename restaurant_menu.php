@@ -76,37 +76,37 @@ $rdetails=mysqli_fetch_array($q1);
     echo "Savings = ₹".$savings."</br>";
     echo "<b>Total = ₹".$total."</b>";*/
     ?>
-    <form action="order_status.php" method="post">
-        <input type="text" name="restaurant" value="<?php echo $restaurant; ?>" hidden>
-        <input type="text" name="no_items" value="<?php echo $no_items; ?>" hidden>
-        <input type="text" name="items" value="<?php echo $items; ?>" hidden>
-        <input type="text" name="total" value="<?php echo $total; ?>" hidden><br>
-        <input type="text" name="address" placeholder="Enter delivery address" required><br>
-    </form>
+    
+    <input id="delivery_address" type="text" name="address" placeholder="Enter delivery address" required>
     <div>
         <div>
-            subtotal
+            subtotal = ₹<span id="subtotal">0</span>
         </div>
         <div>
-            gst
+            Savings = ₹<span id="savings">0</span>
         </div>
         <div>
-            savings
+            GST = ₹<span id="gst">0</span>
         </div>
         <div>
-            total
+            total = ₹<span id="total">0</span>
         </div>
     </div>
     </div>
     
     <input id="totl_con" type="submit" name="confirm" value="Confirm Order">
 
-
+    <script src="js/restaurant_menu.js" type="text/javascript" ></script>
 
 
     <script >
-        var item = 1;
         var items_list="";
+        var o = new Object();
+        var item = 1;
+        var subtotal=0;
+        var total=0;
+        var savings=0;
+        var gst=0;
         function add_item(cur_id){
             var quan=document.getElementById('buy'+cur_id).innerHTML;
             if(quan<10){
@@ -116,21 +116,30 @@ $rdetails=mysqli_fetch_array($q1);
                 var discount=document.getElementById('discount'+cur_id).innerHTML;
                 if(quan==1){
                     item++;
-                    items_list=items_list+cur_id+" "+1+" ";
                     var objTo = document.getElementById('item_fileds');
                     var divtest = document.createElement("div");
                     divtest.innerHTML = '<div id=fin_items'+cur_id+'><span>'+name+'</span>: <span >'+price+'</span> &times; <span id=fin_quan'+cur_id+'>1</span>=<span><strike id=fin_price'+cur_id+'>'+price+'</strike> </span><span id=fin_fin_price'+cur_id+'>'+(price*0.01*(100-discount))+'</span></div>';
-                    objTo.appendChild(divtest);   
+                    objTo.appendChild(divtest);
+                    
                 }
                 else{
                     document.getElementById('fin_quan'+cur_id).innerHTML=quan;
                     document.getElementById('fin_price'+cur_id).innerHTML=quan*price;
                     document.getElementById('fin_fin_price'+cur_id).innerHTML=(quan*price*0.01*(100-discount));
+                    
                 }
+                subtotal=subtotal+(1*price);
+                gst=gst+(0.05*price);
+                total=total+price*0.01*(100-discount)+(0.05*price);
+                savings=savings+price*0.01*discount;
+                document.getElementById('subtotal').innerHTML=1*subtotal;
+                document.getElementById('gst').innerHTML=1*gst;
+                document.getElementById('total').innerHTML=1*total;
+                document.getElementById('savings').innerHTML=1*savings;
+                o[cur_id] = quan;
             }
         }
 
-          var res = items_list.match(/\d+/g);
         function remove_item(cur_id){
             var quan=document.getElementById('buy'+cur_id).innerHTML;
             if(quan>0){
@@ -139,7 +148,6 @@ $rdetails=mysqli_fetch_array($q1);
                 var price=document.getElementById('price'+cur_id).innerHTML;
                 var discount=document.getElementById('discount'+cur_id).innerHTML;
                 if(quan==0){
-                    item++;
                     var objTo = document.getElementById('fin_items'+cur_id).remove(); 
                 }
                 else{
@@ -147,25 +155,37 @@ $rdetails=mysqli_fetch_array($q1);
                     document.getElementById('fin_price'+cur_id).innerHTML=quan*price;
                     document.getElementById('fin_fin_price'+cur_id).innerHTML=(quan*price*0.01*(100-discount));
                 }
+                subtotal=subtotal-(1*price);
+                    gst=gst-(0.05*price);
+                    total=total-price*0.01*(100-discount)-(0.05*price);
+                    savings=savings-price*0.01*discount;
+                    document.getElementById('subtotal').innerHTML=subtotal;
+                    document.getElementById('gst').innerHTML=gst;
+                    document.getElementById('total').innerHTML=total;
+                    document.getElementById('savings').innerHTML=savings;
+                o[cur_id] = quan;
             }
-            console.log(items_list);
         }
         
         
-    </script>
-
-    <script>
         $(document).ready(function(){
         $('#totl_con').click(function(){
-            var send_msg = $('#send_msg').val();
-            if($.trim(send_msg) !=''){
+            for(var i in o){
+            if (o[i]>0)
+                items_list=items_list+i+" "+o[i]+" ";
+            }
+            console.log(items_list);
+            var delivery_address = $('#delivery_address').val();
+            var total = $('#total').html();
+            items_list=$.trim(items_list);
+            if(items_list !=''){
                 $.ajax({
-                    url:"send-msg.php",
+                    url:"send_order.php",
                     method:"POST",
-                    data:{msg:send_msg,client:"user"},
+                    data:{items:items_list,total:total,address:delivery_address,restaurant:<?php echo $restaurant; ?>},
                     dataType:"text",
                     success:function(data){
-                        $('#send_msg').val("");
+                        window.location = "order_status.php";
                 }
             });
             }
