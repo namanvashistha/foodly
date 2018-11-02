@@ -29,7 +29,11 @@
         while ($row=mysqli_fetch_array($q1)){
            if($row['status']!="delivered" && $row['status']!="declined"){
             ?>
-                <div>
+              <div class="distance">
+              <div class="ordercard">
+
+  <div class="ordercardinsidetext">
+
                     order id:<?php echo $row['order_id']; ?>
                     <br>ordered from:<?php $order_from=$row['order_from'];
                     	echo $order_from; ?>
@@ -47,12 +51,16 @@
                     <br>rider:<?php echo $row['rider']; ?>
                     <br>instance:<?php echo $row['instance']; ?>
                     <br>status:<?php echo $row['status']; ?>
-                </div>
-                <br>    
+
+                <br> 
+
+  </div>
+</div> </div>  
         <?php }
         }
         ?>
-    </div>
+    
+
 
      <div class="navbar">
        
