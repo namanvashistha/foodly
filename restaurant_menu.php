@@ -22,9 +22,17 @@ $rdetails=mysqli_fetch_array($q1);
   crossorigin="anonymous"></script>
 </head>
 <body style="font-family: Roboto,Arial,sans-serif;">
-    <div class="topnav">
-        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left"></div>
-
+<ul class="links_head">
+<li><img src="images\header_logo.jpeg" align="left" width="100" height="52"></li>
+ <div class="dropdown">
+    <button style= "float:right;"   class="dropbtn" onclick="myFunction()">Dropdown
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content" id="myDropdown">
+      <a href="#">Profile</a>
+      <a href="#">Past orders</a>
+      <a href="index.php">Logout</a>
+</ul>
 	
 	<h2><?php echo $rdetails['name'];?></h2>
     <p><?php echo $rdetails['status'];?></p>
@@ -90,7 +98,7 @@ $rdetails=mysqli_fetch_array($q1);
 
     <script src="js/restaurant_menu.js" type="text/javascript" ></script>
 
-
+<script src="js\restaurant_menu.js"></script>
     <script >
         var items_list="";
         var o = new Object();
@@ -191,7 +199,12 @@ $rdetails=mysqli_fetch_array($q1);
         <a href="logout.php">Log out</a>
         <a href="#">Past orders</a>
         <div class="copy">&copy; foodly</div>
-        </div>
+        </div>              
+
+
+
+
+                
 
 </body>
 </html>

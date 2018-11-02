@@ -97,7 +97,9 @@ $q1=mysqli_query($con,$q);
         <a href="logout.php">Log Out</a>
         <div class="copy">&copy; foodly</div>
 </div>
-       	<a class="boxe" onclick="show_chat_box()"><b>Support</b></a>
+       	<a class="boxe" onclick="show_chat_box()" class="js-close-modal"><b>Support</b></a>
+       	
+
 <script>
 
 	$(document).ready(function(){
@@ -123,7 +125,22 @@ $q1=mysqli_query($con,$q);
 </script>
 <script src="js/home.js" type="text/javascript"></script>
 <script type="text/javascript">
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+    var myDropdown = document.getElementById("myDropdown");
+      if (myDropdown.classList.contains('show')) {
+        myDropdown.classList.remove('show');
+      }
+  }
+}
 
+var modal = document.getElementById('chat-box');
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 </script>
 </body>
 </html>
