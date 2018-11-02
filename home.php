@@ -97,7 +97,35 @@ $q1=mysqli_query($con,$q);
         <a href="logout.php">Log Out</a>
         <div class="copy">&copy; foodly</div>
 </div>
-       	<a class="boxe" onclick="show_chat_box()"><b>Support</b></a>
+       	<div class=""><a class="boxe" onclick="show_chat_box()" class="js-close-modal"><b>Support</b></a></div>
+       	<script type="text/javascript">
+       		$(".js-open-modal").click(function(){
+  $(".modala").addClass("visible");
+});
+
+$(".js-close-modal").click(function(){
+  $(".modala").removeClass("visible");
+});
+
+$(document).click(function(event) {
+  
+  if (!$(event.target).closest(".modala,.js-open-modal").length) {
+    $("body").find(".modala").removeClass("visible");
+  }
+});
+
+
+       	</script>
+
+
+
+
+
+
+
+
+
+
 <script>
 
 	$(document).ready(function(){
@@ -123,7 +151,14 @@ $q1=mysqli_query($con,$q);
 </script>
 <script src="js/home.js" type="text/javascript"></script>
 <script type="text/javascript">
-
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+    var myDropdown = document.getElementById("myDropdown");
+      if (myDropdown.classList.contains('show')) {
+        myDropdown.classList.remove('show');
+      }
+  }
+}
 </script>
 </body>
 </html>
