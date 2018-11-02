@@ -56,8 +56,7 @@
 
      <div class="navbar">
        
-        <a href="confirm_order.php">Confirm Order</a>
-        <a href="logout.php">Log out</a>
+       
         
         <div class="copy">&copy; foodly</div>
         </div>
