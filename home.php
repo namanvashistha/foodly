@@ -121,11 +121,6 @@ $(document).click(function(event) {
 
 
 
-
-
-
-
-
 <script>
 
 	$(document).ready(function(){
@@ -158,6 +153,14 @@ window.onclick = function(e) {
         myDropdown.classList.remove('show');
       }
   }
+}
+
+var mo = document.getElementById('id01');
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 </script>
 </body>
