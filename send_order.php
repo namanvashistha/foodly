@@ -1,7 +1,7 @@
 <?php
 	include 'connection.php';
 	session_start();
-	$order_from=$_POST['restaurant'];
+	$order_from=$_SESSION['cur_restaurant'];
 	$order_by=$_SESSION['log_email'];
 	$items=$_POST['items'];
 	$total=$_POST['total'];

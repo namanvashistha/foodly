@@ -13,6 +13,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
         if($row['password'] == $log_pass){
             $_SESSION['rider_log_name'] =$row['name'];
             $_SESSION['rider_log_email'] =$log_email;
+            $_SESSION['log_client'] ="rider";
             header("location:rider_home.php");
         }
         else{
@@ -37,6 +38,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
             if($q3){
                 $_SESSION['rider_log_email'] =$sign_email;
                 $_SESSION['rider_log_name'] =$sign_name;
+                $_SESSION['log_client'] ="rider";
                 header("location:rider_home.php");    
             }
         }

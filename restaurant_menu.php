@@ -68,14 +68,6 @@ $rdetails=mysqli_fetch_array($q1);
         
     </div>
 
-    <?php
-    /*$gst=0.05*$subtotal;
-    $savings=$subtotal-$total;
-    $total+=$gst;
-    echo "<br>Subtotal = ₹".$subtotal."<br>"."GST = ₹".$gst."<br>";
-    echo "Savings = ₹".$savings."</br>";
-    echo "<b>Total = ₹".$total."</b>";*/
-    ?>
     
     <input id="delivery_address" type="text" name="address" placeholder="Enter delivery address" required>
     <div>
@@ -94,7 +86,7 @@ $rdetails=mysqli_fetch_array($q1);
     </div>
     </div>
     
-    <input id="totl_con" type="submit" name="confirm" value="Confirm Order">
+    <input id="<?php echo($rdetails['status']=="Online")? 'totl_con':'totl_dis';?>" type="submit" name="confirm" value="Confirm Order">
 
     <script src="js/restaurant_menu.js" type="text/javascript" ></script>
 
@@ -178,11 +170,12 @@ $rdetails=mysqli_fetch_array($q1);
             var delivery_address = $('#delivery_address').val();
             var total = $('#total').html();
             items_list=$.trim(items_list);
+            delivery_address=$.trim(delivery_address);
             if(items_list !=''){
                 $.ajax({
                     url:"send_order.php",
                     method:"POST",
-                    data:{items:items_list,total:total,address:delivery_address,restaurant:<?php echo $restaurant; ?>},
+                    data:{items:items_list,total:total,address:delivery_address},
                     dataType:"text",
                     success:function(data){
                         window.location = "order_status.php";
