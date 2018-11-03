@@ -29,15 +29,14 @@
         while ($row=mysqli_fetch_array($q1)){
            if($row['status']!="delivered" && $row['status']!="declined"){
             ?>
-              <div class="distance">
-              <div class="ordercard">
+                <div class="distance">
+                <div class="ordercard">
+                <div class="ordercardinsidetext">
 
-  <div class="ordercardinsidetext">
-
-                    order id:<?php echo $row['order_id']; ?>
-                    <br>ordered from:<?php $order_from=$row['order_from'];
+                    Order ID-<?php echo $row['order_id']; ?>
+                    <br>Restaurant:<?php $order_from=$row['order_from'];
                     	echo $order_from; ?>
-                    <br>items:<br><?php 
+                    <br>Items:<br><?php 
 					$item_list  = preg_split("/ /", $row['items']);
 					for($i=0;$i<sizeof($item_list);$i=$i+2){
 						$q_itm="SELECT name FROM menu where sno='$item_list[$i]' and restaurant_id='$order_from' ;";
@@ -46,11 +45,11 @@
 						echo "<div>&nbsp;&nbsp;".$row_itm['name']." &times; ".$item_list[$i+1]."</div>";
 			   		}
                     ?>
-                    total:<?php echo $row['total']; ?>
-                    <br>address:<?php echo $row['address']; ?>
-                    <br>rider:<?php echo $row['rider']; ?>
-                    <br>instance:<?php echo $row['instance']; ?>
-                    <br>status:<?php echo $row['status']; ?>
+                    Total:<?php echo $row['total']; ?>
+                    <br>Address:<?php echo $row['address']; ?>
+                    <br>Rider:<?php echo $row['rider']; ?>
+                    <br>Instance:<?php echo $row['instance']; ?>
+                    <br>Status:<?php echo $row['status']; ?>
 
                 <br> 
 

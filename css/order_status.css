@@ -1,7 +1,7 @@
 body{
   margin : 0;
   font-family:  Helvetica,Arial,, sans-serif;
-  background-color:   #D3D3D3 ;
+  background-color:   #999999;
 }
 .topnav {
   overflow: hidden;
@@ -162,8 +162,8 @@ span.log_pass {
 .navbar {
   overflow: hidden;
   background-color: black;
-  position: relative;
-  bottom: 0;
+  position: fixed;
+  bottom: 0px;
   width: 100%;
 }
 
@@ -221,12 +221,14 @@ span.log_pass {
   font-size: 17px;
 }
 .ordercard {
+    border-color: #A9A9A9;
+    background-color: #2F4F4F;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-    width: 40%;
+    width: 100%;
     border-radius: 5px;
-    display: block;
-    position: relative;
+  position: relative;
+
 }
 
 .ordercard:hover {
@@ -235,8 +237,10 @@ span.log_pass {
 
 
 .ordercardinsidetext {
-    padding: 2px 16px;
+    padding: 10px;
+    color: white;
 }
 .distance{
-  padding-bottom: 5px;
+  margin-top: 5px;
+  display: inline-block;
 }
