@@ -27,13 +27,14 @@ $q1=mysqli_query($con,$q);
 <ul class="links_head">
 <li><img src="images\header_logo.jpeg" align="left" width="100" height="52"></li>
  <div class="dropdown">
-    <button style= "float:right;"   class="dropbtn" onclick="myFunction()">Dropdown
+    <button style= "float:right;"   class="dropbtn" onclick="myFunction()"><?php echo "Hi ".$_SESSION['log_name']; ?>
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content" id="myDropdown">
       <a href="#">Profile</a>
+      <a href="order_status.php">Active orders</a>
       <a href="#">Past orders</a>
-      <a href="index.php">Logout</a>
+      <a href="logout.php">Logout</a>
   </div>
 </div>
 </ul>
@@ -124,23 +125,6 @@ $q1=mysqli_query($con,$q);
 
 </script>
 <script src="js/home.js" type="text/javascript"></script>
-<script type="text/javascript">
-window.onclick = function(e) {
-  if (!e.target.matches('.dropbtn')) {
-    var myDropdown = document.getElementById("myDropdown");
-      if (myDropdown.classList.contains('show')) {
-        myDropdown.classList.remove('show');
-      }
-  }
-}
 
-var modal = document.getElementById('chat-box');
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-</script>
 </body>
 </html>
