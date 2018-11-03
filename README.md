@@ -1,6 +1,6 @@
 # foodly
 
-#### website build to order food online and also for business
+#### website build to order food online and also for business in php and ajax
 
 ## [foodly.ml](http://foodly.ml/)
 
