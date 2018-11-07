@@ -25,13 +25,13 @@ $rdetails=mysqli_fetch_array($q1);
 <ul class="links_head">
 <li><img src="images\header_logo.jpeg" align="left" width="100" height="52"></li>
  <div class="dropdown">
-    <button style= "float:right;"   class="dropbtn" onclick="myFunction()">Dropdown
+    <button style= "float:right;"   class="dropbtn" onclick="myFunction()"><?php echo $_SESSION['log_name']; ?>
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content" id="myDropdown">
       <a href="#">Profile</a>
       <a href="#">Past orders</a>
-      <a href="index.php">Logout</a>
+      <a href="index.php">Logout</a></div></div>
 </ul>
 	
 	<h2><?php echo $rdetails['name'];?></h2>

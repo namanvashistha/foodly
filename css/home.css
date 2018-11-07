@@ -445,10 +445,7 @@ position:fixed;
     overflow: hidden;
 }
 
-
-}
 .dropdown .dropbtn {
-    text-align: center;
     margin-right: 76px;
     cursor: pointer;
     font-size: 22px;    
@@ -458,10 +455,6 @@ position:fixed;
     padding: 14px 14px;
     background-color: inherit;
     font-family: inherit;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
 }
 
 .navbarra a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
@@ -477,7 +470,6 @@ position:fixed;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     top: 53px;
-
 }
 
 .dropdown-content a {

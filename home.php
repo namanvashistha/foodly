@@ -17,7 +17,7 @@ $q1=mysqli_query($con,$q);
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	<title>home page</title>
 	<link rel="shortcut icon" href="images/logo.png" type="image/png">
-	<script
+    <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
@@ -26,17 +26,14 @@ $q1=mysqli_query($con,$q);
 <body>
 <ul class="links_head">
 <li><img src="images\header_logo.jpeg" align="left" width="100" height="52"></li>
- <div class="dropdown">
+  <div class="dropdown">
     <button style= "float:right;"   class="dropbtn" onclick="myFunction()"><?php echo $_SESSION['log_name']; ?>
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content" id="myDropdown">
       <a href="#">Profile</a>
-      <a href="order_status.php">Active orders</a>
       <a href="#">Past orders</a>
-      <a href="logout.php">Logout</a>
-  </div>
-</div>
+      <a href="index.php">Logout</a></div></div>
 </ul>
 <center><h2>Restaurants</h2></center>
 
