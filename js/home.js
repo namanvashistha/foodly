@@ -19,7 +19,7 @@ window.onclick = function(e) {
       }
   }
 }
-
+	
 
 var modal = document.getElementById('chat-box');
 

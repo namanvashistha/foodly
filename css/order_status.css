@@ -201,12 +201,13 @@ span.log_pass {
   font-size: 17px;
 }
 .ordercard {
-    border-color: #A9A9A9;
-    background-color: #2F4F4F;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 100%;
-    border-radius: 5px;
+  border-color: #A9A9A9;
+  border-color: #A9A9A9;
+  background-color: #2F4F4F;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 100%;
+  border-radius: 5px;
   position: relative;
 
 }
