@@ -17,10 +17,7 @@ $q1=mysqli_query($con,$q);
 	<link rel="stylesheet" type="text/css" href="css/home.css">
 	<title>home page</title>
 	<link rel="shortcut icon" href="images/logo.png" type="image/png">
-    <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
+ 
 </head>
 
 <body>
@@ -122,6 +119,10 @@ $q1=mysqli_query($con,$q);
 
 </script>
 <script src="js/home.js" type="text/javascript"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 
 </body>
 </html>
