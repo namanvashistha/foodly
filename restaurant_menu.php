@@ -29,17 +29,12 @@ $rdetails=mysqli_fetch_array($q1);
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content" id="myDropdown">
-      <a href="#">Profile</a>
-      <a href="#">Past orders</a>
-      <a href="index.php">Logout</a></div></div>
+    <a target="_blank" href="mailto:<?php echo $rdetails['email'];?>">Mail</a>
+    <a href="tel:<?php echo $rdetails['phone'];?>">Call</a>
+    <a href="index.php">Logout</a></div></div>
 </ul>
 	
-	<h2><?php echo $rdetails['name'];?></h2>
-    <p><?php echo $rdetails['status'];?></p>
-	<p><a href="tel:<?php echo $rdetails['phone'];?>"><?php echo $rdetails['phone'];?></a></p>
-	<p><a target="_blank" href="mailto:<?php echo $rdetails['email'];?>"><?php echo $rdetails['email'];?></a></p>
-	<p>Address: <?php echo $rdetails['address'];?></p>
-	<p>Description: <?php echo $rdetails['description'];?></p>
+	<h2 class="rname"><?php echo $rdetails['name'];?> is <?php echo $rdetails['status'];?></h2>
 
 
 
@@ -50,7 +45,7 @@ $rdetails=mysqli_fetch_array($q1);
 			$rowcount=mysqli_num_rows($q1);
 			if ($rowcount>0) {
     		?>	
-    		<table><tr><td><b>name</b></td><td><b>price</b></td><td><b>discount</b></td><td><b>description</b></td><td><b>quantity</b></td></tr></pre>
+    		<table><tr><td><b>Name</b></td><td><b>Price</b></td><td><b>Discount</b></td><td><b>Description</b></td><td><b>Quantity</b></td></tr></pre>
     		<?php
     			while ($row=mysqli_fetch_array($q1)) {
     				$n=$row['sno'];
@@ -69,7 +64,102 @@ $rdetails=mysqli_fetch_array($q1);
     		?>
     	
     </div>
+    
+     <div class="Rshopping-cart">
 
+
+      <!-- Product #1 -->
+      <div class="Ritem">
+        <div class="Rbuttons">
+          <span class="Rdelete-btn"></span>
+          <span class="Rlike-btn"></span>
+        </div>
+
+        <div class="Rimage">
+          <img src="item-1.png" alt="" />
+        </div>
+
+        <div class="Rdescription">
+          <span>Common Projects</span>
+          <span>Bball High</span>
+          <span>White</span>
+        </div>
+
+        <div class="Rquantity">
+          <button class="Rplus-btn" type="button" name="button">
+            <img src="plus.svg" alt="" />
+          </button>
+          <input type="text" name="name" value="1">
+          <button class="Rminus-btn" type="button" name="button">
+            <img src="minus.svg" alt="" />
+          </button>
+        </div>
+
+        <div class="Rtotal-price">$549</div>
+      </div>
+
+      <!-- Product #2 -->
+      <div class="item">
+        <div class="buttons">
+          <span class="Rdelete-btn"></span>
+          <span class="Rlike-btn"></span>
+        </div>
+
+        <div class="Rimage">
+          <img src="item-2.png" alt=""/>
+        </div>
+
+        <div class="Rdescription">
+          <span>Maison Margiela</span>
+          <span>Future Sneakers</span>
+          <span>White</span>
+        </div>
+
+        <div class="Rquantity">
+          <button class="Rplus-btn" type="button" name="button">
+            <img src="plus.svg" alt="" />
+          </button>
+          <input type="text" name="name" value="1">
+          <button class="Rminus-btn" type="button" name="button">
+            <img src="minus.svg" alt="" />
+          </button>
+        </div>
+
+        <div class="Rtotal-price">$870</div>
+      </div>
+
+      <!-- Product #3 -->
+      <div class="Ritem">
+        <div class="Rbuttons">
+          <span class="Rdelete-btn"></span>
+          <span class="Rlike-btn"></span>
+        </div>
+
+        <div class="Rimage">
+          <img src="item-3.png" alt="" />
+        </div>
+
+        <div class="Rdescription">
+          <span>Our Legacy</span>
+          <span>Brushed Scarf</span>
+          <span>Brown</span>
+        </div>
+
+        <div class="Rquantity">
+          <button class="Rplus-btn" type="button" name="button">
+            <img src="plus.svg" alt="" />
+          </button>
+          <input type="text" name="name" value="1">
+          <button class="Rminus-btn" type="button" name="button">
+            <img src="minus.svg" alt="" />
+          </button>
+        </div>
+
+        <div class="Rtotal-price">$349</div>
+      </div>
+    </div>
+
+    
     <div id="totl">
     
     <div id="item_fileds">
