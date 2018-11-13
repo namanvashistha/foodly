@@ -52,7 +52,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 </head>
 <body>
      <div class="topnav">
-        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left">
+        <img src="images/header_logo.jpeg" height= "45px" width = "110px" align="left">
           <div class="restaurant">for chat support executives</div>
         <a style="float:right;" onclick="document.getElementById('id02').style.display='block'" style="width:auto;" >Sign up</a>
         <div class="or">or</div>

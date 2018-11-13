@@ -19,15 +19,10 @@ window.onclick = function(e) {
       }
   }
 }
-	
+$(document).click(function(){
+ $("#myDropdown").hide('slow'); 
+});
 
-var modal = document.getElementById('chat-box');
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
-
-	
+$("#myDropdown").click(function(e){
+  e.stopPropagation(); 
+});
