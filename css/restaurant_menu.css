@@ -142,8 +142,8 @@ span.log_pass {
 .navbar {
   overflow: hidden;
   background-color: black;
-  position: absolute;
-  bottom: 0;
+  position:absolute;
+  bottom: 0px;
   width: 100%;
 }
 
@@ -621,5 +621,6 @@ position:fixed;
 .show {
     display: block;
 }
+
 
 

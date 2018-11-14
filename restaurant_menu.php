@@ -20,6 +20,7 @@ $rdetails=mysqli_fetch_array($q1);
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+
 </head>
 <body style="font-family: Roboto,Arial,sans-serif;">
 <ul class="links_head">
@@ -65,99 +66,6 @@ $rdetails=mysqli_fetch_array($q1);
     	
     </div>
     
-     <div class="Rshopping-cart">
-
-
-      <!-- Product #1 -->
-      <div class="Ritem">
-        <div class="Rbuttons">
-          <span class="Rdelete-btn"></span>
-          <span class="Rlike-btn"></span>
-        </div>
-
-        <div class="Rimage">
-          <img src="item-1.png" alt="" />
-        </div>
-
-        <div class="Rdescription">
-          <span>Common Projects</span>
-          <span>Bball High</span>
-          <span>White</span>
-        </div>
-
-        <div class="Rquantity">
-          <button class="Rplus-btn" type="button" name="button">
-            <img src="plus.svg" alt="" />
-          </button>
-          <input type="text" name="name" value="1">
-          <button class="Rminus-btn" type="button" name="button">
-            <img src="minus.svg" alt="" />
-          </button>
-        </div>
-
-        <div class="Rtotal-price">$549</div>
-      </div>
-
-      <!-- Product #2 -->
-      <div class="item">
-        <div class="buttons">
-          <span class="Rdelete-btn"></span>
-          <span class="Rlike-btn"></span>
-        </div>
-
-        <div class="Rimage">
-          <img src="item-2.png" alt=""/>
-        </div>
-
-        <div class="Rdescription">
-          <span>Maison Margiela</span>
-          <span>Future Sneakers</span>
-          <span>White</span>
-        </div>
-
-        <div class="Rquantity">
-          <button class="Rplus-btn" type="button" name="button">
-            <img src="plus.svg" alt="" />
-          </button>
-          <input type="text" name="name" value="1">
-          <button class="Rminus-btn" type="button" name="button">
-            <img src="minus.svg" alt="" />
-          </button>
-        </div>
-
-        <div class="Rtotal-price">$870</div>
-      </div>
-
-      <!-- Product #3 -->
-      <div class="Ritem">
-        <div class="Rbuttons">
-          <span class="Rdelete-btn"></span>
-          <span class="Rlike-btn"></span>
-        </div>
-
-        <div class="Rimage">
-          <img src="item-3.png" alt="" />
-        </div>
-
-        <div class="Rdescription">
-          <span>Our Legacy</span>
-          <span>Brushed Scarf</span>
-          <span>Brown</span>
-        </div>
-
-        <div class="Rquantity">
-          <button class="Rplus-btn" type="button" name="button">
-            <img src="plus.svg" alt="" />
-          </button>
-          <input type="text" name="name" value="1">
-          <button class="Rminus-btn" type="button" name="button">
-            <img src="minus.svg" alt="" />
-          </button>
-        </div>
-
-        <div class="Rtotal-price">$349</div>
-      </div>
-    </div>
 
     
     <div id="totl">
