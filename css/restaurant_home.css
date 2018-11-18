@@ -104,9 +104,10 @@ span.log_pass {
 .navbar {
   overflow: hidden;
   background-color: black;
-  position:absolute;
-  bottom: 0px;
+    position: fixed;
+    bottom: 0;
   width: 100%;
+  margin-bottom: 0px;
 }
 
 .navbar a {
@@ -116,7 +117,7 @@ span.log_pass {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 13px;
 }
 
 .navbar a:hover {
