@@ -104,7 +104,7 @@ span.log_pass {
 .navbar {
   overflow: hidden;
   background-color: black;
-    position: fixed;
+    position: relative;
     bottom: 0;
   width: 100%;
   margin-bottom: 0px;
@@ -541,7 +541,7 @@ position:fixed;
 }
 
 .dropdown .dropbtn {
-    margin-right: 76px;
+    margin-right: 72px;
     cursor: pointer;
     font-size: 22px;    
     border: none;

@@ -61,7 +61,7 @@ if(isset($_POST['update'])){
 <ul class="links_head">
 <li><img src="images\header_logo.jpeg" align="left" width="100" height="52"></li>
  <div class="dropdown">
-    <button style= "float:right;"   class="dropbtn" onclick="myFunction()"><?php echo $_SESSION['log_name']; ?>
+    <button style= "float:right;"   class="dropbtn" onclick="myFunction()"><?php echo $_SESSION['restaurant_log_email']; ?>
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content" id="myDropdown">
