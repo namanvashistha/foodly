@@ -51,12 +51,24 @@ if(isset($_POST['update'])){
 <html>
 <head>
 	<title>Restaurant Sign Up</title>
- <link rel="shortcut icon" href="images/logo.png" type="image/png">
-     <link rel="stylesheet" type="text/css" href="css/restaurant_home.css">
+    <link rel="shortcut icon" href="images/logo.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="css/restaurant_home.css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
 </head>
 <body >
- <div class="topnav">
-        <img src="images/header_logo.jpeg" height= "45px" width = "110px" align="left"></div>
+<ul class="links_head">
+<li><img src="images\header_logo.jpeg" align="left" width="100" height="52"></li>
+ <div class="dropdown">
+    <button style= "float:right;"   class="dropbtn" onclick="myFunction()"><?php echo $_SESSION['log_name']; ?>
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content" id="myDropdown">
+    <a target="_blank" href="mailto:<?php echo $rdetails['email'];?>">Mail</a>
+    <a href="tel:<?php echo $rdetails['phone'];?>">Call</a>
+    <a href="index.php">Logout</a></div></div>
+</ul>
 
 	<h3><?php echo $_SESSION['restaurant_log_name'];?></h3>
     <?php
