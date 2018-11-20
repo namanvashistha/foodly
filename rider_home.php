@@ -81,18 +81,20 @@ $error="";
         $q="SELECT * from orders where rider='$rider_log_email';";
         $q1=mysqli_query($con,$q);
     ?>
-    <br>active orders<br><br>
+    <br><BR><br><div class="active_orders">Active Orders</div>
     <div>
         <?php
         while ($row=mysqli_fetch_array($q1)){
            if($row['status']!="delivered" && $row['rider_status']!="declined"){
             ?>
-                <div>
-                    order id:<?php echo $row['order_id']; ?>
-                    <br>ordered by:<?php echo $row['order_by']; ?>
-                    <br>ordered from:<?php $order_from=$row['order_from'];
+                 <div class="distance">
+                    <div class="ordercard">
+                        <div class="ordercardinsidetext">
+                    Order ID:<?php echo $row['order_id']; ?>
+                    <br>Customer Email:<?php echo $row['order_by']; ?>
+                    <br>Restaurant Email:<?php $order_from=$row['order_from'];
                     	echo $order_from; ?>
-                    <br>items:<br><?php 
+                    <br>Items:<br><?php 
                     $item_list  = preg_split("/ /", $row['items']);
                     for($i=0;$i<sizeof($item_list);$i=$i+2){
                         $q_itm="SELECT name FROM menu where sno='$item_list[$i]' and restaurant_id='$order_from' ;";
@@ -101,11 +103,11 @@ $error="";
                         echo "<div>&nbsp;&nbsp;".$row_itm['name']." &times; ".$item_list[$i+1]."</div>";
                     }
                     ?>
-                    total:<?php echo $row['total']; ?>
-                    <br>address:<?php echo $row['address']; ?>
-                    <br>rider:<?php echo $row['rider']; ?>
-                    <br>instance:<?php echo $row['instance']; ?>
-                    <br>status:<?php echo $row['rider_status']; ?>
+                    Total:<?php echo $row['total']; ?>
+                    
+                    <br>Rider Email:<?php echo $row['rider']; ?>
+                    <br>Instance:<?php echo $row['instance']; ?>
+                    <br>Status:<?php echo $row['rider_status']; ?>
                     <br><form method="post">
                         <input type="text" name="order_id" value="<?php echo $row['order_id']; ?>" hidden>
                         <?php
@@ -120,25 +122,27 @@ $error="";
                             <?php if($error=="wrong otp") echo "wrong OTP"; ?>
                         	<input type="submit" name="delivered" value="Mark as Delivered"><?php } 
                         } ?>
-                </div>
+                </div></div></div>
                 <br>   
         <?php }
         }
         ?>
     </div>
-    <br>past orders
-    <div>
+    <br><div class="active_orders">Past Orders</div>
+    
         <?php
         $q="SELECT * from orders where rider='$rider_log_email';";
         $q1=mysqli_query($con,$q);
         while ($row=mysqli_fetch_array($q1)){
             if($row['status']=="delivered"){?>
-                <div>
-                    order id:<?php echo $row['order_id']; ?>
-                    <br>ordered by:<?php echo $row['order_by']; ?>
-                    <br>ordered from:<?php $order_from=$row['order_from'];
+                 <div class="distance">
+                    <div class="ordercard">
+                        <div class="ordercardinsidetext">
+                    Order ID:<?php echo $row['order_id']; ?>
+                    <br>Customer Email:<?php echo $row['order_by']; ?>
+                    <br>Restaurant Email:<?php $order_from=$row['order_from'];
                     	echo $order_from; ?>
-                    <br>items:<br><?php 
+                    <br>Items:<br><?php 
                     $item_list  = preg_split("/ /", $row['items']);
                     for($i=0;$i<sizeof($item_list);$i=$i+2){
                         $q_itm="SELECT name FROM menu where sno='$item_list[$i]' and restaurant_id='$order_from' ;";
@@ -147,12 +151,12 @@ $error="";
                         echo "<div>&nbsp;&nbsp;".$row_itm['name']." &times; ".$item_list[$i+1]."</div>";
                     }
                     ?>
-                    total:<?php echo $row['total']; ?>
-                    <br>address:<?php echo $row['address']; ?>
-                    <br>rider:<?php echo $row['rider']; ?>
-                    <br>instance:<?php echo $row['instance']; ?>
-                    <br>status:<?php echo $row['rider_status']; ?>
-                </div>
+                    Total:<?php echo $row['total']; ?>
+                    
+                    <br>Rider Email:<?php echo $row['rider']; ?>
+                    <br>Instance:<?php echo $row['instance']; ?>
+                    <br>Status:<?php echo $row['rider_status']; ?>
+                </div></div></div>
                 <br>    
         <?php }
         }
