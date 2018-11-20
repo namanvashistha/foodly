@@ -79,6 +79,3 @@ if(isset($_POST['update'])){
 <script src="js/food_donation.js"></script>
 </body>
 </html>
-<?php
-//  include 'scrap.php';
-?>

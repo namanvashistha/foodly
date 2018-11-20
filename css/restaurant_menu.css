@@ -4,6 +4,44 @@ body{
   background-color:   #D3D3D3 ;
 }
 
+.topnav {
+  overflow: hidden;
+  background-color: black;
+}
+.img {
+}
+
+
+.topnav a {
+  float: left;
+  color: #FFDF00;
+  text-align: center;
+  text-decoration: none;
+  font-size: 17px;
+  padding: 14px 16px;
+}
+
+.topnav a:hover {
+  background-color: #FFDF00;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.or {
+  float: left;
+  color: #696969;
+  text-align: center;
+  text-decoration: none;
+  font-size: 17px;
+  float: right;
+  padding: 14px 16px;
+
+}
+
 
 .addition{
     cursor: pointer;
