@@ -196,3 +196,32 @@ span.log_pass {
   text-decoration: none;
   font-size: 17px;
 }
+.ordercard {
+  border-color: #A9A9A9;
+  background-color: #2F4F4F;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 100%;
+  border-radius: 5px;
+  position: relative;
+
+}
+
+.ordercard:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+.ordercardinsidetext {
+    padding: 10px;
+    color: white;
+}
+.distance{
+  display: inline-block;
+  padding: 8px;
+  margin-top: 0;
+  }
+
+  .active_orders{
+  text-shadow: 0 0 3px #FF0000;
+}

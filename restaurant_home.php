@@ -86,13 +86,14 @@ if(isset($_POST['update'])){
         $q="select * from orders where order_from='$restaurant_log_email';";
         $q1=mysqli_query($con,$q);
     ?>
-    <br><div class="active_orders"><h3>Active Orders</h3></div><br><br>
-    <div >
+    <br><div class="active_orders"><h3>Active Orders</h3></div>
         <?php
         while ($row=mysqli_fetch_array($q1)){
            if($row['status']!="delivered" && $row['status']!="declined"){
             ?>
-                <div>
+                 <div class="distance">
+                    <div class="ordercard">
+                        <div class="ordercardinsidetext">
                     Order ID:<?php echo $row['order_id']; ?>
                     <br>Customer Email:<?php echo $row['order_by']; ?>
                     <br>Items:<br><?php 
@@ -116,20 +117,22 @@ if(isset($_POST['update'])){
                         <?php if ($row['status']!="declined") { ?>
                         <input type="submit" name="decline" value="decline"><?php } ?>
                     </form>
-                </div>
+                </div></div></div>
                 <br>    
         <?php }
         }
         ?>
     </div>
     <br><div class="active_orders"><h3>Past Orders</h3></div>
-    <div>
+   
         <?php
         $q="select * from orders where order_from='$restaurant_log_email';";
         $q1=mysqli_query($con,$q);
         while ($row=mysqli_fetch_array($q1)){
             if($row['status']=="delivered" || $row['status']=="declined"){ ?>
-                <div>
+                  <div class="distance">
+                    <div class="ordercard">
+                        <div class="ordercardinsidetext">
                     Order id:<?php echo $row['order_id']; ?>
                     <br>Customer Email:<?php echo $row['order_by']; ?>
                     <br>Items:<br><?php 
@@ -146,15 +149,15 @@ if(isset($_POST['update'])){
                     <br>Rider Email:<?php echo $row['rider']; ?>
                     <br>Instance:<?php echo $row['instance']; ?>
                     <br>Status:<?php echo $row['status']; ?>
-                </div>
-                <br>   
+                </div></div></div>
+                
         <?php }
         }
         ?>
-    </div>
+    <br><br><br>
 
-    <div class="recommend">
-        RECOMMENDED MAKING:
+    
+    <b>    RECOMMENDED MAKING:</b>
         <?php
     $res = $restaurant_log_email;
     date_default_timezone_set('Asia/Kolkata');
