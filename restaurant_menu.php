@@ -75,7 +75,7 @@ $rdetails=mysqli_fetch_array($q1);
     </div>
 
     
-    <input id="delivery_address" type="text" name="address" placeholder="Enter delivery address" required>
+    <input id="coupon_code" type="text" name="coupon_code" placeholder="Enter coupon code" required><button id="coupon">Apply</button>
     <div>
         <div>
             subtotal = ₹<span id="subtotal">0</span>
@@ -103,6 +103,7 @@ $rdetails=mysqli_fetch_array($q1);
         var item = 1;
         var subtotal=0;
         var total=0;
+        var otp  = Math.floor((Math.random() * 1000) + 1000);
         var savings=0;
         var gst=0;
         function add_item(cur_id){
@@ -181,7 +182,7 @@ $rdetails=mysqli_fetch_array($q1);
                 $.ajax({
                     url:"send_order.php",
                     method:"POST",
-                    data:{items:items_list,total:total,address:delivery_address},
+                    data:{items:items_list,total:total,address:delivery_address,otp:otp},
                     dataType:"text",
                     success:function(data){
                         window.location = "order_status.php";

@@ -18,8 +18,8 @@ if(isset($_POST['update'])){
             continue;
 		$q="INSERT INTO menu (`restaurant_id`,`name`,`price`,`discount`,`description`) VALUES ('$restaurant_log_email','$item_name[$i]', '$item_price[$i]','$item_discount[$i]','$item_desc[$i]');";
 		$q1=mysqli_query($con,$q);
-    	header('location:restaurant_home.php');
 	}	
+    header('location:restaurant_home.php');
 }
     if(isset($_POST['delete'])){
         $del_name=$_POST['del_name'];
@@ -101,7 +101,7 @@ if(isset($_POST['update'])){
                         $q_itm="SELECT name FROM menu where sno='$item_list[$i]' and restaurant_id='$restaurant_log_email'; ";
                         $q1_itm=mysqli_query($con,$q_itm);
                         $row_itm=mysqli_fetch_array($q1_itm);
-                        echo "<div>&nbsp;&nbsp;".$row_itm['name']." X ".$item_list[$i+1]."</div>";
+                        echo "<div>&nbsp;&nbsp;".$row_itm['name']." &times; ".$item_list[$i+1]."</div>";
                     }
                     ?>
                     total:<?php echo $row['total']; ?>
@@ -138,7 +138,7 @@ if(isset($_POST['update'])){
                         $q_itm="SELECT name FROM menu where sno='$item_list[$i]' and restaurant_id='$restaurant_log_email' ";
                         $q1_itm=mysqli_query($con,$q_itm);
                         $row_itm=mysqli_fetch_array($q1_itm);
-                        echo "<div>&nbsp;&nbsp;".$row_itm['name']." X ".$item_list[$i+1]."</div>";
+                        echo "<div>&nbsp;&nbsp;".$row_itm['name']." &times; ".$item_list[$i+1]."</div>";
                     }
                     ?>
                     total:<?php echo $row['total']; ?>
@@ -152,6 +152,91 @@ if(isset($_POST['update'])){
         }
         ?>
     </div>
+
+    <div id="recommend">
+        RECOMMENDED MAKING:
+        <?php
+    $res = $restaurant_log_email;
+    date_default_timezone_set('Asia/Kolkata');
+    $a=date("h");
+    $a=(int)$a;
+    
+    $part;
+    if($a>7 && $a<15)
+    {
+        $part=1;
+    }
+    else if($a>=15 && $a<20)
+    {
+        $part=2;
+    }
+    else if($a>=19 && $a<22)
+        $part=3;
+    else
+        $part=4;
+    $part=$part+2;
+    $mArray= array();
+    $max=0;
+    $sub;
+    $count=0;
+    $sql = "SELECT distinct(item_name) FROM `recommend` WHERE res_name='$res';";
+    $ym=0;
+    $xm=0;
+    $query=mysqli_query($con,$sql);
+    while($k = mysqli_fetch_array($query))
+    {
+        $d=$k['item_name'];
+        $q="SELECT * FROM `recommend` WHERE res_name='$res' and item_name='$d';";
+        $que = mysqli_query($con,$q);
+        while($g = mysqli_fetch_array($que))
+        {
+            $count++;
+            $s=(int)$g[$part];
+            $ym+=$s;
+            $xm+=$count;
+            //echo $count;
+        }
+        $num=0;
+        $ym=$ym/$count;
+        $xm=$xm/$count;
+        //echo $ym;
+            $cou=0;
+        $den1=0;
+        $den2=0;
+        $qw="SELECT * FROM `recommend` WHERE res_name='$res' and item_name='$d';";
+        $quw = mysqli_query($con,$qw);
+        $a=0;
+        while($y = mysqli_fetch_array($quw))
+        {   
+            $a=$a+1;
+            //echo $a;
+            
+            $v = (int)$y[$part];
+            $num+=($cou-$xm)*($v-$ym);
+            
+            $den1+=pow(($cou-$xm),2);
+            
+            $den2+=pow(($v-$ym),2);
+            $cou++;
+            //echo $cou;
+        }
+        $sy= $den2/($count-1);
+        $sx=$den1/($count-1);
+
+        $dem = pow(($den1*$den2),0.5);
+        $r=1;
+        if($dem!=0)
+        $r = $num/$dem;
+        $sy=pow($sy,0.5);
+        $sx=pow($sx,0.5);
+        $b=$r*($sy/$sx);
+        $a = $ym-$b*$xm;
+        $pre = $a+$b*$count;
+        echo $k['item_name']." ".(int)$pre."<br>";
+    }
+  ?>
+    </div>
+
 	<form method="post" >
        <div id="item_fileds">
            <div>
@@ -168,14 +253,15 @@ if(isset($_POST['update'])){
        	<input type="submit" name="update" value="Update">
     </form>
 
-    <div>
+    <div class="border">
     	<table>
     	<?php
     	$q="SELECT * FROM menu where restaurant_id='$restaurant_log_email'; ";
 		$q1=mysqli_query($con,$q);
 		$rowcount=mysqli_num_rows($q1);
 		if ($rowcount>0) {
-    	?>	
+    	?>
+
     	<tr><td><b>name</b></td><td><b>price</b></td><td><b>discount</b></td><td><b>description</b></td></tr></pre>
     	<?php
     			while ($row=mysqli_fetch_array($q1)) {
@@ -192,6 +278,7 @@ if(isset($_POST['update'])){
     	?>
     	</table>
     </div>
+    <br>
  
 
         <div class="navbar">

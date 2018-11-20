@@ -86,5 +86,26 @@ CREATE TABLE `stats` (
   `ip_address` varchar(30) NOT NULL,
   `coordinates` varchar(30) DEFAULT NULL,
   `city` varchar(30) DEFAULT NULL,
+  `status` varchar(15) NOT NULL DEFAULT 'visited',
+  `client` varchar(30) NOT NULL DEFAULT 'visit',
   `instance` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+COMMIT;
+
+CREATE TABLE `recommend` (
+  `res_name` varchar(500) NOT NULL,
+  `item_name` varchar(500) NOT NULL,
+  `date` date NOT NULL,
+  `first` int(20) NOT NULL,
+  `second` int(20) NOT NULL,
+  `third` int(20) NOT NULL,
+  `fourth` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `donate` (
+  `restaurant` varchar(30) NOT NULL,
+  `item_name` varchar(30) NOT NULL,
+  `item_quan` varchar(30) NOT NULL,
+  `instance` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `phone` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

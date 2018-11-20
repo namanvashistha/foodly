@@ -44,11 +44,13 @@
 						      echo "<div>&nbsp;&nbsp;".$row_itm['name']." &times; ".$item_list[$i+1]."</div>";
 			   		        }
                             ?>
-                            Total: <?php echo $row['total']; ?>
+                            Total: <?php echo floor($row['total']); ?>
                             <br>Address: <?php echo $row['address']; ?>
                             <br>Rider: <?php echo $row['rider']; ?>
                             <br>Instance: <?php echo $row['instance']; ?>
-                            <br>Status: <?php echo $row['status']; ?><br> 
+                            <br>Status: <?php echo $row['status']; ?>
+                            <br>OTP: <?php if($row['status']=="On the way") echo $row['otp'];
+                                            else echo "will be available soon"; ?><br> 
                         </div>
                     </div>
                 </div>  
