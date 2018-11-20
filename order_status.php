@@ -17,7 +17,7 @@
 </head>
 <body style="font-family: Helvetica;">
 	 <div class="topnav">
-        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left"></div>
+        <img src="images/header_logo.jpeg" height= "45px" width = "110px" align="left"></div>
 
     <div id="order_box">
         
