@@ -116,7 +116,7 @@ $error="";
                         	if ($row['rider_status']=="accepted") { ?>
                         	<input type="submit" name="on_the_way" value="Mark as On the way"><?php } 
                         	if($row['rider_status']=="On the way") { ?>
-                            <input type="text" name="otp" placeholder="Enter OTP" required><br>
+                            <input type="text" name="otp" placeholder="Enter OTP" ><br>
                             <?php if($error=="wrong otp") echo "wrong OTP"; ?>
                         	<input type="submit" name="delivered" value="Mark as Delivered"><?php } 
                         } ?>

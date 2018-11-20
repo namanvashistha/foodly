@@ -57,17 +57,17 @@ CREATE TABLE `menu` (
 ALTER TABLE `menu` AUTO_INCREMENT=1;
 
 CREATE TABLE `orders` (
-  `order_id` int(20) NOT NULL AUTO_INCREMENT,
+  `order_id` int(20) NOT NULL,
   `order_from` varchar(40) NOT NULL,
   `order_by` varchar(40) NOT NULL,
   `rider` varchar(40) NOT NULL,
   `rider_status` varchar(30) NOT NULL DEFAULT 'pending',
   `items` varchar(100) NOT NULL,
-  `total` float(20) NOT NULL,
+  `total` float NOT NULL,
   `instance` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `address` varchar(100) NOT NULL,
-  `status` varchar(30) NOT NULL DEFAULT 'placed',
-  PRIMARY KEY (`order_id`)
+  `otp` int(5) NOT NULL,
+  `status` varchar(30) NOT NULL DEFAULT 'placed'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `orders` AUTO_INCREMENT=100000;
