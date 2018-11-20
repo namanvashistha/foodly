@@ -221,6 +221,7 @@ body{
 .topnav {
   overflow: hidden;
   background-color: black;
+  position: fixed;
 }
 .img {
 }
@@ -585,8 +586,14 @@ position:fixed;
     display: block;
 }
 
+
 .border
 {
   border: solid;
   background-color: #00FA9A;
 }
+
+.active_orders{
+  text-shadow: 0 0 3px #FF0000;
+}
+
