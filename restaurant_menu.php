@@ -20,6 +20,7 @@ $rdetails=mysqli_fetch_array($q1);
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+
 </head>
 <body style="font-family: Roboto,Arial,sans-serif;">
 <ul class="links_head">
@@ -29,17 +30,12 @@ $rdetails=mysqli_fetch_array($q1);
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content" id="myDropdown">
-      <a href="#">Profile</a>
-      <a href="#">Past orders</a>
-      <a href="index.php">Logout</a></div></div>
+    <a target="_blank" href="mailto:<?php echo $rdetails['email'];?>">Mail</a>
+    <a href="tel:<?php echo $rdetails['phone'];?>">Call</a>
+    <a href="index.php">Logout</a></div></div>
 </ul>
 	
-	<h2><?php echo $rdetails['name'];?></h2>
-    <p><?php echo $rdetails['status'];?></p>
-	<p><a href="tel:<?php echo $rdetails['phone'];?>"><?php echo $rdetails['phone'];?></a></p>
-	<p><a target="_blank" href="mailto:<?php echo $rdetails['email'];?>"><?php echo $rdetails['email'];?></a></p>
-	<p>Address: <?php echo $rdetails['address'];?></p>
-	<p>Description: <?php echo $rdetails['description'];?></p>
+	<h2 class="rname"><?php echo $rdetails['name'];?> is <?php echo $rdetails['status'];?></h2>
 
 
 
@@ -50,7 +46,7 @@ $rdetails=mysqli_fetch_array($q1);
 			$rowcount=mysqli_num_rows($q1);
 			if ($rowcount>0) {
     		?>	
-    		<table><tr><td><b>name</b></td><td><b>price</b></td><td><b>discount</b></td><td><b>description</b></td><td><b>quantity</b></td></tr></pre>
+    		<table><tr><td><b>Name</b></td><td><b>Price</b></td><td><b>Discount</b></td><td><b>Description</b></td><td><b>Quantity</b></td></tr></pre>
     		<?php
     			while ($row=mysqli_fetch_array($q1)) {
     				$n=$row['sno'];
@@ -69,7 +65,9 @@ $rdetails=mysqli_fetch_array($q1);
     		?>
     	
     </div>
+    
 
+    
     <div id="totl">
     
     <div id="item_fileds">
@@ -77,7 +75,7 @@ $rdetails=mysqli_fetch_array($q1);
     </div>
 
     
-    <input id="delivery_address" type="text" name="address" placeholder="Enter delivery address" required>
+    <input id="coupon_code" type="text" name="coupon_code" placeholder="Enter coupon code" required><button id="coupon">Apply</button>
     <div>
         <div>
             subtotal = ₹<span id="subtotal">0</span>
@@ -105,6 +103,7 @@ $rdetails=mysqli_fetch_array($q1);
         var item = 1;
         var subtotal=0;
         var total=0;
+        var otp  = Math.floor((Math.random() * 1000) + 1000);
         var savings=0;
         var gst=0;
         function add_item(cur_id){
@@ -183,7 +182,7 @@ $rdetails=mysqli_fetch_array($q1);
                 $.ajax({
                     url:"send_order.php",
                     method:"POST",
-                    data:{items:items_list,total:total,address:delivery_address},
+                    data:{items:items_list,total:total,address:delivery_address,otp:otp},
                     dataType:"text",
                     success:function(data){
                         window.location = "order_status.php";

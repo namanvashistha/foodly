@@ -5,7 +5,7 @@ if(!isset($_SESSION['rider_log_email'])){
 }
 include 'connection.php';
 $rider_log_email= $_SESSION['rider_log_email'];
-
+$error="";
 	if(isset($_POST['line'])){
         $line=$_POST['line'];
         $line=($line == 'Go Online') ? 'Online':'Offline';
@@ -38,9 +38,18 @@ $rider_log_email= $_SESSION['rider_log_email'];
     }
     if(isset($_POST['delivered'])){
         $act_id=$_POST['order_id'];
-        $q="UPDATE orders SET rider_status='delivered' , status='delivered' where order_id='$act_id' ;";
-        mysqli_query($con,$q); 
-        header('location:rider_home.php');
+        $otp=$_POST['otp'];
+        $q="SELECT otp from orders where order_id='$act_id' ;";
+        $q1=mysqli_query($con,$q);
+        $row=mysqli_fetch_array($q1);
+        if($otp==$row['otp']){ 
+            $q="UPDATE orders SET rider_status='delivered' , status='delivered' where order_id='$act_id' ;";
+            mysqli_query($con,$q); 
+            header('location:rider_home.php');
+        }
+        else{
+            $error="wrong otp";
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -52,7 +61,7 @@ $rider_log_email= $_SESSION['rider_log_email'];
 </head>
 <body style="font-family: Helvetica;">
    <div class="topnav">
-        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left"></div>
+        <img src="images/header_logo.jpeg" height= "45px" width = "110px" align="left"></div>
 
 
 	<h3><?php echo $_SESSION['rider_log_name'];?></h3>
@@ -89,7 +98,7 @@ $rider_log_email= $_SESSION['rider_log_email'];
                         $q_itm="SELECT name FROM menu where sno='$item_list[$i]' and restaurant_id='$order_from' ;";
                         $q1_itm=mysqli_query($con,$q_itm);
                         $row_itm=mysqli_fetch_array($q1_itm);
-                        echo "<div>&nbsp;&nbsp;".$row_itm['name']." X ".$item_list[$i+1]."</div>";
+                        echo "<div>&nbsp;&nbsp;".$row_itm['name']." &times; ".$item_list[$i+1]."</div>";
                     }
                     ?>
                     total:<?php echo $row['total']; ?>
@@ -103,10 +112,12 @@ $rider_log_email= $_SESSION['rider_log_email'];
                         if ($row['status']=="accepted" || $row['status']=="On the way" ){
                         	if ($row['rider_status']=="pending"){ ?>
                         	<input type="submit" name="accept" value="accept"><?php } ?>
-                        	<input type="submit" name="decline" value="decline"><?php  
+                        	<input type="submit" name="decline" value="decline"><br><?php  
                         	if ($row['rider_status']=="accepted") { ?>
                         	<input type="submit" name="on_the_way" value="Mark as On the way"><?php } 
                         	if($row['rider_status']=="On the way") { ?>
+                            <input type="text" name="otp" placeholder="Enter OTP" required><br>
+                            <?php if($error=="wrong otp") echo "wrong OTP"; ?>
                         	<input type="submit" name="delivered" value="Mark as Delivered"><?php } 
                         } ?>
                 </div>
@@ -133,7 +144,7 @@ $rider_log_email= $_SESSION['rider_log_email'];
                         $q_itm="SELECT name FROM menu where sno='$item_list[$i]' and restaurant_id='$order_from' ;";
                         $q1_itm=mysqli_query($con,$q_itm);
                         $row_itm=mysqli_fetch_array($q1_itm);
-                        echo "<div>&nbsp;&nbsp;".$row_itm['name']." X ".$item_list[$i+1]."</div>";
+                        echo "<div>&nbsp;&nbsp;".$row_itm['name']." &times; ".$item_list[$i+1]."</div>";
                     }
                     ?>
                     total:<?php echo $row['total']; ?>
@@ -148,7 +159,7 @@ $rider_log_email= $_SESSION['rider_log_email'];
         ?>
     </div>
 
-
+<br><br><br><br>
 
 <div class="navbar">
        

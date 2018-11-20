@@ -1,6 +1,6 @@
 # foodly
 
-#### website build to order food online and also for business in php and ajax
+#### in php and ajax
 
 ## [foodly.ml](http://foodly.ml/)
 
@@ -15,8 +15,8 @@ Please read [CONTRIBUTING.md](https://github.com/namanvashistha/foodly/blob/mast
 
 ## Authors
 
-- [@namanvashistha](https://github.com/namanvashistha) - **Naman Vashistha**, Maintainer and Developer
-- [@bhavyamendiratta](https://github.com/bhavyamendiratta) - **Bhavya Mendiratta**, Front-End Developer
+- [@namanvashistha](https://github.com/namanvashistha) - **Naman Vashistha**
+- [@bhavyamendiratta](https://github.com/bhavyamendiratta) - **Bhavya Mendiratta** 
 
 ## License
 

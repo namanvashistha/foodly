@@ -27,7 +27,7 @@ if(isset($_POST['line'])){
 </head>
 <body>
      <div class="topnav">
-        <img src="images/header_logo.jpeg" height= "45px" width = "150px" align="left"></div>
+        <img src="images/header_logo.jpeg" height= "45px" width = "110px" align="left"></div>
 	<h3><?php echo $_SESSION['support_log_name'];?></h3>
 
     <?php

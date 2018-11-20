@@ -6,7 +6,6 @@ if(!isset($_SESSION['log_email'])){
 include 'connection.php';
 $q="SELECT * FROM `restaurants`; ";
 $q1=mysqli_query($con,$q);
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -119,9 +118,8 @@ $q1=mysqli_query($con,$q);
 		$('#msg-box').load("fetch_msg.php").fadeIn("slow");
 	},1000);
 });
-
 </script>
 <script src="js/home.js" type="text/javascript"></script>
-
+</script>
 </body>
 </html>

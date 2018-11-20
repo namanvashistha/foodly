@@ -169,7 +169,7 @@ span.log_pass {
   overflow: hidden;
   background-color: black;
   position: fixed;
-  bottom: 0;
+  bottom: 0px;
   width: 100%;
 }
 

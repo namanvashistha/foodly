@@ -17,7 +17,7 @@ include 'connection.php';
         $ipaddress = getenv('REMOTE_ADDR');
     else
         $ipaddress = 'UNKNOWN';
-	$q="INSERT INTO `stats` (`ip_address`, `latitude`,`longitude`) VALUES ('$ipaddress','','');";
+	$q="INSERT INTO `stats` (`ip_address`, `coordinates`,`city`) VALUES ('$ipaddress','','');";
     mysqli_query($con,$q);
 $error_msg="";
 if(isset($_POST['login']) || isset($_POST['signup'])){
@@ -33,6 +33,8 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 			$_SESSION['log_email'] =$log_email;
 			$_SESSION['log_name'] =$row['name'];
 			$_SESSION['log_client'] ="user";
+			$q_ip="INSERT INTO `stats` (`ip_address`, `coordinates`,`city`,`client`,`status`) VALUES ('$ipaddress','','','$log_email','login');";
+    		mysqli_query($con,$q_ip);
 			header("location:home.php");
 		}
 		else{
@@ -58,6 +60,8 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 				$_SESSION['log_email'] =$sign_email;
 				$_SESSION['log_name'] =$sign_name;
 				$_SESSION['log_client'] ="user";
+				$q_ip="INSERT INTO `stats` (`ip_address`, `coordinates`,`city`,`client`,`status`) VALUES ('$ipaddress','','','$log_email','signup');";
+    			mysqli_query($con,$q_ip);
 				header("location:home.php");	
 			}
 		}
@@ -132,6 +136,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
   		<div class="copy">&copy; foodly</div>
   		<a style="float:right;" href="">About Us</a>
   		<a style="float:right;" href="">FAQs</a>
+  		<a style="float:right;" href="food_donation.php">FOOD DONATION</a>
   	</div>
   	<script src="js/index.js"></script>
 </body>
