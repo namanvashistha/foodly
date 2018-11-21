@@ -57,7 +57,7 @@ CREATE TABLE `menu` (
 ALTER TABLE `menu` AUTO_INCREMENT=1;
 
 CREATE TABLE `orders` (
-  `order_id` int(20) NOT NULL,
+  `order_id` int(20) NOT NULL PRIMARY KEY,
   `order_from` varchar(40) NOT NULL,
   `order_by` varchar(40) NOT NULL,
   `rider` varchar(40) NOT NULL,
