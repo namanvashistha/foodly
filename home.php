@@ -91,7 +91,7 @@ $q1=mysqli_query($con,$q);
 <br><br><br><br>
 
  <div class="navbar">
-        <a href="#">Past Orders</a>
+        <a href="order_status.php">Active Orders</a>
         <a href="logout.php">Log Out</a>
         <div class="copy">&copy; foodly</div>
 </div>

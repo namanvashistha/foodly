@@ -76,7 +76,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 
-<body>
+<body background="res.jpg">
 	<div class="topnav">
   		<img src="images/header_logo.jpeg" height= "45px" width = "110px" align="left">
   		<a style="float:right;" onclick="document.getElementById('id02').style.display='block'" style="width:auto;" >Sign up</a>
@@ -127,7 +127,40 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
     		</div>
 		</form>
 	</div>
-<center><video height="300" width="300" autoplay="" loop=""><source src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats/static/videos/header_animation-c22df1758f.mp4" type="video/mp4"></video></center>
+	<br><br><br><br><br><br><br><br><b><h1 style="color: black;text-align: center; ">FOODLY</h1></b>
+	<strong><center><h3 style="color: black;">Fast,fresh and instant
+ food a click away from your pick</h3></center></strong>
+ <center><div class="dist">
+ 	<a href="https://github.com/namanvashistha/foodly" style="   background-color: black;
+ 	color: #FFDF00; 
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 2px;
+    ">
+    Fork us on github
+    </a>
+    <a href="mailto:support@foodly.ml" style="   background-color:black ;
+
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;">
+Mail Us
+</a>
+</div></center>
 	<div class="navbar">
   		<div class="for">For Business</div>
   		<a href="restaurant_sign.php">Restaurant</a>
