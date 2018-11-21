@@ -134,7 +134,6 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
  	<a href="https://github.com/namanvashistha/foodly" style="   background-color: black;
  	color: #FFDF00; 
     border: none;
-    color: white;
     padding: 20px;
     text-align: center;
     text-decoration: none;
@@ -149,7 +148,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
     <a href="mailto:support@foodly.ml" style="   background-color:black ;
 
     border: none;
-    color: white;
+    color: #FFDF00; 
     padding: 20px;
     text-align: center;
     text-decoration: none;
