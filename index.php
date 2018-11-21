@@ -76,7 +76,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 	<link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 
-<body background="res.jpg">
+<body background="images/res.jpg">
 	<div class="topnav">
   		<img src="images/header_logo.jpeg" height= "45px" width = "110px" align="left">
   		<a style="float:right;" onclick="document.getElementById('id02').style.display='block'" style="width:auto;" >Sign up</a>
