@@ -66,6 +66,7 @@ CREATE TABLE `orders` (
   `total` float(20) NOT NULL,
   `instance` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `address` varchar(100) NOT NULL,
+  `otp` varchar(5) NOT NULL,
   `status` varchar(30) NOT NULL DEFAULT 'placed',
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
