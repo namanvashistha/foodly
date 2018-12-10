@@ -7,7 +7,7 @@
 ### Prerequisites
 - install [xampp](https://www.apachefriends.org/download.html)
 - clone this repository into xampp/htdocs
-- read [SETUP.md](https://github.com/namanvashistha/foodly/blob/master/setup.md) file to setup the database
+- read [setup.sql](https://github.com/namanvashistha/foodly/blob/master/setup.sql) file to setup the database
 
 ## Contributing
 
