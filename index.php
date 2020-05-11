@@ -90,6 +90,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
       			<span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
     		</div>
 			<div class="container">
+				use test login:<br>username: admin<br>password: admin<br>
       			<label for="log_email"><b>Username</b></label>
       			<input type="text" placeholder="Enter Username" name="log_email" required>
 
