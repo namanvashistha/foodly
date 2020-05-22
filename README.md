@@ -7,7 +7,7 @@
 ### Prerequisites
 - install [xampp](https://www.apachefriends.org/download.html)
 - clone this repository into xampp/htdocs
-- read [setup.sql](https://github.com/namanvashistha/foodly/blob/master/setup.sql) file to setup the database
+- import [setup.sql](https://github.com/namanvashistha/foodly/blob/master/setup.sql) file to setup the database
 
 ## Contributing
 
@@ -20,4 +20,3 @@ Please read [CONTRIBUTING.md](https://github.com/namanvashistha/foodly/blob/mast
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/namanvashistha/foodly/blob/master/LICENSE) file for details
- 
