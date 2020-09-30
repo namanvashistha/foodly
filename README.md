@@ -1,4 +1,4 @@
-# foodly
+# dil se foodie
 
 #### website built to order food online and also for business in php and ajax
 
