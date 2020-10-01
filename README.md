@@ -1,6 +1,6 @@
 # Foodly (A website for foodies)
 
-#### website built to order food online and also for business in php and ajax
+#### website built to order food online, Food Donation and also for business in php and ajax
 
 ## [foodly.ml](http://foodly.ml/)
 
