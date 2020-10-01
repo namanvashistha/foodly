@@ -1,4 +1,4 @@
-# foodly
+# Foodly (A website for foodies)
 
 #### website built to order food online and also for business in php and ajax
 
