@@ -4,6 +4,8 @@
 
 ## [foodly.ml](http://foodly.ml/)
 
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/namanvashistha)
+
 ### Prerequisites
 - install [xampp](https://www.apachefriends.org/download.html)
 - clone this repository into xampp/htdocs
