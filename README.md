@@ -1,10 +1,36 @@
 # foodly
 
-#### website built to order food online and also for business in php and ajax
-
-## [foodly.ml](http://foodly.ml/)
+**foodly** is a web application built using *PHP and AJAX* primarily for ordering food online.
+It also provides separate interfaces for different types of users involved in the food delivery process.
+Think of it as a platform connecting **customers** wanting food, **restaurants** preparing it, and **riders** delivering it, with specific tools tailored for each **user role**.
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/namanvashistha)
+
+
+```mermaid
+flowchart TD
+    A0["User Authentication Feedback"]
+    A1["Role-Based Interfaces"]
+    A2["UI Dropdown Component"]
+    A3["Dynamic Item Entry"]
+    A4["Project Setup & Contribution Guidelines"]
+    A1 -- "Uses" --> A0
+    A1 -- "Uses" --> A2
+    A1 -- "Uses" --> A3
+    A4 -- "Guides Development Of" --> A1
+```
+
+## Chapters
+
+1. [Role-Based Interfaces](docs/01_role_based_interfaces.md)
+2. [User Authentication Feedback](docs/02_user_authentication_feedback.md)
+3. [Dynamic Item Entry](docs/03_dynamic_item_entry.md)
+4. [UI Dropdown Component](docs/04_ui_dropdown_component.md)
+5. [Project Setup & Contribution Guidelines](docs/05_project_setup___contribution_guidelines.md)
+
+
+---
+
 
 ### Prerequisites
 - install [xampp](https://www.apachefriends.org/download.html)
