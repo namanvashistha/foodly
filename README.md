@@ -1,4 +1,4 @@
-# foodly
+# dil se foodie
 
 **foodly** is a web application built using *PHP and AJAX* primarily for ordering food online.
 It also provides separate interfaces for different types of users involved in the food delivery process.
