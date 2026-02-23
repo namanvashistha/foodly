@@ -1,9 +1,6 @@
 # Setup.md
 ### Following SQL Queries will help creating the database.
 ### Also checkout **connection.php** for the connection to the database.
-
-CREATE database food;
-
 CREATE TABLE `users` (
   `name` varchar(30) NOT NULL,
   `password` varchar(30) NOT NULL,

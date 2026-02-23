@@ -60,7 +60,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 				$_SESSION['log_email'] =$sign_email;
 				$_SESSION['log_name'] =$sign_name;
 				$_SESSION['log_client'] ="user";
-				$q_ip="INSERT INTO `stats` (`ip_address`, `coordinates`,`city`,`client`,`status`) VALUES ('$ipaddress','','','$log_email','signup');";
+				$q_ip="INSERT INTO `stats` (`ip_address`, `coordinates`,`city`,`client`,`status`) VALUES ('$ipaddress','','','$sign_email','signup');";
     			mysqli_query($con,$q_ip);
 				header("location:home.php");	
 			}
