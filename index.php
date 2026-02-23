@@ -29,7 +29,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 		$q="SELECT name,password from users where email='$log_email'; ";
 		$q1=mysqli_query($con,$q);
 		$row=mysqli_fetch_array($q1);
-		if($row['password'] == $log_pass){
+		if($row && $row['password'] == $log_pass){
 			$_SESSION['log_email'] =$log_email;
 			$_SESSION['log_name'] =$row['name'];
 			$_SESSION['log_client'] ="user";

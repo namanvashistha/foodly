@@ -107,3 +107,23 @@ CREATE TABLE `donate` (
   `instance` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `phone` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dummy Data Seeding
+INSERT INTO `users` (`name`, `password`, `email`, `phone`, `address`, `wallet`) VALUES
+('Admin User', 'admin', 'admin', '1234567890', '123 Main St, Cityville', 100.00),
+('Jane Doe', 'password123', 'jane@foodly.test', '0987654321', '456 Oak Ave, Townsburg', 50.00);
+
+INSERT INTO `restaurants` (`name`, `password`, `email`, `phone`, `address`, `description`, `wallet`, `status`) VALUES
+('Pizza Palace', 'pizza123', 'contact@pizzapalace.test', '5551234567', '789 Pine Rd, Food City', 'Best pizza in town!', 0, 'Online'),
+('Burger Barn', 'burger123', 'hello@burgerbarn.test', '5559876543', '321 Elm St, Food City', 'Juicy burgers and fries.', 0, 'Online');
+
+INSERT INTO `riders` (`name`, `password`, `email`, `phone`, `address`, `wallet`, `status`, `streak`) VALUES
+('Speedy Gonzales', 'rider123', 'speedy@rider.test', '1112223333', '111 Fast Ln, Cityville', 0, 'Online', 5);
+
+INSERT INTO `support` (`name`, `password`, `email`, `phone`, `address`, `status`) VALUES
+('Helpful Henry', 'support123', 'henry@support.test', '4445556666', 'Support Center HQ', 'Online');
+
+INSERT INTO `menu` (`restaurant_id`, `name`, `price`, `discount`, `description`) VALUES
+('contact@pizzapalace.test', 'Margherita Pizza', 12, 0, 'Classic cheese and tomato pizza.'),
+('contact@pizzapalace.test', 'Pepperoni Pizza', 15, 10, 'Spicy pepperoni with mozzarella.'),
+('hello@burgerbarn.test', 'Classic Cheeseburger', 8, 0, 'Beef patty with cheddar cheese.');
