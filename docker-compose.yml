@@ -1,8 +1,8 @@
 services:
   app:
     build: .
-    ports:
-      - "${APP_PORT:-8000}:80"
+    expose:
+      - "80"
     environment:
       - DB_HOST=${DB_HOST:-db}
       - DB_USER=${DB_USER:-foodly_user}
@@ -11,6 +11,12 @@ services:
     depends_on:
       - db
     restart: unless-stopped
+    networks:
+      - backend
+      - caddy
+    labels:
+      caddy: foodly.namanvashistha.com
+      caddy.reverse_proxy: "{{upstreams 80}}"
 
   db:
     image: mariadb:10.11
@@ -23,6 +29,14 @@ services:
       - db_data:/var/lib/mysql
       - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql:ro
     restart: unless-stopped
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+  caddy:
+    external: true
 
 volumes:
   db_data:
