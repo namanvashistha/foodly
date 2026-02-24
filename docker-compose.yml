@@ -15,7 +15,7 @@ services:
       - backend
       - caddy
     labels:
-      caddy: foodly.namanvashistha.com
+      caddy: http://foodly.namanvashistha.com
       caddy.reverse_proxy: "{{upstreams 80}}"
 
   db:
