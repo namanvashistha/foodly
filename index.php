@@ -267,11 +267,11 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 			<div class="hint">Try the demo: <b>admin</b> / <b>admin</b></div>
 			<div class="field">
 				<label for="log_email">Username</label>
-				<input class="input" type="text" id="log_email" placeholder="Enter username" name="log_email" required>
+				<input class="input" type="text" id="log_email" placeholder="Enter username" name="log_email" value="admin" required>
 			</div>
 			<div class="field">
 				<label for="log_pass">Password</label>
-				<input class="input" type="password" id="log_pass" placeholder="Enter password" name="log_pass" required>
+				<input class="input" type="password" id="log_pass" placeholder="Enter password" name="log_pass" value="admin" required>
 			</div>
 			<div id="log_error_msg" class="error_msg"><?php if($error_msg=="incorrect email or password") echo $error_msg; ?></div>
 			<button class="btn btn-primary" type="submit" name="login" value="login">Log in</button>

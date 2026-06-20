@@ -160,3 +160,14 @@
   .auth-wrap { grid-template-columns: 1fr; }
   .auth-brand { min-height: 320px; }
 }
+
+/* ---------- demo credentials hint ---------- */
+.auth-card .hint {
+  background: var(--accent-soft);
+  border-radius: var(--r-md);
+  padding: 0.65rem 0.85rem;
+  font-size: var(--step--1);
+  color: var(--ink-muted);
+  margin-bottom: 1.2rem;
+}
+.auth-card .hint b { color: var(--ink); }

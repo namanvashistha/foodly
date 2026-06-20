@@ -97,13 +97,14 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 
             <!-- login -->
             <form class="tab-panel active" data-panel="login" method="POST">
+                <div class="hint">Try the demo: <b>contact@pizzapalace.test</b> / <b>pizza123</b></div>
                 <div class="field">
                     <label for="log_email">Email</label>
-                    <input class="input" type="text" id="log_email" name="log_email" placeholder="Enter email" required>
+                    <input class="input" type="text" id="log_email" name="log_email" placeholder="Enter email" value="contact@pizzapalace.test" required>
                 </div>
                 <div class="field">
                     <label for="log_pass">Password</label>
-                    <input class="input" type="password" id="log_pass" name="log_pass" placeholder="Enter password" required>
+                    <input class="input" type="password" id="log_pass" name="log_pass" placeholder="Enter password" value="pizza123" required>
                 </div>
                 <div id="log_error_msg" class="error_msg"><?php if($error_msg=="incorrect email or password") echo $error_msg; ?></div>
                 <button class="btn btn-primary" type="submit" name="login" value="login">Log in</button>

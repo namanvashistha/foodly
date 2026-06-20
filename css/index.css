@@ -312,8 +312,15 @@
   .roles { grid-template-columns: 1fr; }
 }
 @media (max-width: 620px) {
+  .nav { padding: 1rem 0; }
+  .nav .wrap { width: min(100% - 1.5rem, 1180px); }
+  .nav .wordmark { font-size: var(--step-1); }
   .nav-links .desk { display: none; }
+  .nav-links { gap: 0.5rem; }
+  .nav-links .btn { padding: 0.55rem 0.9rem; font-size: var(--step--1); }
+  .nav-cta { padding: 0.55rem 0.4rem; font-size: var(--step--1); }
   .hero { padding-top: 6.5rem; }
-  .hero-meta { gap: 1.4rem; }
+  .hero h1 { font-size: clamp(3rem, 2rem + 8vw, 4rem); }
+  .hero-meta { gap: 1.4rem; flex-wrap: wrap; }
   .gallery { grid-template-columns: 1fr 1fr; }
 }

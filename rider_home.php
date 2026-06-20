@@ -2,6 +2,7 @@
 session_start();
 if(!isset($_SESSION['rider_log_email'])){
 	header("location:index.php");
+	exit;
 }
 include 'connection.php';
 $rider_log_email= $_SESSION['rider_log_email'];
@@ -17,7 +18,7 @@ $error="";
  	if(isset($_POST['accept'])){
         $act_id=$_POST['order_id'];
         $q="UPDATE orders SET rider_status='accepted' where order_id='$act_id' ;";
-        mysqli_query($con,$q); 
+        mysqli_query($con,$q);
         header('location:rider_home.php');
     }
     if(isset($_POST['decline'])){
@@ -34,7 +35,7 @@ $error="";
         $act_id=$_POST['order_id'];
         $q="UPDATE orders SET rider_status='On the way' , status='On the way' where order_id='$act_id' ;";
         mysqli_query($con,$q);
-        header('location:rider_home.php'); 
+        header('location:rider_home.php');
     }
     if(isset($_POST['delivered'])){
         $act_id=$_POST['order_id'];
@@ -42,134 +43,168 @@ $error="";
         $q="SELECT otp from orders where order_id='$act_id' ;";
         $q1=mysqli_query($con,$q);
         $row=mysqli_fetch_array($q1);
-        if($otp==$row['otp']){ 
+        if($otp==$row['otp']){
             $q="UPDATE orders SET rider_status='delivered' , status='delivered' where order_id='$act_id' ;";
-            mysqli_query($con,$q); 
+            mysqli_query($con,$q);
             header('location:rider_home.php');
         }
         else{
             $error="wrong otp";
         }
     }
+
+// ----- data for the view -----
+$rd = mysqli_fetch_array(mysqli_query($con,"SELECT * from riders where email='$rider_log_email';"));
+$isOnline = ($rd['status'] == 'Online');
+$oq = mysqli_query($con,"SELECT * from orders where rider='$rider_log_email' ORDER BY order_id DESC;");
+$orders = array();
+while($o = mysqli_fetch_array($oq)){ $orders[] = $o; }
+$active = array(); $past = array();
+foreach($orders as $o){
+    if($o['status']!="delivered" && $o['rider_status']!="declined") $active[] = $o;
+    if($o['status']=="delivered") $past[] = $o;
+}
+function order_items($con, $items, $res){
+    $out = array();
+    $list = preg_split("/ /", trim($items));
+    for($i=0;$i+1<sizeof($list);$i=$i+2){
+        $sno = $list[$i];
+        $r = mysqli_fetch_array(mysqli_query($con,"SELECT name FROM menu where sno='$sno' and restaurant_id='$res'"));
+        $out[] = array($r['name'] ?: 'Item #'.$sno, $list[$i+1]);
+    }
+    return $out;
+}
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>rider home</title>
-	<link rel="shortcut icon" href="images\logo.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css\rider_home.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Foodly — Rider dashboard</title>
+	<link rel="shortcut icon" href="images/logo.png" type="image/png">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="css/theme.css?v=<?php echo @filemtime('css/theme.css'); ?>">
+	<link rel="stylesheet" href="css/app.css?v=<?php echo @filemtime('css/app.css'); ?>">
+	<link rel="stylesheet" href="css/rider_home.css?v=<?php echo @filemtime('css/rider_home.css'); ?>">
 </head>
-<body style="font-family: Helvetica;">
-   <div class="topnav">
-        <img src="images/header_logo.jpeg" height= "45px" width = "110px" align="left"></div>
+<body>
 
+	<header class="topbar">
+		<div class="wrap">
+			<a class="wordmark" href="rider_home.php">foodly<span class="dot">.</span><span class="role">Rider</span></a>
+			<nav class="topbar-nav">
+				<div class="dropdown">
+					<button class="dropbtn" onclick="myFunction()">
+						<span class="avatar"><?php echo strtoupper(substr($rd['name'],0,1)); ?></span>
+						<span class="who"><?php echo htmlspecialchars($rd['name']); ?></span>
+						<span class="caret">&#9662;</span>
+					</button>
+					<div class="dropdown-content" id="myDropdown">
+						<a href="tel:<?php echo htmlspecialchars($rd['phone']);?>">Call</a>
+						<a href="logout.php">Log out</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+	</header>
 
-	<h3><?php echo $_SESSION['rider_log_name'];?></h3>
-	
-    <?php
-        $q="SELECT wallet,status from riders where email='$rider_log_email';";
-        $q1=mysqli_query($con,$q);
-        $row=mysqli_fetch_array($q1);
-        echo "You are currently ";
-        echo ($row['status'] == 'Online') ? 'Online':'Offline';
-        ?>
-        <form method="post">
-            <input type="submit" name="line" value="<?php echo ($row['status'] == 'Online') ? 'Go Offline':'Go Online'; ?>" >
-        </form> 
-       <?php
-       	echo "Your pending payment is ₹".$row['wallet'];
-        $q="SELECT * from orders where rider='$rider_log_email';";
-        $q1=mysqli_query($con,$q);
-    ?>
-    <br><BR><br><div class="active_orders">Active Orders</div>
-    <div>
-        <?php
-        while ($row=mysqli_fetch_array($q1)){
-           if($row['status']!="delivered" && $row['rider_status']!="declined"){
-            ?>
-                 <div class="distance">
-                    <div class="ordercard">
-                        <div class="ordercardinsidetext">
-                    Order ID:<?php echo $row['order_id']; ?>
-                    <br>Customer Email:<?php echo $row['order_by']; ?>
-                    <br>Restaurant Email:<?php $order_from=$row['order_from'];
-                    	echo $order_from; ?>
-                    <br>Items:<br><?php 
-                    $item_list  = preg_split("/ /", $row['items']);
-                    for($i=0;$i<sizeof($item_list);$i=$i+2){
-                        $q_itm="SELECT name FROM menu where sno='$item_list[$i]' and restaurant_id='$order_from' ;";
-                        $q1_itm=mysqli_query($con,$q_itm);
-                        $row_itm=mysqli_fetch_array($q1_itm);
-                        echo "<div>&nbsp;&nbsp;".$row_itm['name']." &times; ".$item_list[$i+1]."</div>";
-                    }
-                    ?>
-                    Total:<?php echo $row['total']; ?>
-                    
-                    <br>Rider Email:<?php echo $row['rider']; ?>
-                    <br>Instance:<?php echo $row['instance']; ?>
-                    <br>Status:<?php echo $row['rider_status']; ?>
-                    <br><form method="post">
-                        <input type="text" name="order_id" value="<?php echo $row['order_id']; ?>" hidden>
-                        <?php
-                        if ($row['status']=="accepted" || $row['status']=="On the way" ){
-                        	if ($row['rider_status']=="pending"){ ?>
-                        	<input type="submit" name="accept" value="accept"><?php } ?>
-                        	<input type="submit" name="decline" value="decline"><br><?php  
-                        	if ($row['rider_status']=="accepted") { ?>
-                        	<input type="submit" name="on_the_way" value="Mark as On the way"><?php } 
-                        	if($row['rider_status']=="On the way") { ?>
-                            <input type="text" name="otp" placeholder="Enter OTP" ><br>
-                            <?php if($error=="wrong otp") echo "wrong OTP"; ?>
-                        	<input type="submit" name="delivered" value="Mark as Delivered"><?php } 
-                        } ?>
-                </div></div></div>
-                <br>   
-        <?php }
-        }
-        ?>
-    </div>
-    <br><div class="active_orders">Past Orders</div>
-    
-        <?php
-        $q="SELECT * from orders where rider='$rider_log_email';";
-        $q1=mysqli_query($con,$q);
-        while ($row=mysqli_fetch_array($q1)){
-            if($row['status']=="delivered"){?>
-                 <div class="distance">
-                    <div class="ordercard">
-                        <div class="ordercardinsidetext">
-                    Order ID:<?php echo $row['order_id']; ?>
-                    <br>Customer Email:<?php echo $row['order_by']; ?>
-                    <br>Restaurant Email:<?php $order_from=$row['order_from'];
-                    	echo $order_from; ?>
-                    <br>Items:<br><?php 
-                    $item_list  = preg_split("/ /", $row['items']);
-                    for($i=0;$i<sizeof($item_list);$i=$i+2){
-                        $q_itm="SELECT name FROM menu where sno='$item_list[$i]' and restaurant_id='$order_from' ;";
-                        $q1_itm=mysqli_query($con,$q_itm);
-                        $row_itm=mysqli_fetch_array($q1_itm);
-                        echo "<div>&nbsp;&nbsp;".$row_itm['name']." &times; ".$item_list[$i+1]."</div>";
-                    }
-                    ?>
-                    Total:<?php echo $row['total']; ?>
-                    
-                    <br>Rider Email:<?php echo $row['rider']; ?>
-                    <br>Instance:<?php echo $row['instance']; ?>
-                    <br>Status:<?php echo $row['rider_status']; ?>
-                </div></div></div>
-                <br>    
-        <?php }
-        }
-        ?>
-    </div>
+	<div class="page wrap">
+		<div class="page-head">
+			<div>
+				<span class="eyebrow">Rider dashboard</span>
+				<h1><?php echo htmlspecialchars($rd['name']); ?></h1>
+				<p class="sub"><?php echo htmlspecialchars($rd['email']); ?></p>
+			</div>
+			<form method="post">
+				<button class="btn <?php echo $isOnline ? 'btn-soft' : 'btn-primary'; ?>" type="submit" name="line" value="<?php echo $isOnline ? 'Go Offline':'Go Online'; ?>">
+					<?php echo $isOnline ? 'Go offline' : 'Go online'; ?>
+				</button>
+			</form>
+		</div>
 
-<br><br><br><br>
+		<div class="stat-row">
+			<div class="stat-tile"><div class="k">Status</div><div class="v"><span class="statebadge <?php echo $isOnline ? 'on':''; ?>"><i class="ping"></i><?php echo $isOnline ? 'Online' : 'Offline'; ?></span></div></div>
+			<div class="stat-tile"><div class="k">Pending payout</div><div class="v">&#8377;<?php echo htmlspecialchars($rd['wallet']); ?></div></div>
+			<div class="stat-tile"><div class="k">Streak</div><div class="v"><?php echo htmlspecialchars($rd['streak']); ?></div></div>
+			<div class="stat-tile"><div class="k">Active deliveries</div><div class="v"><?php echo count($active); ?></div></div>
+		</div>
 
-<div class="navbar">
-       
-        <a href="logout.php">Log out</a>
-        <a href="#">Active orders</a>
-        <a href="#">Past orders</a>
-        <div class="copy">&copy; foodly</div>
-        </div>
+		<section class="panel">
+			<div class="panel-title">Active deliveries</div>
+			<p class="panel-sub">Accept a job, head out, then confirm delivery with the customer's OTP.</p>
+			<?php if(count($active)===0){ ?>
+				<div class="empty"><div class="empty-ic">&#128692;</div><h3>No active deliveries</h3><p>Go online to start receiving delivery jobs near you.</p></div>
+			<?php } else { ?>
+			<div class="order-grid">
+				<?php foreach($active as $row){ ?>
+				<article class="order-card">
+					<div class="order-top">
+						<span class="oid">#<?php echo htmlspecialchars($row['order_id']); ?></span>
+						<span class="statebadge"><i class="ping"></i><?php echo htmlspecialchars($row['rider_status']); ?></span>
+					</div>
+					<div class="order-cust"><?php echo htmlspecialchars($row['order_from']); ?> &rarr; <?php echo htmlspecialchars($row['order_by']); ?></div>
+					<ul class="order-items">
+						<?php foreach(order_items($con,$row['items'],$row['order_from']) as $it){ ?>
+							<li><span><?php echo htmlspecialchars($it[0]); ?></span><span class="q">&times; <?php echo htmlspecialchars($it[1]); ?></span></li>
+						<?php } ?>
+					</ul>
+					<div class="order-meta">
+						<div><span>Collect</span><b>&#8377;<?php echo htmlspecialchars($row['total']); ?></b></div>
+						<div><span>Address</span><b><?php echo htmlspecialchars($row['address']); ?></b></div>
+						<div><span>Placed</span><b><?php echo htmlspecialchars($row['instance']); ?></b></div>
+					</div>
+					<form method="post" class="order-actions">
+						<input type="text" name="order_id" value="<?php echo htmlspecialchars($row['order_id']); ?>" hidden>
+						<?php
+						if ($row['status']=="accepted" || $row['status']=="On the way" ){
+							if ($row['rider_status']=="pending"){ ?>
+								<button class="btn-soft" type="submit" name="accept" value="accept">Accept</button>
+							<?php } ?>
+							<button class="btn-danger" type="submit" name="decline" value="decline">Decline</button>
+							<?php if ($row['rider_status']=="accepted") { ?>
+								<button class="btn btn-primary" type="submit" name="on_the_way" value="Mark as On the way">On the way</button>
+							<?php }
+							if($row['rider_status']=="On the way") { ?>
+								<div class="otp-row">
+									<input class="input" type="text" name="otp" placeholder="Enter delivery OTP">
+									<?php if($error=="wrong otp") echo '<div class="error_msg">Wrong OTP</div>'; ?>
+									<button class="btn btn-primary" type="submit" name="delivered" value="Mark as Delivered">Mark delivered</button>
+								</div>
+							<?php }
+						} else { ?>
+							<span class="order-hint">Waiting for the restaurant to accept.</span>
+						<?php } ?>
+					</form>
+				</article>
+				<?php } ?>
+			</div>
+			<?php } ?>
+		</section>
+
+		<section class="panel">
+			<div class="panel-title">Past deliveries</div>
+			<p class="panel-sub"><?php echo count($past); ?> completed</p>
+			<?php if(count($past)>0){ ?>
+				<div class="table-scroll">
+					<table class="data-table">
+						<tr><th>Order</th><th>Restaurant</th><th>Customer</th><th>Total</th><th>Status</th></tr>
+						<?php foreach($past as $row){ ?>
+						<tr>
+							<td>#<?php echo htmlspecialchars($row['order_id']); ?></td>
+							<td><?php echo htmlspecialchars($row['order_from']); ?></td>
+							<td><?php echo htmlspecialchars($row['order_by']); ?></td>
+							<td class="num">&#8377;<?php echo htmlspecialchars($row['total']); ?></td>
+							<td><?php echo htmlspecialchars($row['rider_status']); ?></td>
+						</tr>
+						<?php } ?>
+					</table>
+				</div>
+			<?php } else { ?>
+				<div class="empty"><div class="empty-ic">&#9203;</div><h3>Nothing yet</h3><p>Your completed deliveries will be archived here.</p></div>
+			<?php } ?>
+		</section>
+	</div>
+	<script src="js/rider_home.js"></script>
+</body>
 </html>

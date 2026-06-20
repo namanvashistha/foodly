@@ -1,228 +1,56 @@
-body{
-  margin : 0;
-  font-family:  Helvetica,Arial,, sans-serif;
-  background-color:   #999999;
-}
-.topnav {
-  overflow: hidden;
-  background-color: black;
-}
-.img {
-}
+/* ============================================================
+   Foodly — Order tracking (order_status.php + fetch_order.php)
+   Depends on theme.css + app.css.
+   ============================================================ */
 
-.topnav a {
-  float: left;
-  color: #FFDF00;
-  text-align: center;
-  text-decoration: none;
-  font-size: 17px;
-  padding: 14px 16px;
-}
+#order_box { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.4rem; }
 
-.topnav a:hover {
-  background-color: #FFDF00;
-  color: black;
+.track-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 1.5rem;
 }
+.track-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.track-id { font-family: var(--display); font-size: var(--step-2); }
+.track-from { font-size: var(--step--1); color: var(--ink-muted); margin-top: 0.15rem; overflow-wrap: anywhere; }
 
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
+/* stepper */
+.tracker { list-style: none; display: flex; margin: 1.4rem 0; padding: 0; }
+.tracker li { flex: 1; position: relative; text-align: center; font-size: 0.72rem; color: var(--ink-faint); }
+.tracker li .dot {
+  width: 14px; height: 14px; border-radius: var(--r-pill);
+  background: var(--surface-2); border: 2px solid var(--border);
+  display: block; margin: 0 auto 0.4rem; position: relative; z-index: 1;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
 }
-
-.or {
-  float: left;
-  color: #696969;
-  text-align: center;
-  text-decoration: none;
-  font-size: 17px;
-  float: right;
-  padding: 14px 16px;
-
+.tracker li::before {
+  content: ""; position: absolute; top: 6px; left: -50%; width: 100%; height: 2px;
+  background: var(--border); z-index: 0;
 }
+.tracker li:first-child::before { display: none; }
+.tracker li.done { color: var(--ink); }
+.tracker li.done .dot { background: var(--accent); border-color: var(--accent); }
+.tracker li.done::before { background: var(--accent); }
+.tracker li.current .dot { box-shadow: 0 0 0 4px var(--accent-soft); }
+.tracker li.current .lbl { font-weight: 700; color: var(--accent); }
 
+.track-items {
+  list-style: none; margin: 0 0 1rem; padding: 0.9rem 0; border-block: 1px solid var(--border);
+  display: grid; gap: 0.35rem; font-size: var(--step--1);
+}
+.track-items li { display: flex; justify-content: space-between; }
+.track-items .q { color: var(--ink-faint); font-variant-numeric: tabular-nums; }
 
-button:hover {
-    opacity: 0.8;
-}
+.track-meta { display: grid; gap: 0.5rem; font-size: var(--step--1); }
+.track-meta > div { display: flex; justify-content: space-between; gap: 0.5rem; }
+.track-meta span { color: var(--ink-faint); flex: none; }
+.track-meta b { font-weight: 600; text-align: right; overflow-wrap: anywhere; }
 
-.cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #404040;
-    color:  ;
+.track-otp {
+  margin-top: 1.1rem; padding: 0.8rem 1rem;
+  background: var(--accent-soft); border-radius: var(--r-md);
+  font-size: var(--step--1); color: var(--ink-muted); text-align: center;
 }
-
-.imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-    position: relative;
-}
-
-img.avatar {
-    width: 40%;
-    border-radius: 50%;
-}
-
-.container {
-    padding: 16px;
-}
-
-span.log_pass {
-    text-decoration: none;
-    float: right;
-    padding-top: 16px;
-}
-
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
-}
-
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 5% auto 15% auto; 
-    border: 1px solid #888;
-    width: 40%;
-}
-
-.buttons{
-  color: #FFDF00;
-}
-
-.close {
-    position: absolute;
-    right: 25px;
-    top: 0;
-    color: #000;
-    font-size: 35px;
-    font-weight: bold;
-}
-
-.close:hover,.close:focus {
-    color: red;
-    cursor: pointer;
-}
-
-.animate {
-    -webkit-animation: animatezoom 0.6s;
-    animation: animatezoom 0.6s
-}
-
-@-webkit-keyframes animatezoom {
-    from {-webkit-transform: scale(0)} 
-    to {-webkit-transform: scale(1)}
-}
-    
-@keyframes animatezoom {
-    from {transform: scale(0)} 
-    to {transform: scale(1)}
-}
-
-@media screen and (max-width: 300px) {
-    span.log_pass{
-        text-decoration: none;
-       display: block;
-       float: none;
-    }
-    .cancelbtn {
-       width: 100%;
-    }
-}
-
-.navbar {
-  overflow: hidden;
-  background-color: black;
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-}
-
-.navbar a {
-  float: left;
-  display: block;
-  color:  #FFDF00;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.navbar a:hover {
-  background:  #FFDF00;
-  color: black;
-}
-
-.navbar a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.main {
-  padding: 16px;
-  margin-bottom: 30px;
-}
-
-.for{
-  float: left;
-  display: block;
-  color:  #FFDF00;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-.copy{
-  float: right;
-  display: block;
-  color:  #FFDF00;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.restaurant{
-    float: left;
-  display: block;
-  color:  #FFDF00;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-.ordercard {
-  border-color: #A9A9A9;
-  border-color: #A9A9A9;
-  background-color: #2F4F4F;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 100%;
-  border-radius: 5px;
-  position: relative;
-
-}
-
-.ordercard:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-
-.ordercardinsidetext {
-    padding: 10px;
-    color: white;
-}
-.distance{
-  margin-top: 5px;
-  display: inline-block;
-  padding: 18px;
-}
+.track-otp b { display: block; font-family: var(--display); font-size: var(--step-3); color: var(--accent); letter-spacing: 0.1em; margin-top: 0.2rem; }
+.track-otp.muted { background: var(--surface-2); }

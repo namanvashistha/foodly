@@ -228,9 +228,10 @@
   overflow-y: auto;
   padding: 1rem 1.1rem;
   font-size: var(--step--1);
-  line-height: 1.7;
   color: var(--ink);
-  white-space: pre-line;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 .chat-input {
   display: flex;

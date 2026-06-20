@@ -1,33 +1,7 @@
 /* ============================================================
    Foodly — Restaurant dashboard (restaurant_home.php)
-   Depends on theme.css + app.css.
+   Depends on theme.css + app.css (order cards live in app.css).
    ============================================================ */
-
-/* active orders */
-.order-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
-}
-.order-card {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: var(--r-md);
-  padding: 1.1rem 1.2rem;
-  display: flex;
-  flex-direction: column;
-}
-.order-top { display: flex; align-items: center; justify-content: space-between; }
-.order-top .oid { font-family: var(--display); font-size: var(--step-1); }
-.order-cust { font-size: var(--step--1); color: var(--ink-muted); margin-top: 0.15rem; }
-.order-items { list-style: none; margin: 0.9rem 0; padding: 0.8rem 0; border-block: 1px solid var(--border); display: grid; gap: 0.35rem; }
-.order-items li { display: flex; justify-content: space-between; font-size: var(--step--1); }
-.order-items .q { color: var(--ink-faint); font-variant-numeric: tabular-nums; }
-.order-meta { display: grid; gap: 0.5rem; margin-bottom: 1rem; }
-.order-meta > div { display: flex; justify-content: space-between; font-size: var(--step--1); }
-.order-meta span { color: var(--ink-faint); }
-.order-meta b { font-weight: 600; text-align: right; max-width: 60%; overflow-wrap: anywhere; }
-.order-actions { display: flex; gap: 0.5rem; margin-top: auto; }
 
 /* menu add-item form */
 .menu-form { margin-bottom: 1.6rem; }
@@ -35,8 +9,6 @@
 .item-row-head { font-size: var(--step--1); font-weight: 700; color: var(--ink-muted); margin-bottom: 0.45rem; }
 .item-grid { display: grid; grid-template-columns: 1.4fr 0.7fr 0.7fr 2fr; gap: 0.6rem; }
 .menu-form-actions { display: flex; gap: 0.7rem; flex-wrap: wrap; align-items: center; margin-top: 0.4rem; }
-
-.table-scroll { overflow-x: auto; }
 
 /* recommendations */
 .reco-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
