@@ -18,7 +18,9 @@ CREATE TABLE `restaurants` (
   `address` varchar(50) NOT NULL,
   `description` varchar(100) NOT NULL,
   `wallet` float NOT NULL DEFAULT '0',
-  `status` varchar(20) NOT NULL DEFAULT 'Offline'
+  `status` varchar(20) NOT NULL DEFAULT 'Offline',
+  `lat` double DEFAULT NULL,
+  `lng` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `riders` (
@@ -29,7 +31,9 @@ CREATE TABLE `riders` (
   `address` varchar(100) NOT NULL,
   `wallet` float DEFAULT '0',
   `status` varchar(20) NOT NULL DEFAULT 'Offline',
-  `streak` int(10) NOT NULL DEFAULT '0'
+  `streak` int(10) NOT NULL DEFAULT '0',
+  `lat` double DEFAULT NULL,
+  `lng` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `support` (
@@ -65,6 +69,12 @@ CREATE TABLE `orders` (
   `address` varchar(100) NOT NULL,
   `otp` varchar(5) NOT NULL,
   `status` varchar(30) NOT NULL DEFAULT 'placed',
+  `updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `r_lat` double DEFAULT NULL,
+  `r_lng` double DEFAULT NULL,
+  `d_lat` double DEFAULT NULL,
+  `d_lng` double DEFAULT NULL,
+  `otw_at` datetime DEFAULT NULL,
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -133,8 +143,13 @@ INSERT INTO `restaurants` (`name`, `password`, `email`, `phone`, `address`, `des
 ('Falafel Corner', 'falafel123', 'salaam@falafelcorner.test', '5556667777', '65 Pita Pl, Food City', 'Middle Eastern wraps and mezze.', 0, 'Online'),
 ('Ice Cream Lab', 'icecream123', 'scoop@icecreamlab.test', '5557778888', '87 Frost Ave, Food City', 'Artisan ice cream and shakes.', 0, 'Online');
 
-INSERT INTO `riders` (`name`, `password`, `email`, `phone`, `address`, `wallet`, `status`, `streak`) VALUES
-('Speedy Gonzales', 'rider123', 'speedy@rider.test', '1112223333', '111 Fast Ln, Cityville', 0, 'Online', 5);
+INSERT INTO `riders` (`name`, `password`, `email`, `phone`, `address`, `wallet`, `status`, `streak`, `lat`, `lng`) VALUES
+('Speedy Gonzales', 'rider123', 'speedy@rider.test', '1112223333', '111 Fast Ln, Cityville', 0, 'Online', 5, 28.6300, 77.2200),
+('Dash Patel', 'rider123', 'dash@rider.test', '1112223301', 'Karol Bagh, Delhi', 0, 'Online', 2, 28.6520, 77.1900),
+('Mia Rao', 'rider123', 'mia@rider.test', '1112223302', 'Lajpat Nagar, Delhi', 0, 'Online', 1, 28.5670, 77.2430),
+('Leo Khan', 'rider123', 'leo@rider.test', '1112223303', 'Rohini, Delhi', 0, 'Online', 4, 28.7150, 77.1150),
+('Zara Ali', 'rider123', 'zara@rider.test', '1112223304', 'Saket, Delhi', 0, 'Online', 0, 28.5245, 77.2100),
+('Sam Roy', 'rider123', 'sam@rider.test', '1112223305', 'Dwarka, Delhi', 0, 'Offline', 3, 28.5921, 77.0460);
 
 INSERT INTO `support` (`name`, `password`, `email`, `phone`, `address`, `status`) VALUES
 ('Helpful Henry', 'support123', 'henry@support.test', '4445556666', 'Support Center HQ', 'Online');
@@ -227,3 +242,29 @@ INSERT INTO `menu` (`restaurant_id`, `name`, `price`, `discount`, `description`)
 ('scoop@icecreamlab.test', 'Chocolate Shake', 6, 10, 'Thick shake with whipped cream.'),
 ('scoop@icecreamlab.test', 'Waffle Sundae', 9, 0, 'Warm waffle with ice cream and sauce.'),
 ('scoop@icecreamlab.test', 'Vegan Sorbet', 5, 0, 'Dairy-free fruit sorbet, two scoops.');
+UPDATE restaurants SET lat=28.6315,lng=77.2167 WHERE email='contact@pizzapalace.test';
+UPDATE restaurants SET lat=28.7041,lng=77.1025 WHERE email='hello@burgerbarn.test';
+UPDATE restaurants SET lat=28.5562,lng=77.1000 WHERE email='hola@tacofiesta.test';
+UPDATE restaurants SET lat=28.6692,lng=77.4538 WHERE email='order@sushizen.test';
+UPDATE restaurants SET lat=28.6129,lng=77.2295 WHERE email='namaste@curryhouse.test';
+UPDATE restaurants SET lat=28.5700,lng=77.3200 WHERE email='slurp@noodlenook.test';
+UPDATE restaurants SET lat=28.6448,lng=77.2167 WHERE email='fresh@greenbowl.test';
+UPDATE restaurants SET lat=28.5921,lng=77.0460 WHERE email='hello@sweettooth.test';
+UPDATE restaurants SET lat=28.6562,lng=77.2410 WHERE email='order@dragonwok.test';
+UPDATE restaurants SET lat=28.4595,lng=77.0266 WHERE email='ciao@mediterraneo.test';
+UPDATE restaurants SET lat=28.6692,lng=77.2000 WHERE email='pit@bbqsmoke.test';
+UPDATE restaurants SET lat=28.5245,lng=77.1855 WHERE email='eat@veggiedelight.test';
+UPDATE restaurants SET lat=28.7196,lng=77.0680 WHERE email='catch@seafoodshack.test';
+UPDATE restaurants SET lat=28.6304,lng=77.2177 WHERE email='brew@cafemocha.test';
+UPDATE restaurants SET lat=28.6139,lng=77.2090 WHERE email='reserve@steakhouse21.test';
+
+CREATE TABLE `ratings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `restaurant` varchar(100) NOT NULL,
+  `customer` varchar(100) NOT NULL,
+  `order_id` int(20) NOT NULL,
+  `stars` tinyint NOT NULL,
+  `review` varchar(300) DEFAULT NULL,
+  `instance` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uniq_order (`order_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

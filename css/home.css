@@ -8,7 +8,7 @@
   position: sticky;
   top: 0;
   z-index: 30;
-  background: oklch(0.972 0.012 75 / 0.9);
+  background: oklch(0.185 0.008 55 / 0.85);
   backdrop-filter: saturate(1.2) blur(8px);
   border-bottom: 1px solid var(--border);
 }
@@ -58,7 +58,7 @@
   width: 30px; height: 30px;
   border-radius: var(--r-pill);
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
   display: grid; place-items: center;
   font-size: 0.85rem; font-weight: 700;
   pointer-events: none;
@@ -110,6 +110,51 @@
   pointer-events: none;
 }
 .search .input { padding-left: 2.6rem; }
+
+/* ---------- location bar + picker ---------- */
+.loc-bar {
+  display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap;
+  margin-top: 1.4rem; padding: 0.7rem 1rem;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-pill);
+  width: fit-content; max-width: 100%;
+}
+.loc-bar .loc-pin { font-size: 1.1rem; }
+.loc-bar .loc-text { font-size: var(--step--1); color: var(--ink-muted); }
+.loc-bar .loc-text b { color: var(--ink); }
+.loc-bar .btn-soft { margin-left: auto; }
+
+.loc-prompt {
+  display: grid; place-items: center;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+  padding: clamp(2.5rem, 6vw, 4.5rem) 1.5rem; text-align: center;
+}
+.loc-prompt-copy { max-width: 42ch; }
+.loc-prompt h2 { font-family: var(--display); font-size: var(--step-3); margin: 0.6rem 0 0.5rem; }
+.loc-prompt p { color: var(--ink-muted); margin: 0 auto; }
+.loc-prompt-actions { display: flex; gap: 0.7rem; justify-content: center; flex-wrap: wrap; margin-top: 1.6rem; }
+.loc-status { font-size: var(--step--1); color: var(--ink-faint); margin-top: 1rem; min-height: 1.2em; }
+
+.dist-badge {
+  position: absolute; top: 0.8rem; right: 0.8rem;
+  font-size: 0.72rem; font-weight: 700; color: var(--ink);
+  background: var(--bg); padding: 0.32rem 0.6rem; border-radius: var(--r-pill); box-shadow: var(--shadow-sm);
+}
+
+.loc-modal {
+  display: none; position: fixed; inset: 0; z-index: 60;
+  background: oklch(0.235 0.014 55 / 0.5); padding: 1.5rem;
+  align-items: center; justify-content: center;
+}
+.loc-modal.open { display: flex; }
+.loc-modal-card {
+  background: var(--bg); border-radius: var(--r-lg); box-shadow: var(--shadow-lg);
+  width: min(100%, 640px); overflow: hidden;
+}
+.loc-modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 1.3rem 1.4rem; }
+.loc-modal-title { font-family: var(--display); font-size: var(--step-2); }
+.loc-modal-sub { font-size: var(--step--1); color: var(--ink-muted); margin-top: 0.2rem; }
+#loc-map { height: 360px; width: 100%; z-index: 0; }
+.loc-modal-foot { display: flex; gap: 0.7rem; justify-content: flex-end; padding: 1.1rem 1.4rem; border-top: 1px solid var(--border); flex-wrap: wrap; }
 
 /* ---------- restaurant grid ---------- */
 .section { padding: 1.5rem 0 5rem; }
@@ -183,7 +228,7 @@
   border: none;
   border-radius: var(--r-pill);
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
   font-size: 1.5rem;
   cursor: pointer;
   box-shadow: var(--shadow-md);

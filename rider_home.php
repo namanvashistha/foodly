@@ -33,7 +33,7 @@ $error="";
     }
     if(isset($_POST['on_the_way'])){
         $act_id=$_POST['order_id'];
-        $q="UPDATE orders SET rider_status='On the way' , status='On the way' where order_id='$act_id' ;";
+        $q="UPDATE orders SET rider_status='On the way' , status='On the way', otw_at=NOW() where order_id='$act_id' ;";
         mysqli_query($con,$q);
         header('location:rider_home.php');
     }
@@ -205,6 +205,12 @@ function order_items($con, $items, $res){
 			<?php } ?>
 		</section>
 	</div>
+	<script>
+		// advance the demo simulation; reload when an order changes state
+		setInterval(function(){
+			fetch('tick.php').then(function(r){ return r.text(); }).then(function(t){ if(t === 'changed') location.reload(); });
+		}, 5000);
+	</script>
 	<script src="js/rider_home.js"></script>
 </body>
 </html>

@@ -72,5 +72,8 @@
 	<?php } else { ?>
 		<div class="track-otp muted">Delivery OTP appears once your order is on the way.</div>
 	<?php } ?>
+
+	<div class="track-map" data-address="<?php echo htmlspecialchars($row['address']); ?>"></div>
+	<div class="track-map-cap">Delivering to <?php echo htmlspecialchars($row['address']); ?></div>
 </article>
 <?php } ?>

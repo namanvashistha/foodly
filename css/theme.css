@@ -1,6 +1,6 @@
 /* ============================================================
    Foodly — Design System (shared tokens + base + components)
-   Editorial, appetite-forward. Warm cream surface, terracotta
+   Bold & appetite-forward. Deep charcoal surface, electric-red
    accent, Young Serif display + Hanken Grotesk body.
    Imported by every page. See DESIGN.md.
    ============================================================ */
@@ -8,20 +8,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Young+Serif&family=Hanken+Grotesk:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* color — OKLCH, neutrals tinted warm */
-  --bg:          oklch(0.972 0.012 75);
-  --surface:     oklch(0.945 0.015 72);
-  --surface-2:   oklch(0.915 0.016 70);
-  --ink:         oklch(0.235 0.014 55);
-  --ink-muted:   oklch(0.48 0.018 55);
-  --ink-faint:   oklch(0.66 0.015 60);
-  --border:      oklch(0.875 0.012 72);
-  --accent:      oklch(0.575 0.135 38);
-  --accent-hover:oklch(0.515 0.135 38);
-  --accent-soft: oklch(0.93 0.04 45);
-  --herb:        oklch(0.55 0.07 135);
-  --success:     oklch(0.58 0.10 150);
-  --danger:      oklch(0.55 0.16 27);
+  /* color — OKLCH, charcoal neutrals + electric red */
+  --bg:          oklch(0.185 0.008 55);
+  --surface:     oklch(0.255 0.008 50);
+  --surface-2:   oklch(0.315 0.009 50);
+  --ink:         oklch(0.955 0.006 75);
+  --ink-muted:   oklch(0.760 0.012 70);
+  --ink-faint:   oklch(0.600 0.012 65);
+  --border:      oklch(0.360 0.008 50);
+  --accent:      oklch(0.645 0.222 26);
+  --accent-hover:oklch(0.700 0.210 27);
+  --accent-soft: oklch(0.400 0.120 27);
+  --on-accent:   oklch(0.985 0.004 60);
+  --herb:        oklch(0.680 0.100 140);
+  --success:     oklch(0.700 0.130 150);
+  --danger:      oklch(0.640 0.190 27);
 
   /* type */
   --display: 'Young Serif', Georgia, 'Times New Roman', serif;
@@ -42,10 +43,10 @@
   /* radius */
   --r-sm: 6px; --r-md: 12px; --r-lg: 20px; --r-pill: 999px;
 
-  /* elevation — warm-tinted, low */
-  --shadow-sm: 0 1px 2px oklch(0.235 0.014 55 / 0.06);
-  --shadow-md: 0 8px 24px -8px oklch(0.235 0.014 55 / 0.14);
-  --shadow-lg: 0 24px 60px -20px oklch(0.235 0.014 55 / 0.22);
+  /* elevation — deep, for dark surfaces */
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.40);
+  --shadow-md: 0 8px 24px -8px oklch(0 0 0 / 0.55);
+  --shadow-lg: 0 24px 60px -20px oklch(0 0 0 / 0.70);
 
   /* motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -80,6 +81,7 @@ h1, h2, h3 {
 p { margin: 0; max-width: 68ch; }
 
 a { color: inherit; text-decoration: none; }
+a[onclick] { cursor: pointer; }
 
 img { display: block; max-width: 100%; }
 
@@ -117,7 +119,7 @@ img { display: block; max-width: 100%; }
 }
 .btn-primary {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
   box-shadow: var(--shadow-sm);
 }
 .btn-primary:hover {
@@ -148,7 +150,7 @@ img { display: block; max-width: 100%; }
   font-family: var(--sans);
   font-size: var(--step-0);
   color: var(--ink);
-  background: var(--bg);
+  background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   padding: 0.75rem 1rem;
@@ -180,7 +182,7 @@ img { display: block; max-width: 100%; }
   overflow-wrap: anywhere;
 }
 .bubble.them { background: var(--surface-2); color: var(--ink); border-bottom-left-radius: 4px; align-self: flex-start; margin-right: auto; }
-.bubble.me { background: var(--accent); color: var(--bg); border-bottom-right-radius: 4px; align-self: flex-end; margin-left: auto; }
+.bubble.me { background: var(--accent); color: var(--on-accent); border-bottom-right-radius: 4px; align-self: flex-end; margin-left: auto; }
 .chat-assign { align-self: center; font-size: 0.72rem; color: var(--ink-faint); background: var(--surface-2); padding: 0.25rem 0.7rem; border-radius: var(--r-pill); margin: 0.2rem auto 0.4rem; }
 .chat-assign.waiting { color: var(--accent); background: var(--accent-soft); }
 .chat-assign b { color: var(--ink); }

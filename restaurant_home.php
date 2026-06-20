@@ -47,6 +47,16 @@ if(isset($_POST['update'])){
         mysqli_query($con,$q);
         header('location:restaurant_home.php');
     }
+    if(isset($_POST['savepin'])){
+        $lat=$_POST['lat']; $lng=$_POST['lng'];
+        if(is_numeric($lat) && is_numeric($lng)){
+            $u=mysqli_prepare($con,"UPDATE restaurants SET lat=?, lng=? WHERE email=?");
+            mysqli_stmt_bind_param($u,"dds",$lat,$lng,$restaurant_log_email);
+            mysqli_stmt_execute($u);
+        }
+        header('location:restaurant_home.php');
+        exit;
+    }
 
 // ----- data for the view -----
 $rq = mysqli_query($con,"select * from restaurants where email='$restaurant_log_email';");
@@ -129,7 +139,9 @@ while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
     <link rel="stylesheet" href="css/theme.css?v=<?php echo @filemtime('css/theme.css'); ?>">
     <link rel="stylesheet" href="css/app.css?v=<?php echo @filemtime('css/app.css'); ?>">
     <link rel="stylesheet" href="css/restaurant_home.css?v=<?php echo @filemtime('css/restaurant_home.css'); ?>">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 
@@ -190,6 +202,20 @@ while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
                 <div class="v"><?php echo count($menu); ?></div>
             </div>
         </div>
+
+        <!-- ===== location pin ===== -->
+        <section class="panel">
+            <div class="panel-title">Your location</div>
+            <p class="panel-sub">Drop a pin where your kitchen is. Customers within <?php echo (int)(defined('DELIVERY_RADIUS_KM')?DELIVERY_RADIUS_KM:20); ?> km can order from you.<?php if($rdetails['lat']===null){ echo ' <b style="color:var(--accent)">No location set yet — you are hidden from customers until you set one.</b>'; } ?></p>
+            <div id="rest-map" style="height:320px;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border);z-index:0;"></div>
+            <form method="post" style="margin-top:1rem;display:flex;gap:0.7rem;flex-wrap:wrap;align-items:center;">
+                <input type="hidden" name="lat" id="pin_lat" value="<?php echo htmlspecialchars($rdetails['lat'] ?? ''); ?>">
+                <input type="hidden" name="lng" id="pin_lng" value="<?php echo htmlspecialchars($rdetails['lng'] ?? ''); ?>">
+                <button type="button" class="btn-soft" onclick="useMyLocation()">Use my current location</button>
+                <button type="submit" name="savepin" value="1" class="btn btn-primary" id="save_pin" <?php echo $rdetails['lat']===null?'disabled':''; ?>>Save location</button>
+                <span id="pin_note" class="panel-sub" style="margin:0;"></span>
+            </form>
+        </section>
 
         <!-- ===== active orders ===== -->
         <section class="panel">
@@ -319,6 +345,31 @@ while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
         </div>
 
     </div>
+    <script>
+        (function(){
+            var hasPin = <?php echo $rdetails['lat']===null ? 'false' : 'true'; ?>;
+            var start = hasPin ? [<?php echo $rdetails['lat'] ?: 0; ?>, <?php echo $rdetails['lng'] ?: 0; ?>] : [28.6315, 77.2167];
+            var map = L.map('rest-map').setView(start, hasPin ? 15 : 11);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { subdomains: 'abcd', maxZoom: 20 }).addTo(map);
+            var marker = hasPin ? L.marker(start).addTo(map) : null;
+            function place(lat, lng){
+                if(marker) marker.setLatLng([lat,lng]); else marker = L.marker([lat,lng]).addTo(map);
+                document.getElementById('pin_lat').value = lat.toFixed(6);
+                document.getElementById('pin_lng').value = lng.toFixed(6);
+                document.getElementById('save_pin').disabled = false;
+                document.getElementById('pin_note').textContent = 'Pin moved — click Save location.';
+            }
+            map.on('click', function(e){ place(e.latlng.lat, e.latlng.lng); });
+            window.useMyLocation = function(){
+                if(!navigator.geolocation){ document.getElementById('pin_note').textContent='Geolocation not supported.'; return; }
+                navigator.geolocation.getCurrentPosition(function(p){ place(p.coords.latitude, p.coords.longitude); map.setView([p.coords.latitude,p.coords.longitude],15); },
+                    function(){ document.getElementById('pin_note').textContent='Could not get location — click the map.'; });
+            };
+            setTimeout(function(){ map.invalidateSize(); }, 200);
+        })();
+        // advance the demo simulation; reload when an order changes state
+        setInterval(function(){ $.get('tick.php', function(r){ if(r === 'changed') location.reload(); }); }, 5000);
+    </script>
     <script src="js/restaurant_home.js"></script>
 </body>
 </html>

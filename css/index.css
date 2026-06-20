@@ -32,8 +32,8 @@
 .nav-links a.nav-cta { font-weight: 600; color: var(--ink); }
 .nav-links a.nav-cta:hover { color: var(--accent); }
 /* keep button text legible — outrank the generic .nav-links a rule */
-.nav-links a.btn-primary { color: var(--bg); }
-.nav-links a.btn-primary:hover { color: var(--bg); }
+.nav-links a.btn-primary { color: var(--on-accent); }
+.nav-links a.btn-primary:hover { color: var(--on-accent); }
 
 /* ---------- hero ---------- */
 .hero {
@@ -50,6 +50,8 @@
 .hero h1 {
   font-size: var(--step-5);
   margin: 1.2rem 0 0;
+  overflow-wrap: normal;
+  white-space: nowrap;
 }
 .hero h1 .accent { color: var(--accent); }
 .hero-sub {
@@ -166,7 +168,7 @@
   inset: auto 0 0 0;
   padding: 1.4rem 1.1rem 1rem;
   background: linear-gradient(to top, oklch(0.235 0.014 55 / 0.78), transparent);
-  color: var(--bg);
+  color: var(--on-accent);
 }
 .dish .cap .name { font-family: var(--display); font-size: var(--step-1); }
 .dish .cap .meta { font-size: var(--step--1); opacity: 0.85; }
@@ -200,7 +202,7 @@
 /* ---------- donation callout ---------- */
 .donate-band {
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
   border-radius: var(--r-lg);
   padding: clamp(2.2rem, 5vw, 3.4rem);
   display: flex;
@@ -209,13 +211,13 @@
   gap: 2rem;
   flex-wrap: wrap;
 }
-.donate-band h2 { font-size: var(--step-3); color: var(--bg); }
-.donate-band p { color: oklch(0.97 0.012 75 / 0.85); margin-top: 0.5rem; }
+.donate-band h2 { font-size: var(--step-3); color: var(--on-accent); }
+.donate-band p { color: oklch(1 0 0 / 0.88); margin-top: 0.5rem; }
 .donate-band .btn-light {
-  background: var(--bg);
+  background: var(--on-accent);
   color: var(--accent);
 }
-.donate-band .btn-light:hover { background: var(--surface); }
+.donate-band .btn-light:hover { background: oklch(0.92 0.01 60); }
 
 /* ---------- footer ---------- */
 .footer {

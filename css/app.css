@@ -9,7 +9,7 @@
   position: sticky;
   top: 0;
   z-index: 30;
-  background: oklch(0.972 0.012 75 / 0.9);
+  background: oklch(0.185 0.008 55 / 0.85);
   backdrop-filter: saturate(1.2) blur(8px);
   border-bottom: 1px solid var(--border);
 }
@@ -42,7 +42,7 @@
 .dropbtn:hover { background: var(--surface-2); border-color: var(--ink-faint); }
 .dropbtn .avatar {
   width: 30px; height: 30px; border-radius: var(--r-pill);
-  background: var(--accent); color: var(--bg);
+  background: var(--accent); color: var(--on-accent);
   display: grid; place-items: center; font-size: 0.85rem; font-weight: 700;
   pointer-events: none; flex: none;
 }

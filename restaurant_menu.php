@@ -5,12 +5,20 @@ if(!isset($_SESSION['log_email'])){
 	exit;
 }
 include 'connection.php';
+include 'geo.php';
 $restaurant= $_GET['restaurant'];
 $_SESSION['cur_restaurant']=$restaurant;
 $q="SELECT * FROM restaurants where email='$restaurant'; ";
 $q1=mysqli_query($con,$q);
 $rdetails=mysqli_fetch_array($q1);
 $isOnline = ($rdetails['status']=="Online");
+
+// delivery range check against the customer's location (offset-aware)
+ensure_user_location($con);
+$hasLoc   = has_user_location();
+$distance = user_distance_km($rdetails['lat'], $rdetails['lng']);
+$inRange  = ($distance !== null && $distance <= DELIVERY_RADIUS_KM);
+$canOrder = $isOnline && $inRange;
 $mq = mysqli_query($con,"SELECT * FROM menu where restaurant_id='$restaurant';");
 $menu = array();
 while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
@@ -67,6 +75,10 @@ $user_address = $urow['address'] ?? '';
 			<h1><?php echo htmlspecialchars($rdetails['name']);?></h1>
 			<div class="menu-hero-meta">
 				<span class="statebadge <?php echo $isOnline ? 'on':''; ?>"><i class="ping"></i><?php echo $isOnline ? 'Open now' : 'Closed'; ?></span>
+				<?php if($distance !== null){ ?>
+					<span class="dotsep">&middot;</span>
+					<span><?php echo number_format($distance,1); ?> km away</span>
+				<?php } ?>
 				<span class="dotsep">&middot;</span>
 				<span><?php echo htmlspecialchars($rdetails['address']);?></span>
 			</div>
@@ -132,10 +144,16 @@ $user_address = $urow['address'] ?? '';
 					<div id="address_note" class="coupon-note bad"></div>
 				</div>
 
-				<?php if($isOnline){ ?>
+				<?php if($canOrder){ ?>
 					<button id="totl_con" class="btn btn-primary" type="submit" name="confirm" value="Confirm Order">Confirm order</button>
+				<?php } else if(!$hasLoc){ ?>
+					<div class="range-note">Set your delivery location to order.</div>
+					<a class="btn btn-primary" href="home.php" style="text-align:center;">Set location</a>
+				<?php } else if(!$inRange){ ?>
+					<div class="range-note bad">Outside delivery range &mdash; this kitchen is <?php echo $distance!==null ? number_format($distance,1).' km' : 'too far'; ?> away (max <?php echo DELIVERY_RADIUS_KM; ?> km).</div>
+					<button class="btn btn-primary" disabled style="opacity:.55;cursor:not-allowed;">Out of range</button>
 				<?php } else { ?>
-					<button id="totl_dis" class="btn btn-primary" type="submit" name="confirm" value="Confirm Order" disabled style="opacity:.55;cursor:not-allowed;">Kitchen is closed</button>
+					<button id="totl_dis" class="btn btn-primary" disabled style="opacity:.55;cursor:not-allowed;">Kitchen is closed</button>
 				<?php } ?>
 			</div>
 		</aside>
@@ -248,15 +266,21 @@ $user_address = $urow['address'] ?? '';
 				var total = $('#total').html();
 				items_list=$.trim(items_list);
 				delivery_address=$.trim(delivery_address);
-				if(items_list !=''){
-					$.ajax({
-						url:"send_order.php",
-						method:"POST",
-						data:{items:items_list,total:total,address:delivery_address,otp:otp},
-						dataType:"text",
-						success:function(data){ window.location = "order_status.php"; }
-					});
+				var note=document.getElementById('address_note');
+				if(items_list ==''){ return; }
+				if(delivery_address ==''){
+					note.textContent="Please enter a delivery address.";
+					document.getElementById('delivery_address').focus();
+					return;
 				}
+				note.textContent="";
+				$.ajax({
+					url:"send_order.php",
+					method:"POST",
+					data:{items:items_list,total:total,address:delivery_address,otp:otp},
+					dataType:"text",
+					success:function(data){ window.location = "order_status.php"; }
+				});
 			});
 		});
 	</script>

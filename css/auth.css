@@ -17,7 +17,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 2.4rem;
-  color: var(--bg);
+  color: var(--on-accent);
   background-size: cover;
   background-position: center;
   isolation: isolate;
@@ -38,7 +38,7 @@
   gap: 0.45rem;
   font-weight: 600;
   font-size: var(--step--1);
-  color: var(--bg);
+  color: var(--on-accent);
   opacity: 0.9;
 }
 .auth-back:hover { opacity: 1; }
@@ -48,7 +48,7 @@
   font-size: clamp(2.2rem, 1.5rem + 2.4vw, 3.4rem);
   line-height: 1.08;
   margin-top: 0.8rem;
-  color: var(--bg);
+  color: var(--on-accent);
 }
 .auth-brand p {
   margin-top: 1.1rem;
@@ -74,7 +74,7 @@
   flex: none;
   border-radius: var(--r-pill);
   background: var(--accent);
-  color: var(--bg);
+  color: var(--on-accent);
   display: grid; place-items: center;
   font-size: 0.72rem; font-weight: 700;
 }
@@ -87,14 +87,14 @@
 .auth-roles a {
   font-size: var(--step--1);
   font-weight: 600;
-  color: var(--bg);
+  color: var(--on-accent);
   padding: 0.4rem 0.85rem;
   border-radius: var(--r-pill);
   border: 1px solid oklch(0.97 0.012 75 / 0.3);
   transition: background 0.16s var(--ease), border-color 0.16s var(--ease);
 }
 .auth-roles a:hover { background: oklch(0.97 0.012 75 / 0.14); }
-.auth-roles a.current { background: var(--bg); color: var(--ink); border-color: var(--bg); }
+.auth-roles a.current { background: var(--on-accent); color: var(--bg); border-color: var(--on-accent); }
 
 /* ---------- form panel ---------- */
 .auth-form-side {

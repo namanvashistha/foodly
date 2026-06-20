@@ -8,7 +8,7 @@
   position: relative;
   background-size: cover;
   background-position: center;
-  color: var(--bg);
+  color: var(--on-accent);
   isolation: isolate;
   padding: 2.4rem 0 2.2rem;
 }
@@ -17,7 +17,7 @@
   background: linear-gradient(180deg, oklch(0.25 0.03 45 / 0.45), oklch(0.20 0.03 45 / 0.85));
 }
 .menu-hero-inner { display: flex; flex-direction: column; gap: 0.5rem; }
-.menu-hero h1 { font-size: var(--step-4); color: var(--bg); margin-top: 0.6rem; }
+.menu-hero h1 { font-size: var(--step-4); color: var(--on-accent); margin-top: 0.6rem; }
 .menu-hero-meta { display: flex; align-items: center; gap: 0.7rem; font-size: var(--step--1); color: oklch(0.97 0.012 75 / 0.9); }
 .menu-hero-meta .dotsep { opacity: 0.6; }
 .menu-hero-desc { color: oklch(0.97 0.012 75 / 0.82); max-width: 60ch; }
@@ -55,7 +55,7 @@
   font-size: 1.1rem; line-height: 1; cursor: pointer;
   transition: background 0.15s var(--ease), border-color 0.15s var(--ease), color 0.15s var(--ease);
 }
-.qty-btn:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+.qty-btn:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
 .qty .buy { min-width: 1.5rem; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
 
 /* cart */
@@ -84,6 +84,8 @@
 .cart-lines .save { color: var(--herb); }
 .cart-total { padding-top: 0.6rem; margin-top: 0.2rem; border-top: 1px solid var(--border); font-size: var(--step-1); font-weight: 700; }
 .cart-card .btn { width: 100%; margin-top: 1.2rem; }
+.range-note { font-size: var(--step--1); color: var(--ink-muted); margin-top: 1rem; text-align: center; }
+.range-note.bad { color: var(--danger); font-weight: 600; }
 
 @media (max-width: 880px) {
   .menu-layout { grid-template-columns: 1fr; }
