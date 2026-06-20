@@ -304,6 +304,6 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 		</form>
 	</div>
 
-	<script src="js/index.js"></script>
+	<script src="js/index.js?v=<?php echo @filemtime('js/index.js'); ?>"></script>
 </body>
 </html>

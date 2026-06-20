@@ -14,6 +14,12 @@ $isOnline = ($rdetails['status']=="Online");
 $mq = mysqli_query($con,"SELECT * FROM menu where restaurant_id='$restaurant';");
 $menu = array();
 while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
+// prefill the delivery address from the customer's saved profile
+$ua = mysqli_prepare($con, "SELECT address FROM users WHERE email=? LIMIT 1");
+mysqli_stmt_bind_param($ua, "s", $_SESSION['log_email']);
+mysqli_stmt_execute($ua);
+$urow = mysqli_fetch_assoc(mysqli_stmt_get_result($ua));
+$user_address = $urow['address'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -115,13 +121,15 @@ while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
 				<div class="cart-lines">
 					<div><span>Subtotal</span><span>&#8377;<span id="subtotal">0</span></span></div>
 					<div><span>Savings</span><span class="save">&minus;&#8377;<span id="savings">0</span></span></div>
+					<div id="coupon_line" style="display:none;"><span>Coupon (<span id="coupon_pct">0</span>%)</span><span class="save">&minus;&#8377;<span id="coupon_amt">0</span></span></div>
 					<div><span>GST</span><span>&#8377;<span id="gst">0</span></span></div>
 					<div class="cart-total"><span>Total</span><span>&#8377;<span id="total">0</span></span></div>
 				</div>
 
 				<div class="field" style="margin-top:1rem;">
 					<label for="delivery_address">Delivery address</label>
-					<input id="delivery_address" class="input" type="text" placeholder="Where should we deliver?" value="<?php echo isset($_SESSION['log_email'])?'':''; ?>">
+					<input id="delivery_address" class="input" type="text" placeholder="Where should we deliver?" value="<?php echo htmlspecialchars($user_address); ?>" required>
+					<div id="address_note" class="coupon-note bad"></div>
 				</div>
 
 				<?php if($isOnline){ ?>
@@ -146,7 +154,11 @@ while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
 		var couponRate=0;
 		var COUPONS={ "FOODLY10":0.10, "FOODLY20":0.20, "WELCOME":0.15 };
 		function setTotal(){
-			document.getElementById('total').innerHTML = Math.round(total*(1-couponRate));
+			var couponAmt = total*couponRate;
+			document.getElementById('total').innerHTML = Math.round(total - couponAmt);
+			document.getElementById('coupon_amt').innerHTML = Math.round(couponAmt);
+			document.getElementById('coupon_pct').innerHTML = Math.round(couponRate*100);
+			document.getElementById('coupon_line').style.display = couponRate>0 ? 'flex' : 'none';
 		}
 		function applyCoupon(){
 			var code=document.getElementById('coupon_code').value.trim().toUpperCase();

@@ -142,6 +142,6 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
         </div>
     </main>
 </div>
-<script src="js/auth.js"></script>
+<script src="js/auth.js?v=<?php echo @filemtime('js/auth.js'); ?>"></script>
 </body>
 </html>
