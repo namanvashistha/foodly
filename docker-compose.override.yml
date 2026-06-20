@@ -1,0 +1,9 @@
+# Local development overrides — automatically merged by `docker compose`.
+# Maps the app's port 80 to a host port so you can reach it without Caddy,
+# and bind-mounts the source so edits show up live without rebuilding.
+services:
+  app:
+    ports:
+      - "${APP_PORT:-8000}:80"
+    volumes:
+      - .:/var/www/html

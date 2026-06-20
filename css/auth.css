@@ -1,0 +1,162 @@
+/* ============================================================
+   Foodly — Role auth pages (restaurant / rider / support sign)
+   Split screen: brand panel + tabbed login/signup.
+   Depends on theme.css for tokens + base + components.
+   ============================================================ */
+
+.auth-wrap {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  min-height: 100vh;
+}
+
+/* ---------- brand panel ---------- */
+.auth-brand {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.4rem;
+  color: var(--bg);
+  background-size: cover;
+  background-position: center;
+  isolation: isolate;
+}
+.auth-brand::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    200deg,
+    oklch(0.30 0.05 45 / 0.55) 0%,
+    oklch(0.20 0.03 45 / 0.85) 100%);
+}
+.auth-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 600;
+  font-size: var(--step--1);
+  color: var(--bg);
+  opacity: 0.9;
+}
+.auth-back:hover { opacity: 1; }
+.auth-brand-body { max-width: 34ch; }
+.auth-brand .eyebrow { color: oklch(0.93 0.04 45); }
+.auth-brand h1 {
+  font-size: clamp(2.2rem, 1.5rem + 2.4vw, 3.4rem);
+  line-height: 1.08;
+  margin-top: 0.8rem;
+  color: var(--bg);
+}
+.auth-brand p {
+  margin-top: 1.1rem;
+  font-size: var(--step-1);
+  color: oklch(0.97 0.012 75 / 0.82);
+}
+.auth-points {
+  list-style: none;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+.auth-points li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: var(--step-0);
+  color: oklch(0.97 0.012 75 / 0.9);
+}
+.auth-points .tick {
+  width: 22px; height: 22px;
+  flex: none;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: var(--bg);
+  display: grid; place-items: center;
+  font-size: 0.72rem; font-weight: 700;
+}
+.auth-roles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.auth-roles .lbl { width: 100%; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; margin-bottom: 0.2rem; }
+.auth-roles a {
+  font-size: var(--step--1);
+  font-weight: 600;
+  color: var(--bg);
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--r-pill);
+  border: 1px solid oklch(0.97 0.012 75 / 0.3);
+  transition: background 0.16s var(--ease), border-color 0.16s var(--ease);
+}
+.auth-roles a:hover { background: oklch(0.97 0.012 75 / 0.14); }
+.auth-roles a.current { background: var(--bg); color: var(--ink); border-color: var(--bg); }
+
+/* ---------- form panel ---------- */
+.auth-form-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.4rem 1.6rem;
+  background: var(--bg);
+}
+.auth-card { width: min(100%, 420px); }
+.auth-card .wordmark {
+  font-family: var(--display);
+  font-size: var(--step-2);
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.auth-card .wordmark .dot { color: var(--accent); }
+.auth-card .role-tag {
+  display: inline-block;
+  margin-top: 1.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.auth-card h2 { font-family: var(--display); font-size: var(--step-3); margin-top: 0.3rem; }
+
+/* tabs */
+.tabs {
+  display: flex;
+  gap: 0.3rem;
+  margin: 1.6rem 0 1.4rem;
+  border-bottom: 1px solid var(--border);
+}
+.tab {
+  appearance: none;
+  background: none;
+  border: none;
+  font-family: var(--sans);
+  font-size: var(--step-0);
+  font-weight: 600;
+  color: var(--ink-faint);
+  padding: 0.6rem 0.3rem;
+  margin-bottom: -1px;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color 0.16s var(--ease), border-color 0.16s var(--ease);
+}
+.tab:hover { color: var(--ink-muted); }
+.tab.active { color: var(--ink); border-bottom-color: var(--accent); }
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadeup 0.22s var(--ease); }
+@keyframes fadeup { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.auth-card .btn { width: 100%; margin-top: 0.6rem; }
+.auth-foot { margin-top: 1.3rem; text-align: center; font-size: var(--step--1); color: var(--ink-muted); }
+.auth-foot a { color: var(--accent); font-weight: 600; cursor: pointer; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 880px) {
+  .auth-wrap { grid-template-columns: 1fr; }
+  .auth-brand { min-height: 320px; }
+}

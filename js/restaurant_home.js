@@ -1,21 +1,29 @@
+/* Foodly restaurant dashboard — dynamic menu fields + user menu */
+
 var item = 1;
 function add_fields() {
 	item++;
-   	var objTo = document.getElementById('item_fileds');
-   	var divtest = document.createElement("div");
-   	divtest.innerHTML = '<div class="label">Item ' + item +':</div><div class="content"><span>item name:<input type="text" name="item_name[]"/></span> <span>Price: <input type="text" name="item_price[]" /><span> Discount: <input type="text" name="item_discount[]" /></span></span> <span>Description: <input type="text" name="item_desc[]" /></span></div>';
-    objTo.appendChild(divtest);
+	var objTo = document.getElementById('item_fileds');
+	var row = document.createElement("div");
+	row.className = "item-row";
+	row.innerHTML =
+		'<div class="item-row-head">Item ' + item + '</div>' +
+		'<div class="item-grid">' +
+			'<input class="input" type="text" name="item_name[]" placeholder="Item name">' +
+			'<input class="input" type="text" name="item_price[]" placeholder="Price">' +
+			'<input class="input" type="text" name="item_discount[]" placeholder="Discount %" maxlength="3">' +
+			'<input class="input" type="text" name="item_desc[]" placeholder="Description">' +
+		'</div>';
+	objTo.appendChild(row);
 }
 
 function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+	document.getElementById("myDropdown").classList.toggle("show");
 }
 
-window.onclick = function(e) {
-  if (!e.target.matches('.dropbtn')) {
-    var myDropdown = document.getElementById("myDropdown");
-      if (myDropdown.classList.contains('show')) {
-        myDropdown.classList.remove('show');
-      }
-  }
-}
+window.addEventListener('click', function (e) {
+	if (!e.target.closest('.dropbtn')) {
+		var d = document.getElementById("myDropdown");
+		if (d && d.classList.contains('show')) d.classList.remove('show');
+	}
+});

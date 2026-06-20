@@ -40,91 +40,109 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
                 $_SESSION['restaurant_log_email'] =$sign_email;
                 $_SESSION['restaurant_log_name'] =$sign_name;
                 $_SESSION['log_client'] ="restaurant";
-                header("location:restaurant_home.php");    
+                header("location:restaurant_home.php");
             }
         }
     }
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Foodly for Restaurants — Partner sign in</title>
     <link rel="shortcut icon" href="images/logo.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="css/restaurant_sign.css">
-    <title>Restaurant Main Page</title>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="css/theme.css?v=<?php echo @filemtime('css/theme.css'); ?>">
+    <link rel="stylesheet" href="css/auth.css?v=<?php echo @filemtime('css/auth.css'); ?>">
 </head>
-<body >
-   
-    <div class="topnav">
-        <img src="images/header_logo.jpeg" height= "45px" width = "110px" align="left">
-          <div class="restaurant">for restaurants</div>
-        <a style="float:right;" onclick="document.getElementById('id02').style.display='block'" style="width:auto;" >Sign up</a>
-        <div class="or">or</div>
-        <a style="float:right;" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a>
-    </div>
+<body>
+<div class="auth-wrap">
 
-    <div id="id01" class="modal">
-        <form class="modal-content animate" method="POST" >
-            <div class="imgcontainer">
-                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-            </div>
-            <div class="container">
-                <h3><center>Restaurant</center></h3>
-                <label for="log_email"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="log_email" required>
-
-                <label for="log_pass"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="log_pass" required>
-        <div id="log_error_msg" class="error_msg"><?php if($error_msg=="incorrect email or password") echo $error_msg; ?></div>
-                <button type="submit" name="login" value="login">Login</button>
-            </div>
-        </form>
-    </div>
-
-    <div id="id02" class="modal">
-        <form class="modal-content animate" method="POST" >
-            <div class="imgcontainer">
-                <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
-            </div>
-
-            <div class="container">
-                 <h3><center>Restaurant</center></h3>
-                <label for="sign_name"><b>Name</b></label>
-                <input type="text" placeholder="Enter Name" name="sign_name" required>
-
-
-                
-                <label for="sign_email"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="sign_email" required>
-
-                
-                <label for="sign_pass"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="sign_pass" required>
-
-                <label for="sign_phone"><b>Phone</b></label>
-                <input type="text" placeholder="Enter Phone" name="sign_phone" required>
-
-                <label for="sign_address"><b>Address</b></label>
-                <input type="text" placeholder="Enter Address" name="sign_address" required>
-            
-
-                <label for="sign_desc"><b>Description</b></label>
-                <input type="text" placeholder="Enter Description" name="sign_desc" required>
-                    <div id="sign_error_msg" class="error_msg"><?php if($error_msg=="email already exists") echo $error_msg; ?></div>
-                <button type="submit" name="signup" value="Sign Up">Sign Up</button>
-            </div>
-        </form>
-    </div>
-<center><video height="300" width="300" autoplay="" loop=""><source src="https://d3i4yxtzktqr9n.cloudfront.net/web-eats/static/videos/header_animation-c22df1758f.mp4" type="video/mp4"></video></center>
-
-    <div class="navbar">
-       
-        <a href="index.php">User</a>
-        <a href="rider_sign.php">Rider</a>
-        <a href="support_sign.php">Chat Support Executive</a>
-        <div class="copy">&copy; foodly</div>
+    <!-- ===== brand panel ===== -->
+    <aside class="auth-brand" style="background-image:url('images/8.jpg');">
+        <a class="auth-back" href="index.php">&larr; Back to Foodly</a>
+        <div class="auth-brand-body">
+            <span class="eyebrow">For restaurants</span>
+            <h1>Fill more tables, fire more orders.</h1>
+            <p>List your kitchen on Foodly and reach hungry customers nearby. Menu and live orders, all in one place.</p>
+            <ul class="auth-points">
+                <li><span class="tick">&#10003;</span> Reach customers around you</li>
+                <li><span class="tick">&#10003;</span> Manage menu and live orders</li>
+                <li><span class="tick">&#10003;</span> Get started with zero setup cost</li>
+            </ul>
         </div>
-        <script src="js/restaurant_sign.js"></script>
+        <div class="auth-roles">
+            <span class="lbl">Join as</span>
+            <a href="index.php">Customer</a>
+            <a class="current" href="restaurant_sign.php">Restaurant</a>
+            <a href="rider_sign.php">Rider</a>
+            <a href="support_sign.php">Support</a>
+        </div>
+    </aside>
+
+    <!-- ===== form panel ===== -->
+    <main class="auth-form-side">
+        <div class="auth-card">
+            <a class="wordmark" href="index.php">foodly<span class="dot">.</span></a>
+            <span class="role-tag">Restaurant partner</span>
+            <h2>Welcome to your kitchen.</h2>
+
+            <div class="tabs">
+                <button class="tab active" data-tab="login">Log in</button>
+                <button class="tab" data-tab="signup">Sign up</button>
+            </div>
+
+            <!-- login -->
+            <form class="tab-panel active" data-panel="login" method="POST">
+                <div class="field">
+                    <label for="log_email">Email</label>
+                    <input class="input" type="text" id="log_email" name="log_email" placeholder="Enter email" required>
+                </div>
+                <div class="field">
+                    <label for="log_pass">Password</label>
+                    <input class="input" type="password" id="log_pass" name="log_pass" placeholder="Enter password" required>
+                </div>
+                <div id="log_error_msg" class="error_msg"><?php if($error_msg=="incorrect email or password") echo $error_msg; ?></div>
+                <button class="btn btn-primary" type="submit" name="login" value="login">Log in</button>
+                <div class="auth-foot">New partner? <a onclick="showTab('signup')">Create a restaurant account</a></div>
+            </form>
+
+            <!-- signup -->
+            <form class="tab-panel" data-panel="signup" method="POST">
+                <div class="field">
+                    <label for="sign_name">Restaurant name</label>
+                    <input class="input" type="text" id="sign_name" name="sign_name" placeholder="Enter name" required>
+                </div>
+                <div class="field">
+                    <label for="sign_email">Email</label>
+                    <input class="input" type="text" id="sign_email" name="sign_email" placeholder="Enter email" required>
+                </div>
+                <div class="field">
+                    <label for="sign_pass">Password</label>
+                    <input class="input" type="password" id="sign_pass" name="sign_pass" placeholder="Create a password" required>
+                </div>
+                <div class="field">
+                    <label for="sign_phone">Phone</label>
+                    <input class="input" type="text" id="sign_phone" name="sign_phone" placeholder="Enter phone" required>
+                </div>
+                <div class="field">
+                    <label for="sign_address">Address</label>
+                    <input class="input" type="text" id="sign_address" name="sign_address" placeholder="Enter address" required>
+                </div>
+                <div class="field">
+                    <label for="sign_desc">Description</label>
+                    <input class="input" type="text" id="sign_desc" name="sign_desc" placeholder="A short line about your food" required>
+                </div>
+                <div id="sign_error_msg" class="error_msg"><?php if($error_msg=="email already exists") echo $error_msg; ?></div>
+                <button class="btn btn-primary" type="submit" name="signup" value="Sign Up">Create account</button>
+                <div class="auth-foot">Already a partner? <a onclick="showTab('login')">Log in</a></div>
+            </form>
+        </div>
+    </main>
+</div>
+<script src="js/auth.js"></script>
 </body>
 </html>

@@ -1,0 +1,129 @@
+/* ============================================================
+   Foodly — shared app shell for authenticated dashboards
+   (restaurant_home, rider_home, support_home, restaurant_menu)
+   Product register. Depends on theme.css for tokens + base.
+   ============================================================ */
+
+/* ---------- top bar ---------- */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: oklch(0.972 0.012 75 / 0.9);
+  backdrop-filter: saturate(1.2) blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+.topbar .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 0;
+}
+.wordmark { font-family: var(--display); font-size: var(--step-2); color: var(--ink); letter-spacing: -0.02em; }
+.wordmark .role { font-family: var(--sans); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-left: 0.5rem; }
+.wordmark .dot { color: var(--accent); }
+.topbar-nav { display: flex; align-items: center; gap: 0.4rem; }
+.topbar-nav > a {
+  font-weight: 600; font-size: var(--step--1); color: var(--ink-muted);
+  padding: 0.55rem 0.85rem; border-radius: var(--r-pill);
+  transition: color 0.16s var(--ease), background 0.16s var(--ease);
+}
+.topbar-nav > a:hover { color: var(--ink); background: var(--surface-2); }
+
+/* ---------- user dropdown ---------- */
+.dropdown { position: relative; }
+.dropbtn {
+  display: flex; align-items: center; gap: 0.55rem;
+  font-family: var(--sans); font-size: var(--step--1); font-weight: 600; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-pill);
+  padding: 0.35rem 0.7rem 0.35rem 0.35rem; cursor: pointer;
+  transition: background 0.16s var(--ease), border-color 0.16s var(--ease);
+}
+.dropbtn:hover { background: var(--surface-2); border-color: var(--ink-faint); }
+.dropbtn .avatar {
+  width: 30px; height: 30px; border-radius: var(--r-pill);
+  background: var(--accent); color: var(--bg);
+  display: grid; place-items: center; font-size: 0.85rem; font-weight: 700;
+  pointer-events: none; flex: none;
+}
+.dropbtn .who, .dropbtn .caret { pointer-events: none; }
+.dropbtn .caret { color: var(--ink-faint); font-size: 0.7rem; }
+.dropdown-content {
+  display: none; position: absolute; right: 0; top: calc(100% + 0.5rem);
+  min-width: 180px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--r-md); box-shadow: var(--shadow-md); overflow: hidden; padding: 0.35rem;
+}
+.dropdown-content a {
+  display: block; padding: 0.6rem 0.75rem; border-radius: var(--r-sm);
+  color: var(--ink-muted); font-size: var(--step--1); font-weight: 500;
+  transition: background 0.14s var(--ease), color 0.14s var(--ease);
+}
+.dropdown-content a:hover { background: var(--surface-2); color: var(--ink); }
+.dropdown-content.show { display: block; animation: pop 0.16s var(--ease); }
+@keyframes pop { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+/* ---------- page scaffold ---------- */
+.page { padding: 2.2rem 0 5rem; }
+.page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.6rem; }
+.page-head .eyebrow { display: block; margin-bottom: 0.35rem; }
+.page-head h1 { font-size: var(--step-4); }
+.page-head .sub { color: var(--ink-muted); margin-top: 0.3rem; }
+
+/* ---------- status pill ---------- */
+.statebadge {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-size: 0.78rem; font-weight: 700; padding: 0.34rem 0.7rem;
+  border-radius: var(--r-pill); background: var(--surface); border: 1px solid var(--border);
+}
+.statebadge .ping { width: 7px; height: 7px; border-radius: var(--r-pill); background: var(--ink-faint); }
+.statebadge.on { color: var(--success); border-color: oklch(0.58 0.10 150 / 0.35); background: oklch(0.58 0.10 150 / 0.08); }
+.statebadge.on .ping { background: var(--success); box-shadow: 0 0 0 3px oklch(0.58 0.10 150 / 0.2); }
+
+/* ---------- panels ---------- */
+.panel {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 1.6rem; margin-bottom: 1.4rem;
+}
+.panel > h2, .panel-title { font-family: var(--display); font-size: var(--step-2); margin-bottom: 0.2rem; }
+.panel .panel-sub { color: var(--ink-muted); font-size: var(--step--1); margin-bottom: 1.1rem; }
+
+/* ---------- stat tiles ---------- */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.6rem; }
+.stat-tile { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 1.2rem 1.3rem; }
+.stat-tile .k { font-size: var(--step--1); color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+.stat-tile .v { font-family: var(--display); font-size: var(--step-3); margin-top: 0.3rem; }
+
+/* ---------- secondary buttons ---------- */
+.btn-soft {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--sans); font-size: var(--step--1); font-weight: 600;
+  padding: 0.5rem 0.95rem; border-radius: var(--r-pill);
+  background: var(--surface-2); color: var(--ink); border: 1px solid var(--border); cursor: pointer;
+  transition: background 0.16s var(--ease), border-color 0.16s var(--ease);
+}
+.btn-soft:hover { background: var(--bg); border-color: var(--ink-faint); }
+.btn-danger {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--sans); font-size: var(--step--1); font-weight: 600;
+  padding: 0.5rem 0.95rem; border-radius: var(--r-pill);
+  background: transparent; color: var(--danger); border: 1px solid oklch(0.55 0.16 27 / 0.4); cursor: pointer;
+  transition: background 0.16s var(--ease);
+}
+.btn-danger:hover { background: oklch(0.55 0.16 27 / 0.08); }
+
+/* ---------- data table ---------- */
+.data-table { width: 100%; border-collapse: collapse; font-size: var(--step-0); }
+.data-table th {
+  text-align: left; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--ink-faint); font-weight: 700; padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border);
+}
+.data-table td { padding: 0.75rem 0.8rem; border-bottom: 1px solid var(--border); color: var(--ink); vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table .num { font-variant-numeric: tabular-nums; }
+
+/* ---------- empty ---------- */
+.empty { text-align: center; max-width: 40ch; margin: 2.5rem auto; color: var(--ink-muted); }
+.empty-ic { font-size: 2.2rem; }
+.empty h3 { font-family: var(--display); font-size: var(--step-2); color: var(--ink); margin: 0.5rem 0 0.3rem; }
+
+@media (max-width: 600px) { .dropbtn .who { display: none; } }

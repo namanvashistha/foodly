@@ -1,28 +1,32 @@
-
-	function show_chat_box(){
-	var chat_box=document.getElementById('chat-box');
-	if(chat_box.style.display=="none")
-		chat_box.style.display='block';
-	else
-		chat_box.style.display='none';
-	}
+/* Foodly home — user menu, support chat toggle, restaurant search */
 
 function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+	document.getElementById("myDropdown").classList.toggle("show");
 }
 
-window.onclick = function(e) {
-  if (!e.target.matches('.dropbtn')) {
-    var myDropdown = document.getElementById("myDropdown");
-      if (myDropdown.classList.contains('show')) {
-        myDropdown.classList.remove('show');
-      }
-  }
-}
-$(document).click(function(){
- $("#myDropdown").hide('slow'); 
+/* close the dropdown when clicking outside the button */
+window.addEventListener('click', function (e) {
+	if (!e.target.closest('.dropbtn')) {
+		var d = document.getElementById("myDropdown");
+		if (d && d.classList.contains('show')) d.classList.remove('show');
+	}
 });
 
-$("#myDropdown").click(function(e){
-  e.stopPropagation(); 
-});
+function show_chat_box() {
+	var box = document.getElementById('chat-box');
+	box.classList.toggle('open');
+}
+
+/* live filter of the restaurant grid */
+function filterRestaurants() {
+	var term = document.getElementById('restaurant-search').value.trim().toLowerCase();
+	var cards = document.querySelectorAll('#restaurant-grid .rcard');
+	var shown = 0;
+	cards.forEach(function (c) {
+		var match = c.getAttribute('data-name').indexOf(term) !== -1;
+		c.style.display = match ? '' : 'none';
+		if (match) shown++;
+	});
+	var none = document.getElementById('no-results');
+	if (none) none.style.display = (shown === 0) ? '' : 'none';
+}
