@@ -22,13 +22,13 @@ function order_item_names($con, $items, $res){
 	for($i=0;$i+1<count($list);$i+=2){
 		$sno = intval($list[$i]); $rf = mysqli_real_escape_string($con,$res);
 		$r = mysqli_fetch_assoc(mysqli_query($con,"SELECT name FROM menu WHERE sno='$sno' AND restaurant_id='$rf'"));
-		$out[] = ($r['name'] ?: 'Item #'.$sno).' &times; '.$list[$i+1];
+		$out[] = (($r['name'] ?? '') ?: 'Item #'.$sno).' &times; '.$list[$i+1];
 	}
 	return $out;
 }
 function rest_name($con, $email){
 	$r = mysqli_fetch_assoc(mysqli_query($con,"SELECT name FROM restaurants WHERE email='".mysqli_real_escape_string($con,$email)."'"));
-	return $r['name'] ?: $email;
+	return ($r['name'] ?? '') ?: $email;
 }
 function existing_rating($con, $order_id){
 	$r = mysqli_fetch_assoc(mysqli_query($con,"SELECT stars FROM ratings WHERE order_id=".intval($order_id)));

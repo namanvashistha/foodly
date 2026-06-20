@@ -54,7 +54,7 @@
 		for($i=0;$i+1<sizeof($item_list);$i=$i+2){
 			$q_itm="SELECT name FROM menu where sno='$item_list[$i]' and restaurant_id='$order_from' ;";
 			$row_itm=mysqli_fetch_array(mysqli_query($con,$q_itm));
-			$nm = $row_itm['name'] ?: 'Item #'.$item_list[$i];
+			$nm = ($row_itm['name'] ?? '') ?: 'Item #'.$item_list[$i];
 			echo '<li><span>'.htmlspecialchars($nm).'</span><span class="q">&times; '.htmlspecialchars($item_list[$i+1]).'</span></li>';
 		}
 		?>

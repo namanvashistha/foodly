@@ -79,7 +79,7 @@ function order_items($con, $items, $res){
     for($i=0;$i+1<sizeof($list);$i=$i+2){
         $sno = $list[$i];
         $r = mysqli_fetch_array(mysqli_query($con,"SELECT name FROM menu where sno='$sno' and restaurant_id='$res'"));
-        $out[] = array($r['name'] ?: 'Item #'.$sno, $list[$i+1]);
+        $out[] = array(($r['name'] ?? '') ?: 'Item #'.$sno, $list[$i+1]);
     }
     return $out;
 }

@@ -268,3 +268,14 @@ CREATE TABLE `ratings` (
   `instance` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY uniq_order (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT IGNORE INTO ratings (restaurant,customer,order_id,stars,review) VALUES
+('contact@pizzapalace.test','jane@foodly.test',900001,5,'Best pizza, super fast!'),
+('contact@pizzapalace.test','admin',900002,4,'Loved the pepperoni.'),
+('hello@burgerbarn.test','jane@foodly.test',900003,4,'Juicy burgers.'),
+('fresh@greenbowl.test','admin',900004,5,'Healthy and fresh.'),
+('namaste@curryhouse.test','jane@foodly.test',900005,5,'Rich and flavourful.'),
+('order@dragonwok.test','admin',900006,4,'Great stir fry.'),
+('pit@bbqsmoke.test','jane@foodly.test',900007,5,'Fall-off-the-bone ribs.'),
+('brew@cafemocha.test','admin',900008,3,'Decent coffee.'),
+('eat@veggiedelight.test','jane@foodly.test',900009,4,'Tasty vegan options.'),
+('reserve@steakhouse21.test','admin',900010,5,'Perfect steak.');

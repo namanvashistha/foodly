@@ -25,6 +25,7 @@ usort($inrange, function($a,$b){ return $a['distance'] <=> $b['distance']; });
 $online_inrange = 0;
 foreach($inrange as $r){ if($r['status']=="Online") $online_inrange++; }
 $auto  = !empty($_SESSION['user_auto']);
+$located = has_user_location() && !$auto; // user has an explicit (non-default) location
 $place = $_SESSION['user_place'] ?? '';
 ?>
 <!DOCTYPE html>

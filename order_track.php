@@ -21,7 +21,7 @@ while($o = mysqli_fetch_assoc($res)){
         $sno = intval($list[$i]);
         $rfrom = mysqli_real_escape_string($con, $o['order_from']);
         $r = mysqli_fetch_assoc(mysqli_query($con, "SELECT name FROM menu WHERE sno='$sno' AND restaurant_id='$rfrom'"));
-        $items[] = array('name' => $r['name'] ?: ('Item #'.$sno), 'qty' => $list[$i+1]);
+        $items[] = array('name' => ($r['name'] ?? '') ?: ('Item #'.$sno), 'qty' => $list[$i+1]);
     }
     $rn = mysqli_fetch_assoc(mysqli_query($con, "SELECT name FROM restaurants WHERE email='".mysqli_real_escape_string($con, $o['order_from'])."'"));
 
@@ -33,7 +33,7 @@ while($o = mysqli_fetch_assoc($res)){
         'otp'          => $o['otp'],
         'total'        => floor($o['total']),
         'address'      => $o['address'],
-        'restaurant'   => $rn['name'] ?: $o['order_from'],
+        'restaurant'   => ($rn['name'] ?? '') ?: $o['order_from'],
         'r'            => array($o['r_lat'] !== null ? (float)$o['r_lat'] : null, $o['r_lng'] !== null ? (float)$o['r_lng'] : null),
         'd'            => array($o['d_lat'] !== null ? (float)$o['d_lat'] : null, $o['d_lng'] !== null ? (float)$o['d_lng'] : null),
         'otw_elapsed'  => $o['otw_elapsed'] !== null ? (int)$o['otw_elapsed'] : null,
