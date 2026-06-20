@@ -188,6 +188,12 @@ img { display: block; max-width: 100%; }
 .chat-assign b { color: var(--ink); }
 .chat-empty-state { color: var(--ink-faint); font-size: var(--step--1); text-align: center; margin: auto; padding: 1.5rem 0; }
 
+/* ---------- rating badge (shared) ---------- */
+.rcard-name-row { display: flex; align-items: baseline; justify-content: space-between; gap: 0.6rem; }
+.rating-badge { display: inline-flex; align-items: center; gap: 0.2rem; font-size: var(--step--1); font-weight: 700; white-space: nowrap; }
+.rating-badge .s { color: oklch(0.8 0.16 75); }
+.rating-badge .n { color: var(--ink-faint); font-weight: 500; }
+
 /* reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

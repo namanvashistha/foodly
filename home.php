@@ -12,6 +12,10 @@ $restaurants = array();
 $rs = mysqli_query($con, "SELECT * FROM `restaurants`");
 while($row = mysqli_fetch_array($rs)){ $restaurants[] = $row; }
 
+$ratings = array();
+$rq = mysqli_query($con, "SELECT restaurant, ROUND(AVG(stars),1) avg, COUNT(*) n FROM ratings GROUP BY restaurant");
+while($rr = mysqli_fetch_assoc($rq)){ $ratings[$rr['restaurant']] = $rr; }
+
 $inrange = array();
 foreach($restaurants as $row){
 	$d = user_distance_km($row['lat'], $row['lng']);
@@ -54,7 +58,7 @@ $place = $_SESSION['user_place'] ?? '';
 					</button>
 					<div class="dropdown-content" id="myDropdown">
 						<a href="profile.php">Profile</a>
-						<a href="order_status.php">Past orders</a>
+						<a href="orders_history.php">Past orders</a>
 						<a href="logout.php">Log out</a>
 					</div>
 				</div>
@@ -116,7 +120,12 @@ $place = $_SESSION['user_place'] ?? '';
 						<span class="dist-badge"><?php echo number_format($row['distance'],1); ?> km</span>
 					</div>
 					<div class="rcard-body">
-						<h3 class="rcard-name"><?php echo htmlspecialchars($row['name']); ?></h3>
+						<div class="rcard-name-row">
+							<h3 class="rcard-name"><?php echo htmlspecialchars($row['name']); ?></h3>
+							<?php if(isset($ratings[$row['email']])){ $rt=$ratings[$row['email']]; ?>
+								<span class="rating-badge"><span class="s">&#9733;</span><?php echo $rt['avg']; ?> <span class="n">(<?php echo $rt['n']; ?>)</span></span>
+							<?php } ?>
+						</div>
 						<p class="rcard-addr"><?php echo htmlspecialchars($row['address']); ?></p>
 						<p class="rcard-desc"><?php echo htmlspecialchars($row['description']); ?></p>
 						<span class="rcard-go">View menu &rarr;</span>

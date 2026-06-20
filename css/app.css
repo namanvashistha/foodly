@@ -138,6 +138,24 @@
 .order-hint { font-size: var(--step--1); color: var(--ink-faint); }
 .table-scroll { overflow-x: auto; }
 
+/* ---------- map markers (shared across dashboards) ---------- */
+.mk { position: relative; }
+.mk-in {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: grid; place-items: center; color: #fff;
+  border: 2px solid var(--bg); box-shadow: 0 2px 8px oklch(0 0 0 / 0.55);
+}
+.mk-rest .mk-in { background: var(--ink-muted); }
+.mk-home .mk-in { background: var(--herb); }
+.mk-rider .mk-in { width: 26px; height: 26px; background: var(--accent); }
+.mk-rider::before {
+  content: ""; position: absolute; inset: -7px; border-radius: 50%;
+  background: var(--accent); opacity: 0.35; z-index: -1;
+  animation: rider-pulse 1.6s var(--ease) infinite;
+}
+@keyframes rider-pulse { 0% { transform: scale(0.7); opacity: 0.5; } 100% { transform: scale(1.6); opacity: 0; } }
+.route-line { stroke: var(--accent); }
+
 /* ---------- empty ---------- */
 .empty { text-align: center; max-width: 40ch; margin: 2.5rem auto; color: var(--ink-muted); }
 .empty-ic { font-size: 2.2rem; }

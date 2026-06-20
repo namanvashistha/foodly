@@ -1,0 +1,35 @@
+/* ============================================================
+   Foodly — Order history (orders_history.php)
+   Depends on theme.css + app.css.
+   ============================================================ */
+
+.hist-list { display: grid; gap: 1rem; }
+.hist-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 1.3rem 1.5rem;
+}
+.hist-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.hist-rest { font-family: var(--sans); font-weight: 700; font-size: var(--step-1); }
+.hist-sub { font-size: var(--step--1); color: var(--ink-faint); margin-top: 0.15rem; }
+.hist-status { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.6rem; border-radius: var(--r-pill); white-space: nowrap; }
+.hist-status.ok { color: var(--success); background: oklch(0.7 0.13 150 / 0.14); }
+.hist-status.no { color: var(--ink-faint); background: var(--surface-2); }
+.hist-items { color: var(--ink-muted); font-size: var(--step--1); margin: 0.9rem 0; }
+.hist-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-top: 0.9rem; border-top: 1px solid var(--border); }
+.hist-total { font-family: var(--display); font-size: var(--step-2); }
+
+.rate { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.rate-label { font-size: var(--step--1); color: var(--ink-muted); }
+.stars { display: inline-flex; gap: 0.1rem; }
+.star {
+  background: none; border: none; cursor: pointer; padding: 0 0.05rem;
+  font-size: 1.35rem; line-height: 1; color: var(--border);
+  transition: color 0.1s var(--ease), transform 0.1s var(--ease);
+}
+.star.on { color: oklch(0.8 0.16 75); }
+.star:hover { transform: scale(1.15); }
+
+/* small inline rating shown on cards / menu */
+.rating-badge { display: inline-flex; align-items: center; gap: 0.25rem; font-weight: 700; }
+.rating-badge .s { color: oklch(0.8 0.16 75); }
+.rating-badge .n { color: var(--ink-faint); font-weight: 500; }

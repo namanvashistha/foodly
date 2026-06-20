@@ -217,6 +217,36 @@ while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
             </form>
         </section>
 
+        <?php
+        $mapOrders = array();
+        foreach($active as $o){ if($o['d_lat'] !== null){ $mapOrders[] = $o; } }
+        if(count($mapOrders) > 0 && $rdetails['lat'] !== null){ ?>
+        <!-- ===== where orders are going ===== -->
+        <section class="panel">
+            <div class="panel-title">Live delivery map</div>
+            <p class="panel-sub"><?php echo count($mapOrders); ?> active <?php echo count($mapOrders)==1?'order':'orders'; ?> &middot; you are the marked kitchen.</p>
+            <div id="orders-map" style="height:340px;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border);z-index:0;"></div>
+        </section>
+        <script>
+            (function(){
+                var here = [<?php echo $rdetails['lat']; ?>, <?php echo $rdetails['lng']; ?>];
+                var dests = <?php echo json_encode(array_map(function($o){ return array('lat'=>(float)$o['d_lat'],'lng'=>(float)$o['d_lng'],'id'=>$o['order_id'],'status'=>$o['status']); }, $mapOrders)); ?>;
+                var map = L.map('orders-map', { zoomControl: true, attributionControl: false });
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { subdomains:'abcd', maxZoom:20 }).addTo(map);
+                function mk(kind, glyph){ return L.divIcon({ className:'mk mk-'+kind, html:'<div class="mk-in" style="font-size:14px">'+(glyph||'')+'</div>', iconSize:[30,30], iconAnchor:[15,15] }); }
+                L.marker(here, { icon: mk('rest','&#127869;'), zIndexOffset:1000 }).addTo(map).bindPopup('Your kitchen');
+                var pts = [here];
+                dests.forEach(function(d){
+                    L.marker([d.lat,d.lng], { icon: mk('home','&#127968;') }).addTo(map).bindPopup('Order #'+d.id+' &middot; '+d.status);
+                    L.polyline([here,[d.lat,d.lng]], { className:'route-line', weight:2, opacity:0.4, dashArray:'4 7' }).addTo(map);
+                    pts.push([d.lat,d.lng]);
+                });
+                map.fitBounds(L.latLngBounds(pts).pad(0.3));
+                setTimeout(function(){ map.invalidateSize(); }, 200);
+            })();
+        </script>
+        <?php } ?>
+
         <!-- ===== active orders ===== -->
         <section class="panel">
             <div class="panel-title">Active orders</div>

@@ -22,6 +22,8 @@ $canOrder = $isOnline && $inRange;
 $mq = mysqli_query($con,"SELECT * FROM menu where restaurant_id='$restaurant';");
 $menu = array();
 while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
+$rrow = mysqli_fetch_assoc(mysqli_query($con,"SELECT ROUND(AVG(stars),1) avg, COUNT(*) n FROM ratings WHERE restaurant='".mysqli_real_escape_string($con,$restaurant)."'"));
+$avgRating = ($rrow && $rrow['n'] > 0) ? $rrow : null;
 // prefill the delivery address from the customer's saved profile
 $ua = mysqli_prepare($con, "SELECT address FROM users WHERE email=? LIMIT 1");
 mysqli_stmt_bind_param($ua, "s", $_SESSION['log_email']);
@@ -60,7 +62,7 @@ $user_address = $urow['address'] ?? '';
 					</button>
 					<div class="dropdown-content" id="myDropdown">
 						<a href="home.php">Home</a>
-						<a href="order_status.php">Past orders</a>
+						<a href="orders_history.php">Past orders</a>
 						<a href="logout.php">Log out</a>
 					</div>
 				</div>
@@ -75,6 +77,10 @@ $user_address = $urow['address'] ?? '';
 			<h1><?php echo htmlspecialchars($rdetails['name']);?></h1>
 			<div class="menu-hero-meta">
 				<span class="statebadge <?php echo $isOnline ? 'on':''; ?>"><i class="ping"></i><?php echo $isOnline ? 'Open now' : 'Closed'; ?></span>
+				<?php if($avgRating){ ?>
+					<span class="dotsep">&middot;</span>
+					<span class="rating-badge"><span class="s">&#9733;</span><?php echo $avgRating['avg']; ?> <span class="n">(<?php echo $avgRating['n']; ?>)</span></span>
+				<?php } ?>
 				<?php if($distance !== null){ ?>
 					<span class="dotsep">&middot;</span>
 					<span><?php echo number_format($distance,1); ?> km away</span>
@@ -169,6 +175,17 @@ $user_address = $urow['address'] ?? '';
 		var otp  = Math.floor((Math.random() * 1000) + 1000);
 		var savings=0;
 		var gst=0;
+		var CART_KEY = 'foodly_cart_' + <?php echo json_encode($restaurant); ?>;
+		function saveCart(){ try{ localStorage.setItem(CART_KEY, JSON.stringify(o)); }catch(e){} }
+		function restoreCart(){
+			try{
+				var saved = JSON.parse(localStorage.getItem(CART_KEY) || '{}');
+				for(var sno in saved){
+					var q = parseInt(saved[sno]) || 0;
+					if(document.getElementById('buy'+sno)){ for(var k=0;k<q;k++){ add_item(parseInt(sno)); } }
+				}
+			}catch(e){}
+		}
 		var couponRate=0;
 		var COUPONS={ "FOODLY10":0.10, "FOODLY20":0.20, "WELCOME":0.15 };
 		function setTotal(){
@@ -226,6 +243,7 @@ $user_address = $urow['address'] ?? '';
 				document.getElementById('savings').innerHTML=Math.round(1*savings);
 				o[cur_id] = quan;
 				refreshCartEmpty();
+				saveCart();
 			}
 		}
 
@@ -254,10 +272,12 @@ $user_address = $urow['address'] ?? '';
 				document.getElementById('savings').innerHTML=Math.round(savings);
 				o[cur_id] = quan;
 				refreshCartEmpty();
+				saveCart();
 			}
 		}
 
 		$(document).ready(function(){
+			restoreCart();
 			$('#coupon').click(applyCoupon);
 			$('#totl_con').click(function(){
 				items_list="";
@@ -279,7 +299,7 @@ $user_address = $urow['address'] ?? '';
 					method:"POST",
 					data:{items:items_list,total:total,address:delivery_address,otp:otp},
 					dataType:"text",
-					success:function(data){ window.location = "order_status.php"; }
+					success:function(data){ try{ localStorage.removeItem(CART_KEY); }catch(e){} window.location = "order_status.php"; }
 				});
 			});
 		});
