@@ -3,7 +3,7 @@
 ### Also checkout **connection.php** for the connection to the database.
 CREATE TABLE `users` (
   `name` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `email` varchar(40) NOT NULL PRIMARY KEY,
   `phone` varchar(12) NOT NULL,
   `address` varchar(100) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE `users` (
 
 CREATE TABLE `restaurants` (
   `name` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `email` varchar(40) NOT NULL PRIMARY KEY,
   `phone` varchar(12) NOT NULL,
   `address` varchar(50) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE `restaurants` (
 
 CREATE TABLE `riders` (
   `name` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `email` varchar(40) NOT NULL PRIMARY KEY,
   `phone` varchar(12) NOT NULL,
   `address` varchar(100) NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE `riders` (
 
 CREATE TABLE `support` (
   `name` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `email` varchar(40) NOT NULL PRIMARY KEY,
   `phone` varchar(12) NOT NULL,
   `address` varchar(100) NOT NULL,

@@ -73,8 +73,11 @@
 .cart-line-row .cl-price { font-variant-numeric: tabular-nums; }
 .cart-line-row strike { color: var(--ink-faint); margin-right: 0.2rem; }
 
-.coupon { display: flex; gap: 0.5rem; margin: 1.1rem 0; }
+.coupon { display: flex; gap: 0.5rem; margin: 1.1rem 0 0.4rem; }
 .coupon .input { flex: 1; }
+.coupon-note { font-size: var(--step--1); min-height: 1.1em; margin-bottom: 0.6rem; }
+.coupon-note.ok { color: var(--herb); }
+.coupon-note.bad { color: var(--danger); }
 
 .cart-lines { display: grid; gap: 0.5rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: var(--step--1); }
 .cart-lines > div { display: flex; justify-content: space-between; }

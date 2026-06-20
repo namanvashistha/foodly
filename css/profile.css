@@ -1,0 +1,13 @@
+/* ============================================================
+   Foodly — Profile / account (profile.php)
+   Depends on theme.css + app.css.
+   ============================================================ */
+
+.profile-panel { max-width: 560px; }
+.profile-panel .input:disabled { background: var(--surface-2); color: var(--ink-muted); cursor: not-allowed; }
+.profile-panel .btn { margin-top: 0.4rem; }
+.profile-saved {
+  background: oklch(0.58 0.10 150 / 0.12); color: var(--success);
+  font-size: var(--step--1); font-weight: 600;
+  padding: 0.55rem 0.85rem; border-radius: var(--r-md); margin-bottom: 1rem;
+}

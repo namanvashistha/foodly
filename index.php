@@ -1,24 +1,19 @@
 <?php
 include 'connection.php';
-	$ipaddress = '';
-	if($_SERVER['REMOTE_ADDR'])
-		$ipaddress = $_SERVER['REMOTE_ADDR'];
-   	else if (getenv('HTTP_CLIENT_IP'))
-        $ipaddress = getenv('HTTP_CLIENT_IP');
-    else if(getenv('HTTP_X_FORWARDED_FOR'))
-        $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
-    else if(getenv('HTTP_X_FORWARDED'))
-        $ipaddress = getenv('HTTP_X_FORWARDED');
-    else if(getenv('HTTP_FORWARDED_FOR'))
-        $ipaddress = getenv('HTTP_FORWARDED_FOR');
-    else if(getenv('HTTP_FORWARDED'))
-       $ipaddress = getenv('HTTP_FORWARDED');
-    else if(getenv('REMOTE_ADDR'))
-        $ipaddress = getenv('REMOTE_ADDR');
-    else
-        $ipaddress = 'UNKNOWN';
-	$q="INSERT INTO `stats` (`ip_address`, `coordinates`,`city`) VALUES ('$ipaddress','','');";
-    mysqli_query($con,$q);
+include 'auth_lib.php';
+	$ipaddress = $_SERVER['REMOTE_ADDR'] ?? 'UNKNOWN';
+
+	// log the visit (prepared)
+	$st = mysqli_prepare($con, "INSERT INTO `stats` (`ip_address`,`coordinates`,`city`) VALUES (?,'','')");
+	mysqli_stmt_bind_param($st, "s", $ipaddress);
+	mysqli_stmt_execute($st);
+
+function log_stat($con, $ip, $email, $status){
+	$st = mysqli_prepare($con, "INSERT INTO `stats` (`ip_address`,`coordinates`,`city`,`client`,`status`) VALUES (?,'','',?,?)");
+	mysqli_stmt_bind_param($st, "sss", $ip, $email, $status);
+	mysqli_stmt_execute($st);
+}
+
 $error_msg="";
 if(isset($_POST['login']) || isset($_POST['signup'])){
 	session_start();
@@ -26,16 +21,15 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 	if(isset($_POST['login'])){
 		$log_email =$_POST['log_email'];
 		$log_pass  =$_POST['log_pass'];
-		$q="SELECT name,password from users where email='$log_email'; ";
-		$q1=mysqli_query($con,$q);
-		$row=mysqli_fetch_array($q1);
-		if($row && $row['password'] == $log_pass){
+		$row = db_login($con, 'users', $log_email, $log_pass);
+		if($row){
+			auth_session_start();
 			$_SESSION['log_email'] =$log_email;
 			$_SESSION['log_name'] =$row['name'];
 			$_SESSION['log_client'] ="user";
-			$q_ip="INSERT INTO `stats` (`ip_address`, `coordinates`,`city`,`client`,`status`) VALUES ('$ipaddress','','','$log_email','login');";
-    		mysqli_query($con,$q_ip);
+			log_stat($con, $ipaddress, $log_email, 'login');
 			header("location:home.php");
+			exit;
 		}
 		else{
 			$error_msg="incorrect email or password";
@@ -47,22 +41,21 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 		$sign_email   =$_POST['sign_email'];
 		$sign_phone   =$_POST['sign_phone'];
 		$sign_address =$_POST['sign_address'];
-		$q2="SELECT email from users where email='$sign_email' ";
-		$row=mysqli_query($con,$q2);
-		$rowcount=mysqli_num_rows($row);
-		if($rowcount>0){
+		if(db_email_exists($con, 'users', $sign_email)){
 			$error_msg= "email already exists";
 		}
 		else{
-			$q="INSERT INTO `users` (`name`, `password`, `email`, `phone`, `address`) VALUES ('$sign_name', '$sign_pass', '$sign_email', '$sign_phone', '$sign_address');";
-			$q1=mysqli_query($con,$q);
-			if($q1){
+			$hash = db_hash($sign_pass);
+			$ins = mysqli_prepare($con, "INSERT INTO `users` (`name`,`password`,`email`,`phone`,`address`) VALUES (?,?,?,?,?)");
+			mysqli_stmt_bind_param($ins, "sssss", $sign_name, $hash, $sign_email, $sign_phone, $sign_address);
+			if(mysqli_stmt_execute($ins)){
+				auth_session_start();
 				$_SESSION['log_email'] =$sign_email;
 				$_SESSION['log_name'] =$sign_name;
 				$_SESSION['log_client'] ="user";
-				$q_ip="INSERT INTO `stats` (`ip_address`, `coordinates`,`city`,`client`,`status`) VALUES ('$ipaddress','','','$sign_email','signup');";
-    			mysqli_query($con,$q_ip);
+				log_stat($con, $ipaddress, $sign_email, 'signup');
 				header("location:home.php");
+				exit;
 			}
 		}
 	}

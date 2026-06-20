@@ -107,9 +107,10 @@ while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
 				<div class="cart-empty" id="cart_empty">Add dishes to start your order.</div>
 
 				<div class="coupon">
-					<input id="coupon_code" class="input" type="text" name="coupon_code" placeholder="Coupon code">
+					<input id="coupon_code" class="input" type="text" name="coupon_code" placeholder="Coupon code (try FOODLY10)">
 					<button id="coupon" class="btn-soft" type="button">Apply</button>
 				</div>
+				<div id="coupon_note" class="coupon-note"></div>
 
 				<div class="cart-lines">
 					<div><span>Subtotal</span><span>&#8377;<span id="subtotal">0</span></span></div>
@@ -142,6 +143,25 @@ while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
 		var otp  = Math.floor((Math.random() * 1000) + 1000);
 		var savings=0;
 		var gst=0;
+		var couponRate=0;
+		var COUPONS={ "FOODLY10":0.10, "FOODLY20":0.20, "WELCOME":0.15 };
+		function setTotal(){
+			document.getElementById('total').innerHTML = Math.round(total*(1-couponRate));
+		}
+		function applyCoupon(){
+			var code=document.getElementById('coupon_code').value.trim().toUpperCase();
+			var note=document.getElementById('coupon_note');
+			if(COUPONS.hasOwnProperty(code)){
+				couponRate=COUPONS[code];
+				note.textContent="Coupon "+code+" applied — "+(couponRate*100)+"% off";
+				note.className="coupon-note ok";
+			} else {
+				couponRate=0;
+				note.textContent = code ? "Invalid coupon code" : "";
+				note.className="coupon-note bad";
+			}
+			setTotal();
+		}
 		function refreshCartEmpty(){
 			var any=false; for(var i in o){ if(o[i]>0){any=true;break;} }
 			document.getElementById('cart_empty').style.display = any ? 'none' : 'block';
@@ -172,7 +192,7 @@ while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
 				savings=savings+price*0.01*discount;
 				document.getElementById('subtotal').innerHTML=Math.round(1*subtotal);
 				document.getElementById('gst').innerHTML=Math.round(1*gst);
-				document.getElementById('total').innerHTML=Math.round(1*total);
+				setTotal();
 				document.getElementById('savings').innerHTML=Math.round(1*savings);
 				o[cur_id] = quan;
 				refreshCartEmpty();
@@ -200,7 +220,7 @@ while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
 				savings=savings-price*0.01*discount;
 				document.getElementById('subtotal').innerHTML=Math.round(subtotal);
 				document.getElementById('gst').innerHTML=Math.round(gst);
-				document.getElementById('total').innerHTML=Math.round(total);
+				setTotal();
 				document.getElementById('savings').innerHTML=Math.round(savings);
 				o[cur_id] = quan;
 				refreshCartEmpty();
@@ -208,6 +228,7 @@ while($m = mysqli_fetch_array($mq)){ $menu[] = $m; }
 		}
 
 		$(document).ready(function(){
+			$('#coupon').click(applyCoupon);
 			$('#totl_con').click(function(){
 				items_list="";
 				for(var i in o){ if (o[i]>0) items_list=items_list+i+" "+o[i]+" "; }

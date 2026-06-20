@@ -2,19 +2,20 @@
 $error_msg="";
 if(isset($_POST['login']) || isset($_POST['signup'])){
     include 'connection.php';
+    include 'auth_lib.php';
     session_start();
 
     if(isset($_POST['login'])){
         $log_email =$_POST['log_email'];
         $log_pass  =$_POST['log_pass'];
-        $q="SELECT name,password from restaurants where email='$log_email'; ";
-        $q1=mysqli_query($con,$q);
-        $row=mysqli_fetch_array($q1);
-        if($row['password'] == $log_pass){
+        $row = db_login($con, 'restaurants', $log_email, $log_pass);
+        if($row){
+            auth_session_start();
             $_SESSION['restaurant_log_name'] =$row['name'];
             $_SESSION['restaurant_log_email'] =$log_email;
             $_SESSION['log_client'] ="restaurant";
             header("location:restaurant_home.php");
+            exit;
         }
         else{
             $error_msg="incorrect email or password";
@@ -27,20 +28,20 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
         $sign_phone   =$_POST['sign_phone'];
         $sign_address =$_POST['sign_address'];
         $sign_desc    =$_POST['sign_desc'];
-        $q2="SELECT email from restaurants where email='$sign_email' ";
-        $row=mysqli_query($con,$q2);
-        $rowcount=mysqli_num_rows($row);
-        if($rowcount>0){
+        if(db_email_exists($con, 'restaurants', $sign_email)){
             $error_msg= "email already exists";
         }
         else{
-            $q1="INSERT INTO `restaurants` (`name`, `password`, `email`, `phone`, `address`,`description`) VALUES ('$sign_name', '$sign_pass', '$sign_email', '$sign_phone', '$sign_address','$sign_desc');";
-            $q3=mysqli_query($con,$q1);
-            if($q3){
+            $hash = db_hash($sign_pass);
+            $ins = mysqli_prepare($con, "INSERT INTO `restaurants` (`name`,`password`,`email`,`phone`,`address`,`description`) VALUES (?,?,?,?,?,?)");
+            mysqli_stmt_bind_param($ins, "ssssss", $sign_name, $hash, $sign_email, $sign_phone, $sign_address, $sign_desc);
+            if(mysqli_stmt_execute($ins)){
+                auth_session_start();
                 $_SESSION['restaurant_log_email'] =$sign_email;
                 $_SESSION['restaurant_log_name'] =$sign_name;
                 $_SESSION['log_client'] ="restaurant";
                 header("location:restaurant_home.php");
+                exit;
             }
         }
     }

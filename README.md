@@ -1,26 +1,73 @@
-# foodly
+# Foodly
 
-**foodly** is a web application built using *PHP and AJAX* primarily for ordering food online.
-It also provides separate interfaces for different types of users involved in the food delivery process.
-Think of it as a platform connecting **customers** wanting food, **restaurants** preparing it, and **riders** delivering it, with specific tools tailored for each **user role**.
+**Foodly** is a full multi-role food-ordering platform built with **PHP, MySQL/MariaDB, and vanilla JS/AJAX**. It connects four kinds of users, each with a purpose-built interface:
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/namanvashistha)
+- 🍽️ **Customers** browse restaurants, order food, track deliveries live, and chat with support.
+- 👨‍🍳 **Restaurants** manage their menu, accept or decline orders, and see demand predictions.
+- 🛵 **Riders** pick up jobs, go on the way, and confirm delivery with a one-time code.
+- 💬 **Support agents** work a ticket inbox, assign chats to themselves, and reply to customers.
 
+> The frontend was fully redesigned around a single editorial design system (warm cream + terracotta, Young Serif + Hanken Grotesk), and the auth layer hardened with prepared statements and hashed passwords.
 
-```mermaid
-flowchart TD
-    A0["User Authentication Feedback"]
-    A1["Role-Based Interfaces"]
-    A2["UI Dropdown Component"]
-    A3["Dynamic Item Entry"]
-    A4["Project Setup & Contribution Guidelines"]
-    A1 -- "Uses" --> A0
-    A1 -- "Uses" --> A2
-    A1 -- "Uses" --> A3
-    A4 -- "Guides Development Of" --> A1
+## Features
+
+- **Role-based dashboards** for customers, restaurants, riders, and support.
+- **Live order tracking** with a Placed → Accepted → On the way → Delivered stepper and delivery OTP.
+- **Support ticketing** — one ticket per customer, assignable to an agent, with live two-way chat.
+- **Cart & checkout** with quantity steppers, GST, savings, and working coupon codes (`FOODLY10`, `FOODLY20`, `WELCOME`).
+- **Restaurant tools** — menu CRUD, online/offline toggle, order management, demand recommendations.
+- **Food donation** board for restaurants to list surplus food.
+- **Hardened auth** — prepared statements (no SQL injection), `password_hash()` / `password_verify()`, session regeneration.
+- Responsive, mobile-friendly, with a shared design-token system.
+
+## Tech stack
+
+| Layer | Tech |
+|-------|------|
+| Backend | PHP 8.2 (Apache) |
+| Database | MariaDB 10.11 |
+| Frontend | Vanilla JS, jQuery (AJAX), CSS custom properties |
+| Infra | Docker + Docker Compose |
+
+## Quick start (Docker)
+
+**Prerequisites:** [Docker](https://docs.docker.com/get-docker/) and Docker Compose.
+
+```bash
+git clone https://github.com/namanvashistha/foodly.git
+cd foodly
+cp .env.example .env
+docker network create caddy        # one-time (the base compose attaches to an external 'caddy' network)
+docker compose up -d --build
 ```
 
-## Chapters
+Then open **http://localhost:8000**.
+
+The database is created and seeded automatically from [`setup.sql`](setup.sql) on first run. A local `docker-compose.override.yml` maps the port and bind-mounts the source for live editing.
+
+To stop:
+
+```bash
+docker compose down
+```
+
+### Demo accounts
+
+| Role | Email | Password |
+|------|-------|----------|
+| Customer | `admin` | `admin` |
+| Restaurant | `contact@pizzapalace.test` | `pizza123` |
+| Rider | `speedy@rider.test` | `rider123` |
+| Support | `henry@support.test` | `support123` |
+
+## Alternative: XAMPP
+
+1. Install [XAMPP](https://www.apachefriends.org/download.html) and clone this repo into `xampp/htdocs`.
+2. Start Apache and MySQL, then import [`setup.sql`](setup.sql) via phpMyAdmin.
+3. Update [`connection.php`](connection.php) credentials if they differ from the defaults.
+4. Open `http://localhost/foodly`.
+
+## Documentation
 
 1. [Role-Based Interfaces](docs/01_role_based_interfaces.md)
 2. [User Authentication Feedback](docs/02_user_authentication_feedback.md)
@@ -28,23 +75,10 @@ flowchart TD
 4. [UI Dropdown Component](docs/04_ui_dropdown_component.md)
 5. [Project Setup & Contribution Guidelines](docs/05_project_setup___contribution_guidelines.md)
 
-
----
-
-
-### Prerequisites
-- install [xampp](https://www.apachefriends.org/download.html)
-- clone this repository into xampp/htdocs
-- import [setup.sql](https://github.com/namanvashistha/foodly/blob/master/setup.sql) file to setup the database
-
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/namanvashistha/foodly/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Authors
-
-- [@namanvashistha](https://github.com/namanvashistha) - **Naman Vashistha** - Maintainer and Developer
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for our code of conduct and the pull-request process.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/namanvashistha/foodly/blob/master/LICENSE) file for details
+MIT — see [LICENSE](LICENSE).

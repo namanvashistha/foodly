@@ -41,7 +41,7 @@ foreach($restaurants as $r){ if($r['status']=="Online") $online++; }
 						<span class="caret">&#9662;</span>
 					</button>
 					<div class="dropdown-content" id="myDropdown">
-						<a href="#">Profile</a>
+						<a href="profile.php">Profile</a>
 						<a href="order_status.php">Past orders</a>
 						<a href="logout.php">Log out</a>
 					</div>
