@@ -41,15 +41,25 @@ docker network create caddy        # one-time (the base compose attaches to an e
 docker compose up -d --build
 ```
 
-Then open **http://localhost:8000**.
+This is the **production** setup: the app is served via Caddy on the external `caddy` network (no host port published).
 
-The database is created and seeded automatically from [`setup.sql`](setup.sql) on first run. A local `docker-compose.override.yml` maps the port and bind-mounts the source for live editing.
+The database is created and seeded automatically from [`setup.sql`](setup.sql) on first run.
 
 To stop:
 
 ```bash
 docker compose down
 ```
+
+### Local development
+
+For local dev, layer in [`docker-compose.dev.yml`](docker-compose.dev.yml), which publishes a host port and bind-mounts the source for live editing:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
+```
+
+Then open **http://localhost:8000**.
 
 ### Demo accounts
 

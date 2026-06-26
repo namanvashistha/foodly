@@ -1,4 +1,5 @@
-# Local development overrides — automatically merged by `docker compose`.
+# Local development overrides — opt-in, NOT merged automatically.
+# Enable with: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
 # Maps the app's port 80 to a host port so you can reach it without Caddy,
 # and bind-mounts the source so edits show up live without rebuilding.
 services:
