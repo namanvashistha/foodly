@@ -1,0 +1,59 @@
+# Build this repo's image and push it to GHCR on every push to master.
+#
+# Why: the homelab box currently builds this from source on every deploy, which
+# is slow and means a broken build takes the running container down with it.
+# With an image in the registry the box pulls instead of compiling, and Komodo's
+# native image-update alerting starts working (it only fires for registry
+# images, never for locally built ones).
+#
+# The image lands at ghcr.io/namanvashistha/foodly, tagged :latest and
+# :<sha>. GITHUB_TOKEN is enough — no PAT, no secrets to configure — but the
+# package is private until you flip it public under
+# github.com/users/namanvashistha/packages.
+
+name: publish
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  # Required for GITHUB_TOKEN to push to GHCR.
+  packages: write
+
+# A second push while one is building makes the first irrelevant.
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/build-push-action@v6
+        with:
+          # Matches the compose file's build context, so the image is the same
+          # thing the box would have built.
+          context: .
+          push: true
+          # linux/amd64 only: the homelab box is x86, and adding arm64 through
+          # QEMU roughly doubles the build for an image nothing else consumes.
+          platforms: linux/amd64
+          tags: |
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:${{ github.sha }}
+          # Reuse layers between runs — without this every build starts cold.
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
