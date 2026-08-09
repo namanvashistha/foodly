@@ -244,7 +244,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 				<div class="footer-col">
 					<span class="h">Project</span>
 					<a href="https://github.com/namanvashistha/foodly" target="_blank" rel="noopener">GitHub</a>
-					<a href="mailto:naman.vashistha@dailyrounds.org">Contact</a>
+					<a href="mailto:namanvashistha15@gmail.com">Contact</a>
 				</div>
 			</div>
 		</div>
