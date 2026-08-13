@@ -101,7 +101,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 					<a class="btn btn-ghost btn-lg" href="#how">See how it works</a>
 				</div>
 				<div class="hero-meta">
-					<div class="stat"><span class="num">1,000+</span><span class="lbl">Dishes</span></div>
+					<div class="stat"><span class="num">1,200+</span><span class="lbl">Dishes</span></div>
 					<div class="stat"><span class="num">40+</span><span class="lbl">Kitchens</span></div>
 					<div class="stat"><span class="num">22 min</span><span class="lbl">Avg delivery</span></div>
 				</div>
