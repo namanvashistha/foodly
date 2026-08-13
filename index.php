@@ -103,7 +103,7 @@ if(isset($_POST['login']) || isset($_POST['signup'])){
 				<div class="hero-meta">
 					<div class="stat"><span class="num">1,200+</span><span class="lbl">Dishes</span></div>
 					<div class="stat"><span class="num">40+</span><span class="lbl">Kitchens</span></div>
-					<div class="stat"><span class="num">22 min</span><span class="lbl">Avg delivery</span></div>
+					<div class="stat"><span class="num">24 min</span><span class="lbl">Avg delivery</span></div>
 				</div>
 			</div>
 			<div class="hero-art">
