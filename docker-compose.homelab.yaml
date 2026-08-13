@@ -1,0 +1,85 @@
+# Deployed compose for the homelab box. Declared as a Komodo stack in
+# namanvashistha/homelab -> komodo/syncs/projects.toml.
+#
+# This is NOT docker-compose.yml. That one is the dev compose: it builds from
+# the Dockerfile and publishes ports to localhost. This one pulls the image
+# this repo's CI publishes to ghcr.io, uses `expose:` rather than `ports:`
+# (ingress is cloudflared -> caddy, so a host port would bypass Cloudflare
+# Access and publish to the LAN), and carries the caddy labels that route
+# foodly.namanvashistha.com.
+#
+# Komodo clones this repo to /etc/komodo/stacks/foodly/ and runs compose there
+# under the project name `foodly` — which is what the volumes below are prefixed
+# with. Renaming the stack renames the volumes and detaches the data silently.
+
+name: foodly
+
+services:
+  app:
+    image: ghcr.io/namanvashistha/foodly:latest
+    expose:
+      - "80"
+    environment:
+      - DB_HOST=${DB_HOST:-db}
+      - DB_USER=${DB_USER:-foodly_user}
+      - DB_PASS=${DB_PASS:-foodly_password}
+      - DB_NAME=${DB_NAME:-foodly_db}
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - backend
+      - caddy
+    labels:
+      caddy: http://foodly.namanvashistha.com
+      caddy.reverse_proxy: "{{upstreams 80}}"
+    healthcheck:
+      # php:8.2-apache is debian-slim: no wget, no curl binary. PHP itself is
+      # obviously present, and allow_url_fopen is on by default, so the
+      # interpreter does the probe. Non-200 makes file_get_contents return
+      # false, which is what we want — a 500 from a dead DB is not healthy.
+      test: ["CMD-SHELL", "php -r 'exit(@file_get_contents(\"http://localhost/\") === false ? 1 : 0);'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  db:
+    image: mariadb:10.11
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-super_secret_root_password}
+      - MYSQL_DATABASE=${DB_NAME:-foodly_db}
+      - MYSQL_USER=${DB_USER:-foodly_user}
+      - MYSQL_PASSWORD=${DB_PASS:-foodly_password}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql:ro
+    restart: unless-stopped
+    healthcheck:
+      # healthcheck.sh ships inside the mariadb image (10.4+). --innodb_initialized
+      # matters more than --connect here: it stays false while setup.sql is
+      # still being applied on first boot, which is exactly the window the app
+      # must not start in.
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+  caddy:
+    external: true
+
+volumes:
+  # Absolute name, not <project>_db_data. ConOps deploys with `-p <app-uuid>`,
+  # so without this the MariaDB data would be orphaned under a UUID prefix and
+  # the app would boot against an empty database. Check `docker volume ls`
+  # before changing this name — getting it wrong swaps the database silently
+  # rather than failing.
+  db_data:
+    name: foodly_db_data
